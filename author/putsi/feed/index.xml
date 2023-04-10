@@ -40,7 +40,16 @@
 					<description><![CDATA[Hosting a private Burp Collaborator on custom domain can be very handy. However it currently has some limitations, one of them being the hard-coded index page.
 It would be useful to be able to customize the web page. For example, the default page could instruct viewers how to contact the collaborator owner. Another example would be serving any additional payload files from the same domain.
 There are hackish ways to achieve it, but not all are working as intended so let’s take a look how not to do it and how to actually do it.]]></description>
-										<content:encoded><![CDATA[<div class="flex_column av_one_full  flex_column_div av-zero-column-padding first  avia-builder-el-0  avia-builder-el-no-sibling  " style='border-radius:0px; '><section class="av_textblock_section "  itemscope="itemscope" itemtype="https://schema.org/BlogPosting" itemprop="blogPost" ><div class='avia_textblock  '   itemprop="text" ><h1>Serving custom HTML on private collaborator domain</h1>
+										<content:encoded><![CDATA[
+<style type="text/css" data-created_by="avia_inline_auto" id="style-css-av-2m3618-b829f09cdcce6639a67e296daeb7f0a1">
+.flex_column.av-2m3618-b829f09cdcce6639a67e296daeb7f0a1{
+-webkit-border-radius:0px 0px 0px 0px;
+-moz-border-radius:0px 0px 0px 0px;
+border-radius:0px 0px 0px 0px;
+padding:0px 0px 0px 0px;
+}
+</style>
+<div class='flex_column av-2m3618-b829f09cdcce6639a67e296daeb7f0a1 av_one_full  avia-builder-el-0  avia-builder-el-no-sibling  first flex_column_div av-zero-column-padding '     ><section  class='av_textblock_section av-k1mk55g5-1d4d5c297987a898330c3674745c4553'  itemscope="itemscope" itemtype="https://schema.org/BlogPosting" itemprop="blogPost" ><div class='avia_textblock'  itemprop="text" ><h1>Serving custom HTML on private collaborator domain</h1>
 <h3><strong>Note: Portswigger has now added support for custom HTML so this blog post is not needed!</strong></h3>
 <h3><a href="https://portswigger.net/burp/documentation/collaborator/deploying#adding-custom-content-to-your-collaborator-server"><strong>https://portswigger.net/burp/documentation/collaborator/deploying#adding-custom-content-to-your-collaborator-server</strong></a></h3>
 <h3></h3>
@@ -87,7 +96,7 @@ Over and out –<a href="https://twitter.com/putsi">putsi</a>.</p>
 
 					<description><![CDATA[The Burp Suite Collaborator is a valuable tool for penetration testers and bug bounty hunters. It basically gives you unique subdomains and logs all interactions (DNS, HTTP(S), SMTP) towards the subdomain. This can be used for example to detect SSRF-vulnerabilities and exfiltrate data.
 Burp Suite Professional provides a collaborator service under the domain burpcollaborator.net and using it is usually fine. However on the rare occasions it can be blacklisted / blocked or otherwise unreachable from the target. Luckily, the Burp collaborator can also be self-hosted and set to use a whole custom domain.]]></description>
-										<content:encoded><![CDATA[<section class="av_textblock_section "  itemscope="itemscope" itemtype="https://schema.org/BlogPosting" itemprop="blogPost" ><div class='avia_textblock  '   itemprop="text" ><h1>Self-hosted Burp collaborator for fun and profit</h1>
+										<content:encoded><![CDATA[<section  class='av_textblock_section av-jw11uivm-db74491156f2bff0a98114d55c0dcbc8'  itemscope="itemscope" itemtype="https://schema.org/BlogPosting" itemprop="blogPost" ><div class='avia_textblock'  itemprop="text" ><h1>Self-hosted Burp collaborator for fun and profit</h1>
 <p><img decoding="async" class="size-full wp-image-1588 aligncenter" src="/wp-content/uploads/2019/05/Screenshot-from-2019-05-24-01-25-10.png" alt="" width="853" height="400" srcset="/wp-content/uploads/2019/05/Screenshot-from-2019-05-24-01-25-10.png 853w, /wp-content/uploads/2019/05/Screenshot-from-2019-05-24-01-25-10-300x141.png 300w, /wp-content/uploads/2019/05/Screenshot-from-2019-05-24-01-25-10-768x360.png 768w, /wp-content/uploads/2019/05/Screenshot-from-2019-05-24-01-25-10-705x331.png 705w" sizes="(max-width: 853px) 100vw, 853px" /><br />
 The <a href="https://portswigger.net/burp/documentation/collaborator">Burp Suite Collaborator</a> is a valuable tool for penetration testers and bug bounty hunters. It basically gives you unique subdomains and logs all interactions (DNS, HTTP(S), SMTP(S)) towards the subdomains. This can be used for example to detect SSRF-vulnerabilities and exfiltrate data.<br />
 Burp Suite Professional provides a collaborator service under the domain <a href="http://burpcollaborator.net/">burpcollaborator.net</a> and using it is usually fine. However on the rare occasions it can be blacklisted / blocked or otherwise unreachable from the target. Luckily, the Burp collaborator can also be self-hosted and set to use a whole custom domain.<br />
@@ -95,7 +104,7 @@ This blog post guides how to set up <strong>private Burp Collaborator</strong> <
 <strong>Note:</strong> If you&#8217;d like to use DigitalOcean instead of AWS, <a href="https://github.com/putsi/privatecollaborator">the automation script</a> supports also that (with and without floating IP).<br />
 If you&#8217;d like to use some completely other IaaS-platform, make sure that the VM&#8217;s network interface IP matches the public IP and <a href="https://github.com/putsi/privatecollaborator">the script</a> should yet again work.</p>
 </div></section>
-<section class="av_textblock_section "  itemscope="itemscope" itemtype="https://schema.org/BlogPosting" itemprop="blogPost" ><div class='avia_textblock  '   itemprop="text" ><h2>Step 1: Create AWS Instance and Elastic IP</h2>
+<section  class='av_textblock_section av-jw1217uu-4de9426a00b6e144eb84025a08203fb7'  itemscope="itemscope" itemtype="https://schema.org/BlogPosting" itemprop="blogPost" ><div class='avia_textblock'  itemprop="text" ><h2>Step 1: Create AWS Instance and Elastic IP</h2>
 <p><strong>TL;DR:</strong> Create Ubuntu Server 18.04 instance and assign Elastic IP to it. Allow inbound SMTP(S), HTTP(S) and DNS from everywhere and ports 9090&#038;9443 from your own IP.<br />
 First we&#8217;ll need to create a virtual machine for the Collaborator. Log in to your AWS-account and follow the steps:</p>
 <ol>
@@ -114,7 +123,7 @@ First we&#8217;ll need to create a virtual machine for the Collaborator. Log in 
 </ol>
 <p><img decoding="async" class="alignnone wp-image-1561 size-large" src="/wp-content/uploads/2019/05/ports-1030x435.png" alt="" width="1030" height="435" srcset="/wp-content/uploads/2019/05/ports-1030x435.png 1030w, /wp-content/uploads/2019/05/ports-300x127.png 300w, /wp-content/uploads/2019/05/ports-768x324.png 768w, /wp-content/uploads/2019/05/ports-705x298.png 705w, /wp-content/uploads/2019/05/ports.png 1128w" sizes="(max-width: 1030px) 100vw, 1030px" /></p>
 </div></section>
-<section class="av_textblock_section "  itemscope="itemscope" itemtype="https://schema.org/BlogPosting" itemprop="blogPost" ><div class='avia_textblock  '   itemprop="text" ><h2>Step 2: Configure the collaborator domain</h2>
+<section  class='av_textblock_section av-jw121fuy-035d1317ba0192d9c15a6c29c2070639'  itemscope="itemscope" itemtype="https://schema.org/BlogPosting" itemprop="blogPost" ><div class='avia_textblock'  itemprop="text" ><h2>Step 2: Configure the collaborator domain</h2>
 <p>Next we&#8217;ll have to configure the domain to have the Elastic IP as nameserver. Most providers require two unique nameservers so we will use <strong>one.one.one.one</strong> as the second one. If your domain is registered on GoDaddy, <a href="#godaddy">see here</a> for GoDaddy-specific instructions, otherwise follow the steps below.</p>
 <ol>
 <li>First, find out hostname for your Elastic IP. You can for example use <a href="https://mxtoolbox.com/ReverseLookup.aspx">MxToolbox</a> and it should give you something like <strong>ec2-00-00-00-00.eu-north-1.compute.amazonaws.com</strong>.</li>
@@ -134,7 +143,7 @@ First we&#8217;ll need to create a virtual machine for the Collaborator. Log in 
 <li>Done! All DNS-queries towards your private collaborator domain should now end up in the Elastic IP.</li>
 </ol>
 </div></section>
-<section class="av_textblock_section "  itemscope="itemscope" itemtype="https://schema.org/BlogPosting" itemprop="blogPost" ><div class='avia_textblock  '   itemprop="text" ><h2>Step 3: Configure the virtual machine</h2>
+<section  class='av_textblock_section av-jw14g8i6-46dbc87992981a976f43fb9a5186e3a4'  itemscope="itemscope" itemtype="https://schema.org/BlogPosting" itemprop="blogPost" ><div class='avia_textblock'  itemprop="text" ><h2>Step 3: Configure the virtual machine</h2>
 <p>Next you&#8217;ll need to fetch Let&#8217;s encrypt certificate and configure the virtual machine and do some other stuff. There&#8217;s a <a href="https://github.com/putsi/privatecollaborator">script for it</a> so let&#8217;s use that. The script also implements automatic certificate renewal so you don&#8217;t have to manually renew the Let&#8217;s Encrypt every 90 days.</p>
 <ol>
 <li>First, use the keypair you downloaded to log in to the virtual machine:
@@ -167,7 +176,7 @@ First we&#8217;ll need to create a virtual machine for the Collaborator. Log in 
 </li>
 </ol>
 </div></section>
-<section class="av_textblock_section "  itemscope="itemscope" itemtype="https://schema.org/BlogPosting" itemprop="blogPost" ><div class='avia_textblock  '   itemprop="text" ><h2>Step 4: Configure Burp Suite</h2>
+<section  class='av_textblock_section av-jw1563dp-a7eefeb859369e564db5e36af45df759'  itemscope="itemscope" itemtype="https://schema.org/BlogPosting" itemprop="blogPost" ><div class='avia_textblock'  itemprop="text" ><h2>Step 4: Configure Burp Suite</h2>
 <p>If you didn&#8217;t do it already on previous step, start the private collaborator by running: <strong>sudo service burpcollaborator start</strong>. Then check logs with <strong>sudo systemctl status burpcollaborator</strong>. It should tell you about listening on various ports and should not show any errors.<br />
 Next start up your Burp Suite and open <strong>Project Options -> Misc</strong>. Set up the private collaborator config according to the below image, but using your own domain instead of collab.fi:<br />
 <img decoding="async" class="alignnone size-full wp-image-1575" src="/wp-content/uploads/2019/05/collab.png" alt="" width="635" height="270" srcset="/wp-content/uploads/2019/05/collab.png 635w, /wp-content/uploads/2019/05/collab-300x128.png 300w" sizes="(max-width: 635px) 100vw, 635px" /><br />
@@ -176,7 +185,7 @@ Then click <strong>Run health check</strong> and wait for results. It should suc
 If everything was OK, you should now be able to use the private collaborator instance normally on Burp Suite:<br />
 <img decoding="async" class="alignnone size-full wp-image-1618" src="/wp-content/uploads/2019/05/Untitled.png" alt="" width="1013" height="692" srcset="/wp-content/uploads/2019/05/Untitled.png 1013w, /wp-content/uploads/2019/05/Untitled-300x205.png 300w, /wp-content/uploads/2019/05/Untitled-768x525.png 768w, /wp-content/uploads/2019/05/Untitled-705x482.png 705w" sizes="(max-width: 1013px) 100vw, 1013px" /></p>
 </div></section>
-<section class="av_textblock_section "  itemscope="itemscope" itemtype="https://schema.org/BlogPosting" itemprop="blogPost" ><div class='avia_textblock  '   itemprop="text" ><h2>Conclusions</h2>
+<section  class='av_textblock_section av-jw17kxn8-350e669f17ef83c26cac8378e4599520'  itemscope="itemscope" itemtype="https://schema.org/BlogPosting" itemprop="blogPost" ><div class='avia_textblock'  itemprop="text" ><h2>Conclusions</h2>
 <p>We made it! It works!<br />
 Now you can for example add more non-standard ports to the configuration or do whatever else you might imagine.<br />
 In the future, this blog post will hopefully be updated on the subject of how to extend the Collaborator. <a href="https://github.com/putsi/privatecollaborator/issues">Potential subjects include</a>:</p>
