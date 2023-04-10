@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>woltage &#8211; Team ROT Information Security</title>
+	<atom:link href="/author/woltage/feed/" rel="self" type="application/rss+xml" />
+	<link>/</link>
+	<description>Team ROT Information Security</description>
+	<lastBuildDate>Sat, 29 Aug 2020 10:50:22 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.2</generator>
+
+<image>
+	<url>/wp-content/uploads/2020/08/cropped-ROT2-WHITE-BG.eps_-2-32x32.png</url>
+	<title>woltage &#8211; Team ROT Information Security</title>
+	<link>/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>Team ROTin #kouluhaaste</title>
+		<link>/team-rotin-kouluhaaste/</link>
+		
+		<dc:creator><![CDATA[woltage]]></dc:creator>
+		<pubDate>Mon, 11 Mar 2019 04:51:06 +0000</pubDate>
+				<category><![CDATA[Uncategorized]]></category>
+		<guid isPermaLink="false">/?p=1527</guid>
+
+					<description><![CDATA[Tämän avoimen kirjeen on tarkoitus tavoittaa yliopistojen, ammattikorkeakoulujen, lukioiden ja ammattikoulujen tietoturvasta päättävät henkilöt. Team ROT tarjoaa yhdelle Suomalaiselle koululle ilmaisen teknisen tietoturvatestauksen.]]></description>
+										<content:encoded><![CDATA[
+<p></p>
+
+
+<p><span style="font-weight: 400;">Tämän avoimen kirjeen on tarkoitus tavoittaa yliopistojen, ammattikorkeakoulujen, lukioiden ja ammattikoulujen tietoturvasta päättävät henkilöt. Team ROT tarjoaa yhdelle Suomalaiselle koululle ilmaisen teknisen tietoturvatestauksen.</span><br />
+<span style="font-weight: 400;">Olemme Team ROT, meitä on kuusi henkilöä ja tietoturva on intohimomme. Teemme teknisiä tietoturvatestauksia järjestelmiin ja laitteistoihin, sekä vapaa-ajallamme, että päivätyöksemme. Olemme osallistuneet lukuisiin haavoittuvuuspalkinto-ohjelmiin (engl. “Bug Bounty program”) maailmanlaajuisesti ja tiimimme jäsenet ovatkin tunnettuja myös kansainvälisesti. Nyt haluamme parantaa Suomen koulujen tietoturvallisuutta ja haluamme tarjota yhdelle Suomen koululle ilmaisen työpanoksemme, jotta Suomi ja suomalaisten koulujen järjestelmät saadaan turvallisemmaksi.</span><br />
+<span style="font-weight: 400;">Team ROT järjesti vuonna 2017 #kuntahaaste -kampanjan, jossa tekemällämme työpanoksella paransimme Suomalaisten kuntien tietoturvallisuutta. Vuonna 2018 osallistuimme Visman järjestämään Visma Hackday -tapahtumaan, jossa testattiin useiden koulujen käyttämän Wilma-järjestelmän tietoturvallisuutta (<a href="https://www.visma.fi/blog/visma-hackday-suomi-ruotsi-maaottelu/">https://www.visma.fi/blog/visma-hackday-suomi-ruotsi-maaottelu/</a>). Nyt haluammekin jatkaa tällä Suomalaisten koulujen tietojärjestelmien tietoturvallisuutta edistävällä tiellä, ja olemmekin päättäneet lanseerata #kouluhaaste -kampanjan.</span><br />
+<b>Pyydämme halukkaita kouluja ilmoittautumaan mukaan #kouluhaaste -kampanjaan huhtikuun 2019 loppuun mennessä lähettämällä vapaamuotoisen ilmoittautumisen sähköpostiosoitteeseen <a href="mailto:team@rot.fi">team@rot.fi</a></b><span style="font-weight: 400;">. Team ROT valitsee halukkaiden koulujen joukosta yhden koulun, johon tietoturvatestaus suoritetaan. Testaus sisältää teknisen tietoturvatestauksen, joka suoritetaan Team ROT -jäsenten toimesta valitun koulun järjestelmiin yhden, vielä määrittelemättömän viikonlopun aikana. Team ROT kontaktoi valittua koulua toukokuun 2019 alkupuolella.</span><br />
+<b>Tietoa testausprosessista</b><br />
+<span style="font-weight: 400;">Jotta tietoturvatestaus olisi mahdollisimman sujuva ja reilu molemmille osapuolille, koulu voi määritellä itse halutun kohteen tai kohteet sekä halutessa rajata tietyt testitapaukset pois testauksesta. Team ROT kuitenkin suosittelee, että testauksen kohteena olisi mukana mahdollisimman laaja osa koulun järjestelmiä. Näin ollen koulu hyötyy Team ROT:in tekemästä työstä mahdollisimman laajasti.</span><br />
+<span style="font-weight: 400;">Testausaikana Team ROT pyrkii olemaan aiheuttamatta ongelmia kohdejärjestelmien saatavuuden, eheyden ja luottamuksellisuuden kanssa, mutta kuten kaikessa testauksessa, odottamattomia ongelmia voi esiintyä. Täten Team ROT ei ota vastuuta mahdollisista ongelmista, jotka testaus suorasti tai epäsuorasti voi aiheuttaa. Team ROT suosittelee, että testaus suoritetaan sellaisena ajankohtana jolloin mahdollisista esiintyvistä ongelmista aiheutuu mahdollisimman vähän haittaa koulun normaalille toiminnalle, esim. testaus suoritetaan viikonloppuna koulun loma-aikana.</span><br />
+<span style="font-weight: 400;">Testauksen lopputuotoksena kirjoitetaan raportti, jossa raportoidaan kaikki testauksen aikana havaitut tietoturvaongelmat. Raportti toimitetaan koulun tietoturvatestaukseen valitulle yhteyshenkilölle, yleensä koulun tietoturvavastaavalle. Jos havainto koskee koulun ulkopuolista organisaatiota tai kolmannen osapuolen toimittajan sovellusta, Team ROT ilmoittaa havainnoista myös Traficomin kyberturvallisuuskeskukselle, CERT-FI:lle. Tämä sen takia, että haavoittuvuuskoordinointi kolmansien osapuolten kanssa onnistuisi mahdollisimman sujuvasti. Kun raportoidut havainnot ovat korjattu, Team ROT julkaisee niistä yhteenvedon. Yhteenveto käydään lävitse ennen sen julkaisemista yhdessä koulun kanssa ja sisällöstä poistetaan osapuolten halujen mukaisesti luottamuksellinen ja/tai yksilöivä tieto.</span><br />
+<span style="font-weight: 400;">Team ROT pidättää oikeuden julkaista tiedon haavoittuvuuksien kokonaismäärästä jo ennen tietoturvahaavoittuvuuksien korjaamista, mutta tarkempia tietoja haavoittuvuuksista tai osallistuvaa koulun nimeä ei julkaista ennen tietoturvahaavoittuvuuksien korjaamista tai erillistä testattavan koulun antamaa kirjallista lupaa.</span><br />
+<span style="font-weight: 400;">Terveisin,<br />
+</span><strong>Team ROT</strong><br />
+<span style="font-weight: 400;">Team ROTia #kouluhaaste’eessa tukemassa:</span><br />
+<a href="https://www.visma.fi/"><img decoding="async" class=" alignnone" src="https://upload.wikimedia.org/wikipedia/fi/thumb/2/2b/Visma_logo.svg/1280px-Visma_logo.svg.png" alt="Image result for visma logo" width="219" height="41"></a><br />
+<a style="background-color: #ffffff; box-shadow: 0 0 0 1px rgba(var(--color-primary-rgb), 0.2);" href="https://www.solita.fi/"><img decoding="async" class=" alignnone" src="https://www.movesense.com/wp-content/uploads/2018/11/Solita-logo-transparent.png" alt="Image result for solita logo" width="218" height="51"></a><br />
+<a href="https://www.elisa.fi/"><img decoding="async" class=" alignnone" src="https://corporate.elisa.fi/img/logot/Elisa_logo_blue_RGB.png" alt="Image result for elisa logo" width="156" height="110"></a></p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>WAN-to-LAN exploitation of 4G broadband modem</title>
+		<link>/wan-to-lan-exploitation-of-4g-broadband-modem/</link>
+					<comments>/wan-to-lan-exploitation-of-4g-broadband-modem/#respond</comments>
+		
+		<dc:creator><![CDATA[woltage]]></dc:creator>
+		<pubDate>Tue, 07 Nov 2017 15:17:23 +0000</pubDate>
+				<category><![CDATA[Exploitation]]></category>
+		<category><![CDATA[Vulnerability]]></category>
+		<category><![CDATA[Writeup]]></category>
+		<guid isPermaLink="false">http://blog.rot.fi/?p=720</guid>
+
+					<description><![CDATA[Nowadays, wireless 4G connections are fairly popular way of connecting to internet. Most of the internet service providers provide at least some form of 4G-package and usually they also include a free 4G-modem along with the 4G-package. These free devices are usually just re-branded versions of other vendor's devices. This blog post examines various vulnerabilities of a re-branded ZTE MF910 4G modem.]]></description>
+										<content:encoded><![CDATA[<h1>Introduction</h1>
+<p>Nowadays, wireless 4G connections&nbsp;are&nbsp;fairly popular way of connecting to internet. Most of the internet service providers provide at least some form of 4G-package and usually they also include&nbsp;a free 4G-modem along with the 4G-package. These free devices are usually just re-branded versions of other vendor&#8217;s devices.&nbsp;This blog post examines various vulnerabilities of a re-branded ZTE MF910 4G modem.<br />
+The research was started by connecting the ZTE-device to a computer normally and a connection was initiated in a way the manual instructed. A moment later, the administrative web-interface&nbsp;revealed itself with a default password of <em>&#8216;1234&#8217;.</em><br />
+<img decoding="async" class="alignnone size-full wp-image-797" src="http://165.232.69.132/wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-13-29.png" alt="Screen Shot 2017-05-05 at 0.13.29.png" width="2208" height="1532" srcset="/wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-13-29.png 2208w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-13-29-300x208.png 300w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-13-29-1030x715.png 1030w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-13-29-768x533.png 768w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-13-29-1536x1066.png 1536w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-13-29-2048x1421.png 2048w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-13-29-1500x1041.png 1500w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-13-29-705x489.png 705w" sizes="(max-width: 2208px) 100vw, 2208px" /></p>
+<h1>WAN-to-LAN-attack: Send SMS-messages&nbsp;by chaining CSRF, XSS, weak default&nbsp;credentials and another CSRF</h1>
+<p>The features&nbsp;provided by the web interface were examined and it was discovered that goform_set_cmd_process-functionality is used to send various commands to the modem. This&nbsp;functionality uses a single http-request in which various values are supplied with GET-parameters.<br />
+The available commands were then examined and one of the most interesting commands was possibility&nbsp;to send SMS messages to given&nbsp;phone numbers. This command however requires that the user is authenticated to the web interface. It also requires that the &#8220;Referrer&#8221;-header of the http-request matches IP-address of the modem, thus making CSRF-attacks which originate from third-party domain impossible.<br />
+<img decoding="async" class="alignnone size-full wp-image-799" src="http://165.232.69.132/wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-15-18.png" alt="Screen Shot 2017-05-05 at 0.15.18.png" width="2382" height="540" srcset="/wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-15-18.png 2382w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-15-18-300x68.png 300w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-15-18-1030x234.png 1030w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-15-18-768x174.png 768w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-15-18-1536x348.png 1536w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-15-18-2048x464.png 2048w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-15-18-1500x340.png 1500w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-15-18-705x160.png 705w" sizes="(max-width: 2382px) 100vw, 2382px" /><br />
+Easiest way to bypass the previously mentioned protections would be finding XSS-vulnerabilities which allow sending requests with proper &#8220;Referrer&#8221;-value. Thus began the search for a XSS-vulnerability.<br />
+None were found in the goform_set_cmd_process, however a single reflected XSS&nbsp;was found in goform_get_cmd_process-functionality that is used to fetch data from the modem. The web interface uses GET-parameter named &#8220;cmd&#8221; to specify which command the functionality should execute. By inserting a malicious javascript-payload to this GET-parameter, the server places this payload to the http-response thus triggering an XSS on the web interface.<br />
+This XSS on the&nbsp;goform_get_cmd_process-functionality did not require any authentication and had no CSRF-protection, which made it a great initial attack point for further attacks.</p>
+<p><img decoding="async" class="alignnone size-full wp-image-815" src="http://165.232.69.132/wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-57-45.png" alt="Screen Shot 2017-05-05 at 0.57.45.png" width="2078" height="770" srcset="/wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-57-45.png 2078w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-57-45-300x111.png 300w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-57-45-1030x382.png 1030w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-57-45-768x285.png 768w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-57-45-1536x569.png 1536w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-57-45-2048x759.png 2048w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-57-45-1500x556.png 1500w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-57-45-705x261.png 705w" sizes="(max-width: 2078px) 100vw, 2078px" /><br />
+Next by crafting a special javascript payload for the XSS, it could be instructed to send http-request towards the SMS-functionality. As the&nbsp;request was sent from a page hosted by the modem via XSS, the &#8220;Referrer&#8221;-header value is now set to modem&#8217;s IP-address thus allowing access to the command.<br />
+The SMS-functionality however still required that the user is authenticated. As the modem does not force users to change the default password and uses same password for every device, this was bypassed simply by using the XSS to send a login-request with default password.<br />
+However a new problem was encountered during the exploitation attempt. The XSS allowed only a short payload which did not have enough space for sending the login-request and the SMS-message. This was&nbsp;bypassed fairly easily&nbsp;by splitting the payload in half. A&nbsp;second-stage payload contains the javascript that sends the login-command and the SMS-command.&nbsp;This second-stage payload is hosted on an external domain. A very simple first-stage payload was then supplied to the initial XSS and its only purpose is to load the second-stage payload script.</p>
+<p><div id="attachment_803" style="width: 2440px" class="wp-caption alignnone"><img aria-describedby="caption-attachment-803" decoding="async" class="alignnone size-full wp-image-803" src="http://165.232.69.132/wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-50-03.png" alt="Screen Shot 2017-05-05 at 0.50.03.png" width="2430" height="442" srcset="/wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-50-03.png 2430w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-50-03-300x55.png 300w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-50-03-1030x187.png 1030w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-50-03-768x140.png 768w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-50-03-1536x279.png 1536w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-50-03-2048x373.png 2048w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-50-03-1500x273.png 1500w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-50-03-705x128.png 705w" sizes="(max-width: 2430px) 100vw, 2430px" /><p id="caption-attachment-803" class="wp-caption-text">First-stage payload</p></div></p>
+<p><div id="attachment_806" style="width: 1680px" class="wp-caption alignnone"><img aria-describedby="caption-attachment-806" decoding="async" class="alignnone size-full wp-image-806" src="http://165.232.69.132/wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-51-25.png" alt="Screen Shot 2017-05-05 at 0.51.25.png" width="1670" height="292" srcset="/wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-51-25.png 1670w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-51-25-300x52.png 300w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-51-25-1030x180.png 1030w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-51-25-768x134.png 768w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-51-25-1536x269.png 1536w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-51-25-1500x262.png 1500w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-51-25-705x123.png 705w" sizes="(max-width: 1670px) 100vw, 1670px" /><p id="caption-attachment-806" class="wp-caption-text">Second-stage payload</p></div></p>
+<p>Finally, the exploitation succeeded and by executing a CSRF-attack from a page hosted in internet, the full exploit chain was executed and the&nbsp;SMS-messages were&nbsp;sent to phone numbers specified by the adversary. Exploitation of this kind of&nbsp;attack is fairly severe as it requires nearly no user interaction and the initial attack can begin from WAN-side.<br />
+https://youtu.be/BLIWNBp-u34<br />
+An example attack scenario would be for example, when the user clicks on a link on e.g Facebook, the payload will trigger and the exploit will login to the system and send tons of SMS messages to whichever number that adversary&nbsp;defined in the payload. This will then lead to a situation where monetary consequences are caused to the owner of the modem and the targeted phone number will be filled with spam-messages.<br />
+<img decoding="async" class="alignnone size-full wp-image-824" src="http://165.232.69.132/wp-content/uploads/2017/05/pasted-image-at-2017_05_04-11_41-pm.png" alt="Pasted image at 2017_05_04 11_41 PM.png" width="770" height="588" srcset="/wp-content/uploads/2017/05/pasted-image-at-2017_05_04-11_41-pm.png 770w, /wp-content/uploads/2017/05/pasted-image-at-2017_05_04-11_41-pm-300x229.png 300w, /wp-content/uploads/2017/05/pasted-image-at-2017_05_04-11_41-pm-768x586.png 768w, /wp-content/uploads/2017/05/pasted-image-at-2017_05_04-11_41-pm-705x538.png 705w" sizes="(max-width: 770px) 100vw, 770px" /></p>
+<h1>Modem Takeover</h1>
+<p>In practice, a hacker will be able to change any settings from the MF910 device via the previously introduced CSRF-based exploit chain.&nbsp;For example, an adversary can hijack the web interface and take over the modem by using the exploit chain and the functionality which the modem uses for changing passwords.<br />
+<img decoding="async" class="alignnone size-full wp-image-809" src="http://165.232.69.132/wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-52-49.png" alt="Screen Shot 2017-05-05 at 0.52.49.png" width="2532" height="202" srcset="/wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-52-49.png 2532w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-52-49-300x24.png 300w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-52-49-1030x82.png 1030w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-52-49-768x61.png 768w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-52-49-1536x123.png 1536w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-52-49-2048x163.png 2048w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-52-49-1500x120.png 1500w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-52-49-705x56.png 705w" sizes="(max-width: 2532px) 100vw, 2532px" /></p>
+<h1>Stored XSS</h1>
+<p>When creating new contacts, a &#8220;groupchoose&#8221;-parameter can be used to store malicious JavaScript payload&nbsp;in a&nbsp;contact that will be run each time contact page is opened.<br />
+<img decoding="async" class="alignnone size-full wp-image-821" src="http://165.232.69.132/wp-content/uploads/2017/05/screen-shot-2017-05-05-at-1-04-47.png" alt="Screen Shot 2017-05-05 at 1.04.47.png" width="3092" height="490" srcset="/wp-content/uploads/2017/05/screen-shot-2017-05-05-at-1-04-47.png 3092w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-1-04-47-300x48.png 300w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-1-04-47-1030x163.png 1030w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-1-04-47-768x122.png 768w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-1-04-47-1536x243.png 1536w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-1-04-47-2048x325.png 2048w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-1-04-47-1500x238.png 1500w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-1-04-47-705x112.png 705w" sizes="(max-width: 3092px) 100vw, 3092px" /><br />
+This vulnerability&nbsp;is also exploitable via WAN-to-LAN-attack by using the previously introduced exploit&nbsp;chain.</p>
+<h1><img decoding="async" class="alignnone size-full wp-image-817" src="http://165.232.69.132/wp-content/uploads/2017/05/screen-shot-2017-05-05-at-1-03-36.png" alt="Screen Shot 2017-05-05 at 1.03.36.png" width="1452" height="984" srcset="/wp-content/uploads/2017/05/screen-shot-2017-05-05-at-1-03-36.png 1452w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-1-03-36-300x203.png 300w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-1-03-36-1030x698.png 1030w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-1-03-36-768x520.png 768w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-1-03-36-705x478.png 705w" sizes="(max-width: 1452px) 100vw, 1452px" /></h1>
+<h1>Persistent denial-of-service</h1>
+<p>The&nbsp;goform_set_cmd_process-functionality contains a command &#8220;SET_WEB_LANGUAGE&#8221;, which is used to specify language of the&nbsp;web interface. By setting value of this command to <em>fi&#8221;, brick</em>, the modem will be bricked and the user can’t access the web interface&nbsp;anymore. Only way to recover from this&nbsp;denial-of-service condition is to do a&nbsp;factory reset&nbsp;on the modem.<br />
+<img decoding="async" class="alignnone size-full wp-image-789" src="http://165.232.69.132/wp-content/uploads/2017/05/screen-shot-2017-04-19-at-9-07-10.jpg" alt="Screen Shot 2017-04-19 at 9.07.10.jpg" width="3360" height="2046"><br />
+The vulnerability can be exploited through a simple CSRF, however it requires that the &#8220;Referrer&#8221;-header matches IP-address of the modem. Thus, the previously introduced&nbsp;exploit chain can be used to exploit also this in a WAN-to-LAN-attack.<br />
+<img decoding="async" class="alignnone size-full wp-image-812" src="http://165.232.69.132/wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-54-08.png" alt="Screen Shot 2017-05-05 at 0.54.08.png" width="2186" height="98" srcset="/wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-54-08.png 2186w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-54-08-300x13.png 300w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-54-08-1030x46.png 1030w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-54-08-768x34.png 768w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-54-08-1536x69.png 1536w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-54-08-2048x92.png 2048w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-54-08-1500x67.png 1500w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-54-08-705x32.png 705w" sizes="(max-width: 2186px) 100vw, 2186px" /></p>
+<h1>Conclusion</h1>
+<p>Current state of security in IoT-devices seems miserable (&#8220;The S in IoT stands for security&#8221;). This product did not prove otherwise. However when these vulnerabilities were reported to the manufacturer, the manufacturer reacted very quickly&nbsp;and all findings were fixed within couple of days, so there is light at the end of the tunnel. New firmware versions which fix the vulnerabilities were released to the original device and to the re-branded devices.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>/wan-to-lan-exploitation-of-4g-broadband-modem/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>Kuntahaaste</title>
+		<link>/team-rot-3-suomi-kuntahaaste/</link>
+					<comments>/team-rot-3-suomi-kuntahaaste/#respond</comments>
+		
+		<dc:creator><![CDATA[woltage]]></dc:creator>
+		<pubDate>Sun, 10 Sep 2017 18:21:08 +0000</pubDate>
+				<category><![CDATA[Informative]]></category>
+		<category><![CDATA[News]]></category>
+		<category><![CDATA[TietoturvallinenSuomi]]></category>
+		<guid isPermaLink="false">http://blog.rot.fi/?p=837</guid>
+
+					<description><![CDATA[Toivottavasti tämä avoin kirje tavoittaa kunnan päättäjät, tietoturvapäälliköt, tai muut kuntien vastaavissa tehtävissä toimivat henkilöt. Tarjoamme teille mielenkiintoista kokeilua, jonka avulla voitte parantaa kuntanne tietoturvaa ilmaiseksi.]]></description>
+										<content:encoded><![CDATA[<p>Hei!<br />
+Toivottavasti tämä avoin kirje tavoittaa kunnan päättäjät, tietoturvapäälliköt, tai muut kuntien vastaavissa tehtävissä toimivat henkilöt. Tarjoamme teille mielenkiintoista kokeilua, jonka avulla <strong>voitte parantaa kuntanne tietoturvaa ilmaiseksi.</strong><br />
+Olemme Team Rot. Tietoturva on intohimomme ja teemme teknisiä tietoturvatarkastuksia järjestelmiin ja laitteistoihin sekä vapaa-ajallamme että työksemme. Olemme osallistuneet lukuisiin haavoittuvuuspalkinto-ohjelmiin (engl. &#8220;Bug Bounty&#8221;) maailmanlaajuisesti ja tiimimme jäsenet ovat tunnettuja myös kansainvälisesti. <strong>Nyt haluamme parantaa tietoturvaa Suomen kunnissa ja tarjoamme yhdelle Suomen kunnalle työpanostamme &#8211; ilmaiseksi</strong>, jotta Suomi saadaan turvallisemmaksi.<br />
+Esimerkkejä tiimin tietoturva-aiheisista tuotoksista:</p>
+<ul>
+<li>Jarmon loistava raportti Blind XSS:stä LähiTapiolalle: <a href="https://hackerone.com/reports/159498">https://hackerone.com/reports/159498</a></li>
+<li>Jarmon haastattelu Bugcrowd Bug Bounty alustalla: <a href="https://blog.bugcrowd.com/researcher-spotlight-putsi">https://blog.bugcrowd.com/researcher-spotlight-putsi</a></li>
+<li>Jarkon artikkeli siitä miten valvontakamera otetaan haltuun: <a href="https://blog.rot.fi/2017/02/17/tp-link-tl-sc3171g-ip-camera-r00t/">https://blog.rot.fi/2017/02/17/tp-link-tl-sc3171g-ip-camera-r00t/</a></li>
+<li>Iiron seminaariesitys Tesla Motorsin lähdekoodin saamisesta: <a href="https://www.youtube.com/watch?v=2a8EgCeBOzw">https://www.youtube.com/watch?v=2a8EgCeBOzw</a></li>
+<li>Jaken artikkeli mobiililaitteen liikenteen kaappamisesta ja analysoinnista: <a href="https://blog.rot.fi/2017/02/07/decomposing-lan-security-with-scapy-and-burp-suite/">https://blog.rot.fi/2017/02/07/decomposing-lan-security-with-scapy-and-burp-suite/</a></li>
+</ul>
+<p>Team Rot tarjoutuu käyttämään 15h/henkilö/kohde kunnan järjestelmien teknisen tietoturvan tutkimiseen. Havaitut ongelmat raportoidaan kunnan määrittelemälle henkilölle, yleensä siis tietoturvasta vastaavalle. Tämän lisäksi Team Rot ilmoittaa havainnoista myös Viestintäviraston kyberturvallisuuskeskukselle, CERT-FI:lle joka avustaa tarvittaessa esimerkiksi koordinoinnin kanssa jos haavoittuvuus koskee kunnan ulkopuolisia organisaatioita tai vaikkapa ulkoiselta toimittajalta ostettua ohjelmistoa. Kun raportoidut havainnot on korjattu, niin Team Rot julkistaa niistä yhteenvedon. Yhteenveto käydään ennen julkistamista lävitse yhdessä kunnan kanssa ja sisällöstä poistetaan tarvittaessa esimerkiksi luottamukselliset tiedot.<br />
+Havaittujen haavoittuvuuksien kokonaismäärä voidaan julkaista ennen varsinaista ongelman korjaamista, mutta haavoittuvuuksien tarkempia tietoja ja osallistuvaa kuntaa ei julkaista vielä tässä vaiheessa.<br />
+Jotta tietoturvatarkastus olisi mahdollisimman sujuva ja reilu kummallekin osapuolelle, niin kunta voi määritellä itse halutun kohteen ja esimerkiksi rajata tietynlaiset testitapaukset pois tarkastuksesta. Team Rot kuitenkin suosittelee että kohteena olisi kaikki kunnan järjestelmät, jotka ovat saatavissa julkisessa verkossa. Näin ollen kunta hyötyy Team Rotin tekemästä työstä mahdollisimman paljon. Team Rot pyrkii olemaan aiheuttamatta minkäänlaista ongelmaa kohdejärjestelmän saatavuuden, eheyden ja luottamuksellisuuden kanssa testauksen aikana.<br />
+Mikäli kiinnostuit, <a href="https://rot.fi/contact/"><strong>ota yhteyttä niin sovitaan jatkosta</strong></a> ja muista mahdollisista velvoitteista.<br />
+Sähköpostilla: <a href="mailto:team@rot.fi">team@rot.fi</a><br />
+<span  class="av_font_icon avia_animate_when_visible avia-icon-animate  av-icon-style-  avia-icon-pos-left " style="color:#00aced; border-color:#00aced;"><a href='https://twitter.com/iiuusit'   class='av-icon-char' style='font-size:130%;line-height:130%;' aria-hidden='true' data-av_icon='' data-av_iconfont='entypo-fontello' ></a></span><span  class="av_font_icon avia_animate_when_visible avia-icon-animate  av-icon-style-  avia-icon-pos-left " style="color:#0077b5; border-color:#0077b5;"><a href='https://www.linkedin.com/in/iirouusitalo/'   class='av-icon-char' style='font-size:130%;line-height:130%;' aria-hidden='true' data-av_icon='' data-av_iconfont='entypo-fontello' ></a></span> &lt;&nbsp;<strong>Iiro Uusitalo</strong><br />
+<span  class="av_font_icon avia_animate_when_visible avia-icon-animate  av-icon-style-  avia-icon-pos-left " style="color:#00aced; border-color:#00aced;"><a href='https://twitter.com/jvesiluoma'   class='av-icon-char' style='font-size:130%;line-height:130%;' aria-hidden='true' data-av_icon='' data-av_iconfont='entypo-fontello' ></a></span><span  class="av_font_icon avia_animate_when_visible avia-icon-animate  av-icon-style-  avia-icon-pos-left " style="color:#0077b5; border-color:#0077b5;"><a href='https://www.linkedin.com/in/vesiluoma/'   class='av-icon-char' style='font-size:130%;line-height:130%;' aria-hidden='true' data-av_icon='' data-av_iconfont='entypo-fontello' ></a></span> &lt;&nbsp;<strong>Jarkko Vesiluoma</strong><br />
+<span  class="av_font_icon avia_animate_when_visible avia-icon-animate  av-icon-style-  avia-icon-pos-left " style="color:#00aced; border-color:#00aced;"><a href='https://twitter.com/putsi_'   class='av-icon-char' style='font-size:130%;line-height:130%;' aria-hidden='true' data-av_icon='' data-av_iconfont='entypo-fontello' ></a></span><span  class="av_font_icon avia_animate_when_visible avia-icon-animate  av-icon-style-  avia-icon-pos-left " style="color:#0077b5; border-color:#0077b5;"><a href='https://fi.linkedin.com/in/jarmoputtonen'   class='av-icon-char' style='font-size:130%;line-height:130%;' aria-hidden='true' data-av_icon='' data-av_iconfont='entypo-fontello' ></a></span> &lt;&nbsp;<strong>Jarmo Puttonen</strong><br />
+<span  class="av_font_icon avia_animate_when_visible avia-icon-animate  av-icon-style-  avia-icon-pos-left " style="color:#00aced; border-color:#00aced;"><a href='https://twitter.com/jm_lahtinen'   class='av-icon-char' style='font-size:130%;line-height:130%;' aria-hidden='true' data-av_icon='' data-av_iconfont='entypo-fontello' ></a></span><span  class="av_font_icon avia_animate_when_visible avia-icon-animate  av-icon-style-  avia-icon-pos-left " style="color:#0077b5; border-color:#0077b5;"><a href='https://www.linkedin.com/in/jake-matti-lahtinen-ba290260/'   class='av-icon-char' style='font-size:130%;line-height:130%;' aria-hidden='true' data-av_icon='' data-av_iconfont='entypo-fontello' ></a></span> &lt; <b>Jake-Matti Lahtinen</b></p>
+]]></content:encoded>
+					
+					<wfw:commentRss>/team-rot-3-suomi-kuntahaaste/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+	</channel>
+</rss>

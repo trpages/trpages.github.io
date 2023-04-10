@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>News &#8211; Team ROT Information Security</title>
+	<atom:link href="/category/news/feed/" rel="self" type="application/rss+xml" />
+	<link>/</link>
+	<description>Team ROT Information Security</description>
+	<lastBuildDate>Sat, 29 Aug 2020 10:50:22 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.2</generator>
+
+<image>
+	<url>/wp-content/uploads/2020/08/cropped-ROT2-WHITE-BG.eps_-2-32x32.png</url>
+	<title>News &#8211; Team ROT Information Security</title>
+	<link>/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>Kuntahaaste</title>
+		<link>/team-rot-3-suomi-kuntahaaste/</link>
+					<comments>/team-rot-3-suomi-kuntahaaste/#respond</comments>
+		
+		<dc:creator><![CDATA[woltage]]></dc:creator>
+		<pubDate>Sun, 10 Sep 2017 18:21:08 +0000</pubDate>
+				<category><![CDATA[Informative]]></category>
+		<category><![CDATA[News]]></category>
+		<category><![CDATA[TietoturvallinenSuomi]]></category>
+		<guid isPermaLink="false">http://blog.rot.fi/?p=837</guid>
+
+					<description><![CDATA[Toivottavasti tämä avoin kirje tavoittaa kunnan päättäjät, tietoturvapäälliköt, tai muut kuntien vastaavissa tehtävissä toimivat henkilöt. Tarjoamme teille mielenkiintoista kokeilua, jonka avulla voitte parantaa kuntanne tietoturvaa ilmaiseksi.]]></description>
+										<content:encoded><![CDATA[<p>Hei!<br />
+Toivottavasti tämä avoin kirje tavoittaa kunnan päättäjät, tietoturvapäälliköt, tai muut kuntien vastaavissa tehtävissä toimivat henkilöt. Tarjoamme teille mielenkiintoista kokeilua, jonka avulla <strong>voitte parantaa kuntanne tietoturvaa ilmaiseksi.</strong><br />
+Olemme Team Rot. Tietoturva on intohimomme ja teemme teknisiä tietoturvatarkastuksia järjestelmiin ja laitteistoihin sekä vapaa-ajallamme että työksemme. Olemme osallistuneet lukuisiin haavoittuvuuspalkinto-ohjelmiin (engl. &#8220;Bug Bounty&#8221;) maailmanlaajuisesti ja tiimimme jäsenet ovat tunnettuja myös kansainvälisesti. <strong>Nyt haluamme parantaa tietoturvaa Suomen kunnissa ja tarjoamme yhdelle Suomen kunnalle työpanostamme &#8211; ilmaiseksi</strong>, jotta Suomi saadaan turvallisemmaksi.<br />
+Esimerkkejä tiimin tietoturva-aiheisista tuotoksista:</p>
+<ul>
+<li>Jarmon loistava raportti Blind XSS:stä LähiTapiolalle: <a href="https://hackerone.com/reports/159498">https://hackerone.com/reports/159498</a></li>
+<li>Jarmon haastattelu Bugcrowd Bug Bounty alustalla: <a href="https://blog.bugcrowd.com/researcher-spotlight-putsi">https://blog.bugcrowd.com/researcher-spotlight-putsi</a></li>
+<li>Jarkon artikkeli siitä miten valvontakamera otetaan haltuun: <a href="https://blog.rot.fi/2017/02/17/tp-link-tl-sc3171g-ip-camera-r00t/">https://blog.rot.fi/2017/02/17/tp-link-tl-sc3171g-ip-camera-r00t/</a></li>
+<li>Iiron seminaariesitys Tesla Motorsin lähdekoodin saamisesta: <a href="https://www.youtube.com/watch?v=2a8EgCeBOzw">https://www.youtube.com/watch?v=2a8EgCeBOzw</a></li>
+<li>Jaken artikkeli mobiililaitteen liikenteen kaappamisesta ja analysoinnista: <a href="https://blog.rot.fi/2017/02/07/decomposing-lan-security-with-scapy-and-burp-suite/">https://blog.rot.fi/2017/02/07/decomposing-lan-security-with-scapy-and-burp-suite/</a></li>
+</ul>
+<p>Team Rot tarjoutuu käyttämään 15h/henkilö/kohde kunnan järjestelmien teknisen tietoturvan tutkimiseen. Havaitut ongelmat raportoidaan kunnan määrittelemälle henkilölle, yleensä siis tietoturvasta vastaavalle. Tämän lisäksi Team Rot ilmoittaa havainnoista myös Viestintäviraston kyberturvallisuuskeskukselle, CERT-FI:lle joka avustaa tarvittaessa esimerkiksi koordinoinnin kanssa jos haavoittuvuus koskee kunnan ulkopuolisia organisaatioita tai vaikkapa ulkoiselta toimittajalta ostettua ohjelmistoa. Kun raportoidut havainnot on korjattu, niin Team Rot julkistaa niistä yhteenvedon. Yhteenveto käydään ennen julkistamista lävitse yhdessä kunnan kanssa ja sisällöstä poistetaan tarvittaessa esimerkiksi luottamukselliset tiedot.<br />
+Havaittujen haavoittuvuuksien kokonaismäärä voidaan julkaista ennen varsinaista ongelman korjaamista, mutta haavoittuvuuksien tarkempia tietoja ja osallistuvaa kuntaa ei julkaista vielä tässä vaiheessa.<br />
+Jotta tietoturvatarkastus olisi mahdollisimman sujuva ja reilu kummallekin osapuolelle, niin kunta voi määritellä itse halutun kohteen ja esimerkiksi rajata tietynlaiset testitapaukset pois tarkastuksesta. Team Rot kuitenkin suosittelee että kohteena olisi kaikki kunnan järjestelmät, jotka ovat saatavissa julkisessa verkossa. Näin ollen kunta hyötyy Team Rotin tekemästä työstä mahdollisimman paljon. Team Rot pyrkii olemaan aiheuttamatta minkäänlaista ongelmaa kohdejärjestelmän saatavuuden, eheyden ja luottamuksellisuuden kanssa testauksen aikana.<br />
+Mikäli kiinnostuit, <a href="https://rot.fi/contact/"><strong>ota yhteyttä niin sovitaan jatkosta</strong></a> ja muista mahdollisista velvoitteista.<br />
+Sähköpostilla: <a href="mailto:team@rot.fi">team@rot.fi</a><br />
+<span  class="av_font_icon avia_animate_when_visible avia-icon-animate  av-icon-style-  avia-icon-pos-left " style="color:#00aced; border-color:#00aced;"><a href='https://twitter.com/iiuusit'   class='av-icon-char' style='font-size:130%;line-height:130%;' aria-hidden='true' data-av_icon='' data-av_iconfont='entypo-fontello' ></a></span><span  class="av_font_icon avia_animate_when_visible avia-icon-animate  av-icon-style-  avia-icon-pos-left " style="color:#0077b5; border-color:#0077b5;"><a href='https://www.linkedin.com/in/iirouusitalo/'   class='av-icon-char' style='font-size:130%;line-height:130%;' aria-hidden='true' data-av_icon='' data-av_iconfont='entypo-fontello' ></a></span> &lt;&nbsp;<strong>Iiro Uusitalo</strong><br />
+<span  class="av_font_icon avia_animate_when_visible avia-icon-animate  av-icon-style-  avia-icon-pos-left " style="color:#00aced; border-color:#00aced;"><a href='https://twitter.com/jvesiluoma'   class='av-icon-char' style='font-size:130%;line-height:130%;' aria-hidden='true' data-av_icon='' data-av_iconfont='entypo-fontello' ></a></span><span  class="av_font_icon avia_animate_when_visible avia-icon-animate  av-icon-style-  avia-icon-pos-left " style="color:#0077b5; border-color:#0077b5;"><a href='https://www.linkedin.com/in/vesiluoma/'   class='av-icon-char' style='font-size:130%;line-height:130%;' aria-hidden='true' data-av_icon='' data-av_iconfont='entypo-fontello' ></a></span> &lt;&nbsp;<strong>Jarkko Vesiluoma</strong><br />
+<span  class="av_font_icon avia_animate_when_visible avia-icon-animate  av-icon-style-  avia-icon-pos-left " style="color:#00aced; border-color:#00aced;"><a href='https://twitter.com/putsi_'   class='av-icon-char' style='font-size:130%;line-height:130%;' aria-hidden='true' data-av_icon='' data-av_iconfont='entypo-fontello' ></a></span><span  class="av_font_icon avia_animate_when_visible avia-icon-animate  av-icon-style-  avia-icon-pos-left " style="color:#0077b5; border-color:#0077b5;"><a href='https://fi.linkedin.com/in/jarmoputtonen'   class='av-icon-char' style='font-size:130%;line-height:130%;' aria-hidden='true' data-av_icon='' data-av_iconfont='entypo-fontello' ></a></span> &lt;&nbsp;<strong>Jarmo Puttonen</strong><br />
+<span  class="av_font_icon avia_animate_when_visible avia-icon-animate  av-icon-style-  avia-icon-pos-left " style="color:#00aced; border-color:#00aced;"><a href='https://twitter.com/jm_lahtinen'   class='av-icon-char' style='font-size:130%;line-height:130%;' aria-hidden='true' data-av_icon='' data-av_iconfont='entypo-fontello' ></a></span><span  class="av_font_icon avia_animate_when_visible avia-icon-animate  av-icon-style-  avia-icon-pos-left " style="color:#0077b5; border-color:#0077b5;"><a href='https://www.linkedin.com/in/jake-matti-lahtinen-ba290260/'   class='av-icon-char' style='font-size:130%;line-height:130%;' aria-hidden='true' data-av_icon='' data-av_iconfont='entypo-fontello' ></a></span> &lt; <b>Jake-Matti Lahtinen</b></p>
+]]></content:encoded>
+					
+					<wfw:commentRss>/team-rot-3-suomi-kuntahaaste/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+	</channel>
+</rss>

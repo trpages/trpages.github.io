@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>putsi &#8211; Team ROT Information Security</title>
+	<atom:link href="/author/putsi/feed/" rel="self" type="application/rss+xml" />
+	<link>/</link>
+	<description>Team ROT Information Security</description>
+	<lastBuildDate>Tue, 05 Jan 2021 07:13:29 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.2</generator>
+
+<image>
+	<url>/wp-content/uploads/2020/08/cropped-ROT2-WHITE-BG.eps_-2-32x32.png</url>
+	<title>putsi &#8211; Team ROT Information Security</title>
+	<link>/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>Custom HTML on private collaborator domain</title>
+		<link>/1692/</link>
+		
+		<dc:creator><![CDATA[putsi]]></dc:creator>
+		<pubDate>Mon, 04 Nov 2019 20:52:46 +0000</pubDate>
+				<category><![CDATA[Guide]]></category>
+		<category><![CDATA[Informative]]></category>
+		<guid isPermaLink="false">/?p=1692</guid>
+
+					<description><![CDATA[Hosting a private Burp Collaborator on custom domain can be very handy. However it currently has some limitations, one of them being the hard-coded index page.
+It would be useful to be able to customize the web page. For example, the default page could instruct viewers how to contact the collaborator owner. Another example would be serving any additional payload files from the same domain.
+There are hackish ways to achieve it, but not all are working as intended so let’s take a look how not to do it and how to actually do it.]]></description>
+										<content:encoded><![CDATA[<div class="flex_column av_one_full  flex_column_div av-zero-column-padding first  avia-builder-el-0  avia-builder-el-no-sibling  " style='border-radius:0px; '><section class="av_textblock_section "  itemscope="itemscope" itemtype="https://schema.org/BlogPosting" itemprop="blogPost" ><div class='avia_textblock  '   itemprop="text" ><h1>Serving custom HTML on private collaborator domain</h1>
+<h3><strong>Note: Portswigger has now added support for custom HTML so this blog post is not needed!</strong></h3>
+<h3><a href="https://portswigger.net/burp/documentation/collaborator/deploying#adding-custom-content-to-your-collaborator-server"><strong>https://portswigger.net/burp/documentation/collaborator/deploying#adding-custom-content-to-your-collaborator-server</strong></a></h3>
+<h3></h3>
+<p><img decoding="async" class="alignnone size-large wp-image-1699" src="/wp-content/uploads/2019/10/burpindex-1.png" alt="" width="1" height="1" srcset="/wp-content/uploads/2019/10/burpindex-1.png 2068w, /wp-content/uploads/2019/10/burpindex-1-300x118.png 300w, /wp-content/uploads/2019/10/burpindex-1-1030x405.png 1030w, /wp-content/uploads/2019/10/burpindex-1-80x80.png 80w, /wp-content/uploads/2019/10/burpindex-1-768x302.png 768w, /wp-content/uploads/2019/10/burpindex-1-1536x605.png 1536w, /wp-content/uploads/2019/10/burpindex-1-2048x806.png 2048w, /wp-content/uploads/2019/10/burpindex-1-36x36.png 36w, /wp-content/uploads/2019/10/burpindex-1-180x180.png 180w, /wp-content/uploads/2019/10/burpindex-1-1500x590.png 1500w, /wp-content/uploads/2019/10/burpindex-1-495x400.png 495w, /wp-content/uploads/2019/10/burpindex-1-260x185.png 260w, /wp-content/uploads/2019/10/burpindex-1-845x321.png 845w, /wp-content/uploads/2019/10/burpindex-1-710x375.png 710w, /wp-content/uploads/2019/10/burpindex-1-705x278.png 705w, /wp-content/uploads/2019/10/burpindex-1-1210x423.png 1210w" sizes="(max-width: 1px) 100vw, 1px" /><img decoding="async" class="alignnone size-large wp-image-1699" src="/wp-content/uploads/2019/10/burpindex-1-1030x405.png" alt="" width="1030" height="405" srcset="/wp-content/uploads/2019/10/burpindex-1-1030x405.png 1030w, /wp-content/uploads/2019/10/burpindex-1-300x118.png 300w, /wp-content/uploads/2019/10/burpindex-1-768x302.png 768w, /wp-content/uploads/2019/10/burpindex-1-1536x605.png 1536w, /wp-content/uploads/2019/10/burpindex-1-2048x806.png 2048w, /wp-content/uploads/2019/10/burpindex-1-1500x590.png 1500w, /wp-content/uploads/2019/10/burpindex-1-705x278.png 705w" sizes="(max-width: 1030px) 100vw, 1030px" /><br />
+Hosting a <a href="/2019/05/23/self-hosted-burp-collaborator-with-custom-domain/">private Burp Collaborator on custom domain</a> can be very handy. It allows you for example to bypass WAFs, to use it on closed networks, to use different port numbers, to appear more professional with branded domain and so on. However it currently has some limitations, one of them being the hard-coded index page. When the collaborator domain is accessed without using any actual collaborator subdomain, a generic web page like above will be shown to the user.<br />
+It would be useful to be able to customize this. For example, the default page could instruct viewers how to contact the collaborator owner. Another example would be serving any additional payload files from the same domain.<br />
+According to Portswigger support, there is a feature request for customizing it but currently there is no supported way to serve custom content. There are hackish ways to achieve it, but not all are working as intended so let&#8217;s take a look how not to do it and how to actually do it.</p>
+<h3>Wrong ways to implement</h3>
+<p>An easy way would be using Nginx or HAProxy between the user and collaborator and making it proxy HTTP-requests from collaborator subdomains to collaborator and proxy other subdomains to web server (or serve directly the custom content). This however will lose the user&#8217;s IP for HTTP-requests as the Nginx&#8217;s/HAProxy&#8217;s IP will be shown on all HTTP-request interactions in collaborator.<br />
+<img decoding="async" class="alignnone size-full wp-image-1719" src="/wp-content/uploads/2019/10/httpproxy.png" alt="" width="842" height="382" srcset="/wp-content/uploads/2019/10/httpproxy.png 842w, /wp-content/uploads/2019/10/httpproxy-300x136.png 300w, /wp-content/uploads/2019/10/httpproxy-768x348.png 768w, /wp-content/uploads/2019/10/httpproxy-705x320.png 705w" sizes="(max-width: 842px) 100vw, 842px" /><br />
+Another easy way would be using a DNS-proxy which points some specific subdomains to the web server and proxies DNS-queries for all other subdomains to the DNS-server in collaborator. This will lose the user&#8217;s IP for DNS-requests as the DNS-proxy&#8217;s IP will be shown on all DNS-request interactions in collaborator.<br />
+<img decoding="async" class="alignnone wp-image-1718 size-full" src="/wp-content/uploads/2019/10/dnsproxy.png" alt="" width="842" height="382" srcset="/wp-content/uploads/2019/10/dnsproxy.png 842w, /wp-content/uploads/2019/10/dnsproxy-300x136.png 300w, /wp-content/uploads/2019/10/dnsproxy-768x348.png 768w, /wp-content/uploads/2019/10/dnsproxy-705x320.png 705w" sizes="(max-width: 842px) 100vw, 842px" /></p>
+<h3>Working way to serve custom html</h3>
+<p>Well how can we do this without losing the original IP on DNS-request and HTTP-request? Linux kernel supports <a href="https://www.netfilter.org/projects/libnetfilter_queue/">Netfilter Queue</a> which provides an API for viewing, modifying and dropping packets directly from the Kernel Packet Filter queue. It can be used along with <a href="https://scapy.net/">Scapy</a> to transparently inspect DNS-queries and to return fake DNS-replies.<br />
+Basically we&#8217;ll need to make NFQueue intercept all packets to port 53/UDP (DNS), then parse the DNS-request inside the packet. Then we&#8217;ll need to check if the DNS-request is for A-record and what (sub-)domain is it asking for. This (sub-)domain will then be checked against a list of (sub-)domains (e.g. collab.fi and www.collab.fi). If it doesn&#8217;t match any (sub-)domain on the list, the packet will be passed back on the queue without any modifications. If it matches something on the white list, Scapy will be used to create a fake DNS-reply pointing towards our web server. This fake DNS-reply will then be sent back to the source and the original packet will be dropped. It&#8217;s not actually that hard to do and now there is a script for doing all that automatically!<br />
+There are still some limitations with this method, as it fakes the DNS-replies you&#8217;ll need to have two IPs. One IP is associated with your collaborator domain and another IP is associated with the web server that you want to serve the custom html with. You don&#8217;t need two different virtual machines, having two public IPs on single VM should be enough. Collaborator listening on the first IP and web server listening on the second IP. Please let me know if there is a way to make this work with a single IP!</p>
+<h3 id="tldr">How to do this automatically</h3>
+<p>If you installed your private collaborator using the <a href="/2019/05/23/self-hosted-burp-collaborator-with-custom-domain/">previous guide</a>, you should still have the <a href="https://github.com/putsi/privatecollaborator">privatecollaborator</a>-directory. Run <strong>git pull</strong> inside the directory and you should get the latest code including a new <a href="https://github.com/putsi/privatecollaborator/tree/master/extendburp">extendburp</a>-directory. The directory contains an installation script, systemd service and <a href="https://github.com/putsi/privatecollaborator/blob/master/extendburp/dnsmitm.py">dnsmitm.py</a>-script which implements the actual magic.<br />
+To install, simply open the <strong>extendburp</strong>-directory and run the following command: <strong> ./extend_burp.sh TARGET_IP COLLABORATOR_DOMAIN<br />
+</strong>The <strong>TARGET_IP</strong>-parameter should be IP of the web server that will serve the custom content and <strong>COLLABORATOR</strong><strong>_DOMAIN</strong>-parameter is your private burp collaborator domain.<br />
+After the script is done, your server should respond to DNS-queries in the following way thus redirecting the user to correct HTTP-destination:</p>
+<ul>
+<li>DNS-query for <strong>www.yourcustomdomain.com</strong> -&gt; Returns IP of the <strong>web server</strong>.</li>
+<li>DNS-query for <strong>yourcustomdomain.com</strong> -&gt; Returns IP of the <strong>web server</strong>.</li>
+<li>DNS-query for <strong>AnythingElseLikeCollaboratorId.yourcustomdomain.com</strong> -&gt; Returns IP of the <strong>Burp Collaborator</strong>.</li>
+</ul>
+<p>In case you want to redirect more subdomains to the web server, simply insert those in the <strong>dnsmitm.py</strong> script.<br />
+Over and out –<a href="https://twitter.com/putsi">putsi</a>.</p>
+</div></section></div>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Self-hosted Burp collaborator with custom domain</title>
+		<link>/self-hosted-burp-collaborator-with-custom-domain/</link>
+		
+		<dc:creator><![CDATA[putsi]]></dc:creator>
+		<pubDate>Thu, 23 May 2019 22:15:55 +0000</pubDate>
+				<category><![CDATA[Guide]]></category>
+		<category><![CDATA[Informative]]></category>
+		<guid isPermaLink="false">/?p=1558</guid>
+
+					<description><![CDATA[The Burp Suite Collaborator is a valuable tool for penetration testers and bug bounty hunters. It basically gives you unique subdomains and logs all interactions (DNS, HTTP(S), SMTP) towards the subdomain. This can be used for example to detect SSRF-vulnerabilities and exfiltrate data.
+Burp Suite Professional provides a collaborator service under the domain burpcollaborator.net and using it is usually fine. However on the rare occasions it can be blacklisted / blocked or otherwise unreachable from the target. Luckily, the Burp collaborator can also be self-hosted and set to use a whole custom domain.]]></description>
+										<content:encoded><![CDATA[<section class="av_textblock_section "  itemscope="itemscope" itemtype="https://schema.org/BlogPosting" itemprop="blogPost" ><div class='avia_textblock  '   itemprop="text" ><h1>Self-hosted Burp collaborator for fun and profit</h1>
+<p><img decoding="async" class="size-full wp-image-1588 aligncenter" src="/wp-content/uploads/2019/05/Screenshot-from-2019-05-24-01-25-10.png" alt="" width="853" height="400" srcset="/wp-content/uploads/2019/05/Screenshot-from-2019-05-24-01-25-10.png 853w, /wp-content/uploads/2019/05/Screenshot-from-2019-05-24-01-25-10-300x141.png 300w, /wp-content/uploads/2019/05/Screenshot-from-2019-05-24-01-25-10-768x360.png 768w, /wp-content/uploads/2019/05/Screenshot-from-2019-05-24-01-25-10-705x331.png 705w" sizes="(max-width: 853px) 100vw, 853px" /><br />
+The <a href="https://portswigger.net/burp/documentation/collaborator">Burp Suite Collaborator</a> is a valuable tool for penetration testers and bug bounty hunters. It basically gives you unique subdomains and logs all interactions (DNS, HTTP(S), SMTP(S)) towards the subdomains. This can be used for example to detect SSRF-vulnerabilities and exfiltrate data.<br />
+Burp Suite Professional provides a collaborator service under the domain <a href="http://burpcollaborator.net/">burpcollaborator.net</a> and using it is usually fine. However on the rare occasions it can be blacklisted / blocked or otherwise unreachable from the target. Luckily, the Burp collaborator can also be self-hosted and set to use a whole custom domain.<br />
+This blog post guides how to set up <strong>private Burp Collaborator</strong> <strong>instance on</strong> <strong>Amazon AWS</strong> and how to configure it to use a whole domain with a free <a href="https://letsencrypt.org/">Let&#8217;s Encrypt</a> SSL-certificate.<br />
+<strong>Note:</strong> If you&#8217;d like to use DigitalOcean instead of AWS, <a href="https://github.com/putsi/privatecollaborator">the automation script</a> supports also that (with and without floating IP).<br />
+If you&#8217;d like to use some completely other IaaS-platform, make sure that the VM&#8217;s network interface IP matches the public IP and <a href="https://github.com/putsi/privatecollaborator">the script</a> should yet again work.</p>
+</div></section>
+<section class="av_textblock_section "  itemscope="itemscope" itemtype="https://schema.org/BlogPosting" itemprop="blogPost" ><div class='avia_textblock  '   itemprop="text" ><h2>Step 1: Create AWS Instance and Elastic IP</h2>
+<p><strong>TL;DR:</strong> Create Ubuntu Server 18.04 instance and assign Elastic IP to it. Allow inbound SMTP(S), HTTP(S) and DNS from everywhere and ports 9090&#038;9443 from your own IP.<br />
+First we&#8217;ll need to create a virtual machine for the Collaborator. Log in to your AWS-account and follow the steps:</p>
+<ol>
+<li>First, lets create the virtual machine.</li>
+<li>Navigate to <a href="https://eu-north-1.console.aws.amazon.com/ec2/v2/home?region=eu-north-1#LaunchInstanceWizard:">Instance wizard</a> and select <strong>Ubuntu Server 18.04 LTS (HVM), SSD Volume Type.</strong></li>
+<li>Select <strong>t2.micro </strong>or <strong>t3.micro</strong> depending on which has the <a href="https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&#038;all-free-tier.sort-order=asc&#038;awsf.Free%20Tier%20Types=*all&#038;awsf.Free%20Tier%20Categories=productcategories%23compute">free tier eligible</a> tag on your AWS region. Then click <strong>Next: Configure Instance Details.</strong></li>
+<li>Uncheck <strong>T2/T3 Unlimited</strong> as it might cause some expenses and then click <strong>Next: Add Storage</strong>.</li>
+<li>Go with default size and click <strong>Review and Launch</strong>.</li>
+<li>Click <strong>Launch</strong>.</li>
+<li>Create a new keypair and download it and click <strong>Launch instances</strong>.</li>
+<li>Next, lets create <a href="https://aws.amazon.com/premiumsupport/knowledge-center/elastic-ip-charges/">free-tier eligible</a> Elastic IP. This allows us to always have a static IP which can be linked to AWS virtual machines. Its not required but it makes things easier if you need to re-create your virtual machine.</li>
+<li>Navigate to <a href="https://eu-north-1.console.aws.amazon.com/ec2/v2/home?region=eu-north-1#AllocateAddress:">Allocate new address</a> and click Allocate.</li>
+<li>Go back to the <a href="https://eu-north-1.console.aws.amazon.com/ec2/v2/home?region=eu-north-1#Addresses:sort=PublicIp">Elastic IP List</a>, right click your Elastic IP, and <strong>Associate Address</strong> to the virtual machine created in the previous steps.</li>
+<li>Next, go to <a href="https://eu-north-1.console.aws.amazon.com/ec2/v2/home?region=eu-north-1#Instances:sort=instanceId">Instances</a> and click your instance. On bottom of the page, click the <strong>Security Group</strong> and it should open.</li>
+<li>Create <strong>Inbound rules</strong> like in the image below. Use your own PC IP for the port <strong>9443</strong> and <strong>9090</strong> as you don&#8217;t want anyone else using your collaborator.</li>
+</ol>
+<p><img decoding="async" class="alignnone wp-image-1561 size-large" src="/wp-content/uploads/2019/05/ports-1030x435.png" alt="" width="1030" height="435" srcset="/wp-content/uploads/2019/05/ports-1030x435.png 1030w, /wp-content/uploads/2019/05/ports-300x127.png 300w, /wp-content/uploads/2019/05/ports-768x324.png 768w, /wp-content/uploads/2019/05/ports-705x298.png 705w, /wp-content/uploads/2019/05/ports.png 1128w" sizes="(max-width: 1030px) 100vw, 1030px" /></p>
+</div></section>
+<section class="av_textblock_section "  itemscope="itemscope" itemtype="https://schema.org/BlogPosting" itemprop="blogPost" ><div class='avia_textblock  '   itemprop="text" ><h2>Step 2: Configure the collaborator domain</h2>
+<p>Next we&#8217;ll have to configure the domain to have the Elastic IP as nameserver. Most providers require two unique nameservers so we will use <strong>one.one.one.one</strong> as the second one. If your domain is registered on GoDaddy, <a href="#godaddy">see here</a> for GoDaddy-specific instructions, otherwise follow the steps below.</p>
+<ol>
+<li>First, find out hostname for your Elastic IP. You can for example use <a href="https://mxtoolbox.com/ReverseLookup.aspx">MxToolbox</a> and it should give you something like <strong>ec2-00-00-00-00.eu-north-1.compute.amazonaws.com</strong>.</li>
+<li>Next, add nameservers for your collaborator domain in domain registrar settings. Use hostname from the previous step as first nameserver and <strong>one.one.one.one </strong>as second nameserver:<br />
+<img decoding="async" class="alignnone size-full wp-image-1623" src="/wp-content/uploads/2019/05/collab-1.png" alt="" width="409" height="317" srcset="/wp-content/uploads/2019/05/collab-1.png 409w, /wp-content/uploads/2019/05/collab-1-300x233.png 300w" sizes="(max-width: 409px) 100vw, 409px" /></li>
+<li>Done! All DNS-queries towards your private collaborator domain should now end up in the Elastic IP.</li>
+</ol>
+<h4 id="godaddy">Instructions for domains registered in GoDaddy:</h4>
+<ol>
+<li>Go to <a href="https://dcc.godaddy.com/domains/">My Domains</a> on GoDaddy.</li>
+<li>Click the three black dots next to your collaborator domain and then click <strong>Manage DNS</strong>.</li>
+<li>In <strong>Advanced Features </strong>section click the <strong>Host names</strong>.</li>
+<li>Add <strong>ns</strong>-host with your Elastic IP:<br />
+<img decoding="async" class="alignnone wp-image-1626" src="/wp-content/uploads/2019/05/godhn-1030x422.png" alt="" width="769" height="315" data-wp-editing="1" srcset="/wp-content/uploads/2019/05/godhn-1030x422.png 1030w, /wp-content/uploads/2019/05/godhn-300x123.png 300w, /wp-content/uploads/2019/05/godhn-768x315.png 768w, /wp-content/uploads/2019/05/godhn-705x289.png 705w, /wp-content/uploads/2019/05/godhn.png 1095w" sizes="(max-width: 769px) 100vw, 769px" /></li>
+<li>Next, modify the domain nameservers on the DNS Management page. Select <strong>Custom </strong>and set <strong>ns.YOUR_COLLABORATOR_DOMAIN </strong>as first one and <strong>one.one.one.one</strong> as second one:<br />
+<img decoding="async" class="alignnone wp-image-1625" src="/wp-content/uploads/2019/05/goddns.png" alt="" width="769" height="324" srcset="/wp-content/uploads/2019/05/goddns.png 999w, /wp-content/uploads/2019/05/goddns-300x126.png 300w, /wp-content/uploads/2019/05/goddns-768x324.png 768w, /wp-content/uploads/2019/05/goddns-705x297.png 705w" sizes="(max-width: 769px) 100vw, 769px" /></li>
+<li>Done! All DNS-queries towards your private collaborator domain should now end up in the Elastic IP.</li>
+</ol>
+</div></section>
+<section class="av_textblock_section "  itemscope="itemscope" itemtype="https://schema.org/BlogPosting" itemprop="blogPost" ><div class='avia_textblock  '   itemprop="text" ><h2>Step 3: Configure the virtual machine</h2>
+<p>Next you&#8217;ll need to fetch Let&#8217;s encrypt certificate and configure the virtual machine and do some other stuff. There&#8217;s a <a href="https://github.com/putsi/privatecollaborator">script for it</a> so let&#8217;s use that. The script also implements automatic certificate renewal so you don&#8217;t have to manually renew the Let&#8217;s Encrypt every 90 days.</p>
+<ol>
+<li>First, use the keypair you downloaded to log in to the virtual machine:
+<ul>
+<li><strong>chmod 0600 newpair.pem</strong></li>
+<li><strong>ssh -i newpair.pem ubuntu@YOUR_ELASTIC_IP</strong></li>
+</ul>
+</li>
+<li>Clone the scripts:
+<ul>
+<li><strong>git clone https://github.com/putsi/privatecollaborator &amp;&amp; cd privatecollaborator</strong></li>
+</ul>
+</li>
+<li>Copy your Burp Suite Professional JAR-file to the <strong>privatecollaborator</strong>-directory.
+<ul>
+<li><strong>scp -i newpair.pem /your/own/pc/burp.jar ubuntu@YOUR_ELASTIC_IP:~/privatecollaborator/</strong></li>
+</ul>
+</li>
+<li>Run the installer script and place your domain as a command line parameter. The email is for Let&#8217;s Encrypt expiry notifications and can either be a valid one or a non-existing one:
+<ul>
+<li><strong>sudo ./install.sh collab.fi your@email.fi</strong></li>
+</ul>
+</li>
+<li>Accept any package installations that the script suggests and also enter your email address for Lets Encrypt notifications.</li>
+<li>Let&#8217;s Encrypt should now succeed creating a certificate for you. <strong>If it fails, you can try to run the install-script again couple of times.</strong> If it still fails, your domain DNS configuration from earlier steps most likely hasn&#8217;t refreshed yet. If that&#8217;s not the case, check your domain DNS configuration for typos and also check the security group inbound rules for port 53.</li>
+<li>You can now start the Burp collaborator service.
+<ul>
+<li><strong>sudo service burpcollaborator start</strong></li>
+</ul>
+</li>
+</ol>
+</div></section>
+<section class="av_textblock_section "  itemscope="itemscope" itemtype="https://schema.org/BlogPosting" itemprop="blogPost" ><div class='avia_textblock  '   itemprop="text" ><h2>Step 4: Configure Burp Suite</h2>
+<p>If you didn&#8217;t do it already on previous step, start the private collaborator by running: <strong>sudo service burpcollaborator start</strong>. Then check logs with <strong>sudo systemctl status burpcollaborator</strong>. It should tell you about listening on various ports and should not show any errors.<br />
+Next start up your Burp Suite and open <strong>Project Options -> Misc</strong>. Set up the private collaborator config according to the below image, but using your own domain instead of collab.fi:<br />
+<img decoding="async" class="alignnone size-full wp-image-1575" src="/wp-content/uploads/2019/05/collab.png" alt="" width="635" height="270" srcset="/wp-content/uploads/2019/05/collab.png 635w, /wp-content/uploads/2019/05/collab-300x128.png 300w" sizes="(max-width: 635px) 100vw, 635px" /><br />
+Then click <strong>Run health check</strong> and wait for results. It should succeed on everything else than inbound SMTP (this is due to AWS policies):<br />
+<img decoding="async" class="alignnone size-full wp-image-1577" src="/wp-content/uploads/2019/05/health.png" alt="" width="849" height="330" srcset="/wp-content/uploads/2019/05/health.png 849w, /wp-content/uploads/2019/05/health-300x117.png 300w, /wp-content/uploads/2019/05/health-768x299.png 768w, /wp-content/uploads/2019/05/health-705x274.png 705w" sizes="(max-width: 849px) 100vw, 849px" /><br />
+If everything was OK, you should now be able to use the private collaborator instance normally on Burp Suite:<br />
+<img decoding="async" class="alignnone size-full wp-image-1618" src="/wp-content/uploads/2019/05/Untitled.png" alt="" width="1013" height="692" srcset="/wp-content/uploads/2019/05/Untitled.png 1013w, /wp-content/uploads/2019/05/Untitled-300x205.png 300w, /wp-content/uploads/2019/05/Untitled-768x525.png 768w, /wp-content/uploads/2019/05/Untitled-705x482.png 705w" sizes="(max-width: 1013px) 100vw, 1013px" /></p>
+</div></section>
+<section class="av_textblock_section "  itemscope="itemscope" itemtype="https://schema.org/BlogPosting" itemprop="blogPost" ><div class='avia_textblock  '   itemprop="text" ><h2>Conclusions</h2>
+<p>We made it! It works!<br />
+Now you can for example add more non-standard ports to the configuration or do whatever else you might imagine.<br />
+In the future, this blog post will hopefully be updated on the subject of how to extend the Collaborator. <a href="https://github.com/putsi/privatecollaborator/issues">Potential subjects include</a>:</p>
+<ul>
+<li>Capturing interactions for protocols other than DNS, HTTP(S) and SMTP(S).</li>
+<li>Serving custom content as HTTP(S)-response.</li>
+<li>Dockerize the whole process.</li>
+<li>Run as a less-privileged user and properly set iptables redirections.</li>
+<li>Create a single-click setup for AWS.</li>
+<li>Something else? Let us know what you&#8217;d like to learn and we will see if we can help.</li>
+</ul>
+<p>Over and out &#8211;<a href="https://twitter.com/putsi">putsi</a>.</p>
+</div></section>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Hello world</title>
+		<link>/first-blog-post/</link>
+					<comments>/first-blog-post/#respond</comments>
+		
+		<dc:creator><![CDATA[putsi]]></dc:creator>
+		<pubDate>Mon, 16 Jan 2017 09:56:22 +0000</pubDate>
+				<category><![CDATA[Uncategorized]]></category>
+		<guid isPermaLink="false">https://rotfi.wordpress.com/?p=4</guid>
+
+					<description><![CDATA[First post of the RoT Team Blog.]]></description>
+										<content:encoded><![CDATA[<p>Let&#8217;s try doing some public disclosures and CTF writeups here.<br />
+Posts are written by members of team ROT.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>/first-blog-post/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+	</channel>
+</rss>

